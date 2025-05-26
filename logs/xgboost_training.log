@@ -477,3 +477,158 @@ weighted avg       0.92      0.92      0.88      1178
 2025-05-20 01:50:39,665 - INFO - Loaded ACLED dataset: 74 events
 2025-05-20 01:50:39,669 - INFO - Loaded UCDP API dataset: 1000 events
 2025-05-20 01:50:39,685 - INFO - Loaded combined dataset: 45 events
+2025-05-26 14:53:31,002 - INFO - Imported 15 tags from fetch_and_clean_data
+2025-05-26 14:53:31,004 - INFO - Loading and preparing data for model training...
+2025-05-26 14:53:31,009 - INFO - Loaded balanced model-ready data: X.shape=(74, 16), y.shape=(74,), 74 texts
+2025-05-26 14:53:31,009 - INFO - Class balance: 45/74 positive examples (60.8%)
+2025-05-26 14:53:31,009 - INFO - Loaded 74 samples with 16 features
+2025-05-26 14:53:31,013 - INFO - Split data: 59 training samples, 15 test samples
+2025-05-26 14:53:31,013 - INFO - Applying random oversampling to balance classes...
+2025-05-26 14:53:31,014 - INFO - After oversampling: 72 training samples
+2025-05-26 14:53:31,014 - INFO - Class distribution after oversampling: [36 36]
+2025-05-26 14:53:31,014 - INFO - Performing hyperparameter tuning with GridSearchCV...
+2025-05-26 14:53:36,972 - INFO - Best hyperparameters: {'learning_rate': 0.05, 'max_depth': 3, 'n_estimators': 100, 'subsample': 0.8}
+2025-05-26 14:53:36,972 - INFO - Performing cross-validation...
+2025-05-26 14:53:37,321 - INFO - Cross-validation ROC AUC scores: [1.         0.9375     0.92857143 1.         1.        ]
+2025-05-26 14:53:37,321 - INFO - CV ROC AUC: 0.9732 ± 0.0329
+2025-05-26 14:53:37,321 - INFO - Calibrating predicted probabilities...
+2025-05-26 14:53:37,555 - INFO - Test accuracy: 1.0000
+2025-05-26 14:53:37,555 - INFO - Test ROC AUC: 1.0000
+2025-05-26 14:53:37,555 - INFO - Test precision: 1.0000
+2025-05-26 14:53:37,555 - INFO - Test recall: 1.0000
+2025-05-26 14:53:37,555 - INFO - Test F1 score: 1.0000
+2025-05-26 14:53:37,560 - INFO - Classification Report:
+2025-05-26 14:53:37,571 - INFO - 
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00         6
+           1       1.00      1.00      1.00         9
+
+    accuracy                           1.00        15
+   macro avg       1.00      1.00      1.00        15
+weighted avg       1.00      1.00      1.00        15
+
+2025-05-26 15:23:36,697 - INFO - Imported 15 tags from fetch_and_clean_data
+2025-05-26 15:23:36,699 - INFO - Loading and preparing data for model training...
+2025-05-26 15:23:36,703 - INFO - Loaded balanced model-ready data: X.shape=(74, 16), y.shape=(74,), 74 texts
+2025-05-26 15:23:36,703 - INFO - Class balance: 45/74 positive examples (60.8%)
+2025-05-26 15:23:36,704 - INFO - Loaded 74 samples with 16 features
+2025-05-26 15:23:36,705 - INFO - Split data: 59 training samples, 15 test samples
+2025-05-26 15:23:36,705 - INFO - Applying random oversampling to balance classes...
+2025-05-26 15:23:36,706 - INFO - After oversampling: 72 training samples
+2025-05-26 15:23:36,706 - INFO - Class distribution after oversampling: [36 36]
+2025-05-26 15:23:36,706 - INFO - Performing hyperparameter tuning with GridSearchCV...
+2025-05-26 15:23:42,551 - INFO - Best hyperparameters: {'learning_rate': 0.05, 'max_depth': 3, 'n_estimators': 100, 'subsample': 0.8}
+2025-05-26 15:23:42,551 - INFO - Performing cross-validation...
+2025-05-26 15:23:43,087 - INFO - Cross-validation ROC AUC scores: [1.         0.9375     0.92857143 1.         1.        ]
+2025-05-26 15:23:43,087 - INFO - CV ROC AUC: 0.9732 ± 0.0329
+2025-05-26 15:23:43,087 - INFO - Calibrating predicted probabilities...
+2025-05-26 15:23:43,448 - INFO - Test accuracy: 1.0000
+2025-05-26 15:23:43,448 - INFO - Test ROC AUC: 1.0000
+2025-05-26 15:23:43,448 - INFO - Test precision: 1.0000
+2025-05-26 15:23:43,448 - INFO - Test recall: 1.0000
+2025-05-26 15:23:43,448 - INFO - Test F1 score: 1.0000
+2025-05-26 15:23:43,448 - INFO - Classification Report:
+2025-05-26 15:23:43,464 - INFO - 
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00         6
+           1       1.00      1.00      1.00         9
+
+    accuracy                           1.00        15
+   macro avg       1.00      1.00      1.00        15
+weighted avg       1.00      1.00      1.00        15
+
+2025-05-26 15:28:28,954 - INFO - Imported 15 tags from fetch_and_clean_data
+2025-05-26 15:28:28,958 - INFO - Loading and preparing data for model training...
+2025-05-26 15:28:28,963 - INFO - Loaded balanced model-ready data: X.shape=(74, 16), y.shape=(74,), 74 texts
+2025-05-26 15:28:28,964 - INFO - Class balance: 45/74 positive examples (60.8%)
+2025-05-26 15:28:28,964 - INFO - Loaded 74 samples with 16 features
+2025-05-26 15:28:28,965 - INFO - Split data: 59 training samples, 15 test samples
+2025-05-26 15:28:28,965 - INFO - Applying random oversampling to balance classes...
+2025-05-26 15:28:28,967 - INFO - After oversampling: 72 training samples
+2025-05-26 15:28:28,967 - INFO - Class distribution after oversampling: [36 36]
+2025-05-26 15:28:28,967 - INFO - Performing hyperparameter tuning with GridSearchCV...
+2025-05-26 15:28:33,743 - INFO - Best hyperparameters: {'learning_rate': 0.05, 'max_depth': 3, 'n_estimators': 100, 'subsample': 0.8}
+2025-05-26 15:28:33,744 - INFO - Performing cross-validation...
+2025-05-26 15:28:34,058 - INFO - Cross-validation ROC AUC scores: [1.         0.9375     0.92857143 1.         1.        ]
+2025-05-26 15:28:34,060 - INFO - CV ROC AUC: 0.9732 ± 0.0329
+2025-05-26 15:28:34,060 - INFO - Calibrating predicted probabilities...
+2025-05-26 15:28:34,296 - INFO - Test accuracy: 1.0000
+2025-05-26 15:28:34,296 - INFO - Test ROC AUC: 1.0000
+2025-05-26 15:28:34,296 - INFO - Test precision: 1.0000
+2025-05-26 15:28:34,296 - INFO - Test recall: 1.0000
+2025-05-26 15:28:34,297 - INFO - Test F1 score: 1.0000
+2025-05-26 15:28:34,302 - INFO - Classification Report:
+2025-05-26 15:28:34,309 - INFO - 
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00         6
+           1       1.00      1.00      1.00         9
+
+    accuracy                           1.00        15
+   macro avg       1.00      1.00      1.00        15
+weighted avg       1.00      1.00      1.00        15
+
+2025-05-26 15:29:44,586 - INFO - Imported 15 tags from fetch_and_clean_data
+2025-05-26 15:29:44,587 - INFO - Loading and preparing data for model training...
+2025-05-26 15:29:44,591 - INFO - Loaded balanced model-ready data: X.shape=(74, 16), y.shape=(74,), 74 texts
+2025-05-26 15:29:44,592 - INFO - Class balance: 45/74 positive examples (60.8%)
+2025-05-26 15:29:44,592 - INFO - Loaded 74 samples with 16 features
+2025-05-26 15:29:44,593 - INFO - Split data: 59 training samples, 15 test samples
+2025-05-26 15:29:44,593 - INFO - Applying random oversampling to balance classes...
+2025-05-26 15:29:44,594 - INFO - After oversampling: 72 training samples
+2025-05-26 15:29:44,594 - INFO - Class distribution after oversampling: [36 36]
+2025-05-26 15:29:44,594 - INFO - Performing hyperparameter tuning with GridSearchCV...
+2025-05-26 15:29:48,946 - INFO - Best hyperparameters: {'learning_rate': 0.05, 'max_depth': 3, 'n_estimators': 100, 'subsample': 0.8}
+2025-05-26 15:29:48,946 - INFO - Performing cross-validation...
+2025-05-26 15:29:49,240 - INFO - Cross-validation ROC AUC scores: [1.         0.9375     0.92857143 1.         1.        ]
+2025-05-26 15:29:49,241 - INFO - CV ROC AUC: 0.9732 ± 0.0329
+2025-05-26 15:29:49,241 - INFO - Calibrating predicted probabilities...
+2025-05-26 15:29:49,442 - INFO - Test accuracy: 1.0000
+2025-05-26 15:29:49,442 - INFO - Test ROC AUC: 1.0000
+2025-05-26 15:29:49,442 - INFO - Test precision: 1.0000
+2025-05-26 15:29:49,442 - INFO - Test recall: 1.0000
+2025-05-26 15:29:49,442 - INFO - Test F1 score: 1.0000
+2025-05-26 15:29:49,447 - INFO - Classification Report:
+2025-05-26 15:29:49,453 - INFO - 
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00         6
+           1       1.00      1.00      1.00         9
+
+    accuracy                           1.00        15
+   macro avg       1.00      1.00      1.00        15
+weighted avg       1.00      1.00      1.00        15
+
+2025-05-26 15:31:08,006 - INFO - Imported 15 tags from fetch_and_clean_data
+2025-05-26 15:31:08,008 - INFO - Loading and preparing data for model training...
+2025-05-26 15:31:08,012 - INFO - Loaded balanced model-ready data: X.shape=(74, 16), y.shape=(74,), 74 texts
+2025-05-26 15:31:08,012 - INFO - Class balance: 45/74 positive examples (60.8%)
+2025-05-26 15:31:08,013 - INFO - Loaded 74 samples with 16 features
+2025-05-26 15:31:08,014 - INFO - Split data: 59 training samples, 15 test samples
+2025-05-26 15:31:08,014 - INFO - Applying random oversampling to balance classes...
+2025-05-26 15:31:08,015 - INFO - After oversampling: 72 training samples
+2025-05-26 15:31:08,015 - INFO - Class distribution after oversampling: [36 36]
+2025-05-26 15:31:08,016 - INFO - Performing hyperparameter tuning with GridSearchCV...
+2025-05-26 15:31:12,613 - INFO - Best hyperparameters: {'learning_rate': 0.05, 'max_depth': 3, 'n_estimators': 100, 'subsample': 0.8}
+2025-05-26 15:31:12,613 - INFO - Performing cross-validation...
+2025-05-26 15:31:12,955 - INFO - Cross-validation ROC AUC scores: [1.         0.9375     0.92857143 1.         1.        ]
+2025-05-26 15:31:12,955 - INFO - CV ROC AUC: 0.9732 ± 0.0329
+2025-05-26 15:31:12,955 - INFO - Calibrating predicted probabilities...
+2025-05-26 15:31:13,188 - INFO - Test accuracy: 1.0000
+2025-05-26 15:31:13,188 - INFO - Test ROC AUC: 1.0000
+2025-05-26 15:31:13,188 - INFO - Test precision: 1.0000
+2025-05-26 15:31:13,188 - INFO - Test recall: 1.0000
+2025-05-26 15:31:13,189 - INFO - Test F1 score: 1.0000
+2025-05-26 15:31:13,194 - INFO - Classification Report:
+2025-05-26 15:31:13,202 - INFO - 
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00         6
+           1       1.00      1.00      1.00         9
+
+    accuracy                           1.00        15
+   macro avg       1.00      1.00      1.00        15
+weighted avg       1.00      1.00      1.00        15
+

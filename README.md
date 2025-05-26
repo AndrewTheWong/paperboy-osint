@@ -1,102 +1,114 @@
-# Agentic AI Analyst
+# Paperboy OSINT Data Pipeline
 
-An intelligent system for ingesting, analyzing, and predicting events based on OSINT (Open Source Intelligence) data. This MVP integrates data collection, auto-tagging, and prediction capabilities with a human-in-the-loop review interface.
+Paperboy is an OSINT (Open Source Intelligence) data pipeline that scrapes, translates, tags, and stores articles from various news sources focusing on geopolitical events in East Asia.
 
-## Features
+## Architecture
 
-- **OSINT Ingestion**: Collect data from RSS feeds, static websites, and PDF documents
-- **Automated Tagging**: NER-based entity recognition and rule-based tagging
-- **Event Prediction**: Generate event predictions with likelihood scores and regional focus
-- **Human-in-the-Loop Interface**: Streamlit dashboard for reviewing and correcting tags
-- **Analytics Dashboard**: Visualize predictions and insights
+The pipeline consists of four main stages:
 
-## System Architecture
+1. **Scraping**: Collect articles from various news sources
+2. **Translation**: Translate non-English articles to English
+3. **Auto-tagging**: Add tags and identify articles needing human review
+4. **Storage**: Store articles in Supabase for search and analysis
 
-The system consists of four main components:
+## Directory Structure
 
-1. **Ingestion Engine**: Collects data from various sources
-2. **Storage Layer**: Manages data in Supabase
-3. **ML Models**: NER tagging and prediction algorithms
-4. **Dashboard**: User interface for review and visualization
+```
+Paperboy/
+├── .streamlit/              # Streamlit configuration
+├── config/                  # Configuration files
+├── dashboard/               # Dashboard visualizations
+├── data/                    # Data storage
+│   ├── model_ready/         # Processed data for models
+│   └── ucdp/                # UCDP conflict data
+├── docs/                    # Documentation
+├── ingestion/               # Data ingestion scripts
+├── logs/                    # Log files
+├── models/                  # ML models
+│   └── training_scripts/    # Model training scripts
+├── notebooks/               # Jupyter notebooks
+├── pipelines/               # Pipeline components
+│   ├── config/              # Pipeline configuration
+│   ├── data/                # Pipeline data
+│   ├── scrapers/            # Old scraper location (deprecated)
+│   └── utils/               # Pipeline utilities
+├── scraping/                # Scraping architecture
+│   ├── config/              # Scraper configuration
+│   └── sources/             # Source-specific scrapers
+├── storage/                 # Storage utilities
+├── tagging/                 # Article tagging
+├── tests/                   # Test suite
+├── ui/                      # User interfaces
+└── utils/                   # Utility functions
+```
 
-## Setup and Installation
+## Running the Pipeline
 
-### Prerequisites
+To run the complete pipeline:
+
+```bash
+python run_pipeline.py
+```
+
+The pipeline will:
+
+1. Scrape articles from configured sources
+2. Translate non-English articles to English
+3. Add tags and identify articles needing human review
+4. Upload articles to Supabase with deduplication
+
+## Scraper Architecture
+
+The scraping system uses a flexible architecture:
+
+1. Source-specific scrapers in `scraping/sources/`
+2. Universal fallback scraper in `scraping/universal_scraper.py`
+3. Runner that manages scraping in `scraping/runner.py`
+
+Configuration is stored in `scraping/config/sources_config.json`.
+
+Each article must include:
+- `title`: Article title
+- `url`: Source URL
+- `source`: Source name
+- `scraped_at`: Timestamp
+- `language`: Language code
+
+## Human Review UI
+
+A Streamlit-based review interface is available for articles flagged as needing human review:
+
+```bash
+streamlit run ui/human_tag_review.py
+```
+
+## Test Suite
+
+Run the test suite with:
+
+```bash
+python run_all_tests.py
+```
+
+Tests are organized in the `/tests` directory and use Python's unittest framework.
+
+## Dependencies
 
 - Python 3.8+
-- Supabase account
-- API keys for Supabase
+- BeautifulSoup4 (for scraping)
+- Streamlit (for UI)
+- Supabase Python client (for storage)
 
-### Installation
+See `requirements.txt` for a full list of dependencies.
 
-1. Clone the repository
-2. Create a virtual environment:
-   ```
-   python -m venv venv
-   ```
-3. Activate the virtual environment:
-   - Windows: `.\venv\Scripts\activate`
-   - Unix/MacOS: `source venv/bin/activate`
-4. Install dependencies:
-   ```
-   pip install -r requirements.txt
-   ```
-5. Create a `.env` file with your Supabase credentials:
-   ```
-   SUPABASE_URL=your_supabase_url
-   SUPABASE_KEY=your_supabase_key
-   ```
+## Configuration
 
-## Usage
+Configure the pipeline using:
 
-Run the full pipeline:
-```
-python main.py
-```
-
-Or run individual components:
-```
-python main.py --ingest    # Run the ingestion pipeline
-python main.py --tag       # Run the auto-tagging pipeline
-python main.py --predict   # Run the prediction pipeline
-python main.py --dashboard # Launch the dashboard
-```
-
-## Testing
-
-Test the Supabase connection:
-```
-python test_supabase.py
-```
-
-## Database Schema
-
-### OSINT Raw Data
-- `id`: UUID (primary key)
-- `source_url`: TEXT
-- `content`: TEXT
-- `ingested_at`: TIMESTAMPTZ
-- `tags`: TEXT[]
-- `confidence_score`: FLOAT
-- `manual_review`: BOOLEAN
-
-### Predictions
-- `id`: UUID (primary key)
-- `osint_id`: UUID (foreign key)
-- `event_type`: TEXT
-- `region`: TEXT
-- `likelihood_score`: FLOAT
-- `model_used`: TEXT
-- `generated_at`: TIMESTAMPTZ
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/my-feature`
-3. Commit your changes: `git commit -am 'Add new feature'`
-4. Push to the branch: `git push origin feature/my-feature`
-5. Submit a pull request
+1. `.env` file for secrets (see `template.env`)
+2. `config/sources_config.json` for scraper configuration
+3. `config/tagging_config.json` for tagging rules
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details. 
+Copyright (c) 2025 Paperboy Project 
