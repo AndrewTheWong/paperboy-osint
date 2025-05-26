@@ -1,0 +1,17 @@
+# Add these to requirements.txt
+supabase
+openai
+langchain
+transformers
+xgboost
+pandas
+numpy
+scikit-learn
+beautifulsoup4
+requests
+unstructured
+psycopg2-binary
+streamlit
+plotly
+qdrant-client
+
