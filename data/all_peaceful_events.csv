@@ -1,0 +1,28 @@
+text,label,confidence,source,date,tags,tag_count,no_tags
+Interaction between USA and GBR with EventCode 010,0,0.4,gdelt_peaceful,2023-01-01,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Interaction between FRA and DEU with EventCode 040,0,0.6,gdelt_peaceful,2023-01-02,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+World Bank funds road project in Botswana,0,0.9,synthetic_peaceful,,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+UN hosts development summit on climate change,0,0.9,synthetic_peaceful,,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Costa Rica launches new solar energy program,0,0.9,synthetic_peaceful,,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Iceland celebrates 20 years of continuous peace,0,0.95,synthetic_peaceful,,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Japan and South Korea sign trade agreement,0,0.8,synthetic_peaceful,,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+UNESCO designates new World Heritage site in Vietnam,0,0.9,synthetic_peaceful,,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Norway increases funding for global education initiatives,0,0.85,synthetic_peaceful,,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+New Zealand and Australia cooperate on marine conservation,0,0.9,synthetic_peaceful,,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Singapore hosts international technology conference,0,0.8,synthetic_peaceful,,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Canada and EU finalize terms of free trade agreement,0,0.85,synthetic_peaceful,,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+African Union announces infrastructure development plan,0,0.75,synthetic_peaceful,,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Indonesia and Malaysia conduct joint cultural festival,0,0.8,synthetic_peaceful,,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Switzerland mediates diplomatic talks between rival nations,0,0.7,synthetic_peaceful,,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Brazil inaugurates new scientific research facility,0,0.85,synthetic_peaceful,,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Denmark achieves 50% renewable energy milestone,0,0.9,synthetic_peaceful,,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Ghana launches nationwide vaccination campaign,0,0.85,synthetic_peaceful,,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Argentina and Chile resolve border dispute through peaceful negotiation,0,0.75,synthetic_peaceful,,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Finland invests in early childhood education reform,0,0.9,synthetic_peaceful,,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Luxembourg hosts international finance summit,0,0.8,synthetic_peaceful,,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Thailand opens new cultural exchange center,0,0.85,synthetic_peaceful,,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+South Africa and Botswana sign water management treaty,0,0.8,synthetic_peaceful,,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Portugal unveils offshore wind farm initiative,0,0.85,synthetic_peaceful,,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Estonia launches e-residency program for entrepreneurs,0,0.8,synthetic_peaceful,,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Uruguay legalizes cannabis for medical research,0,0.75,synthetic_peaceful,,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Ireland announces increased foreign aid budget,0,0.85,synthetic_peaceful,,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True

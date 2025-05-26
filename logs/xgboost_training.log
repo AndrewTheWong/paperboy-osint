@@ -1,0 +1,479 @@
+2025-05-20 00:55:57,345 - INFO - Loading and preparing data for XGBoost training...
+2025-05-20 00:55:57,365 - INFO - Loaded combined dataset with 3727 events
+2025-05-20 00:55:57,387 - INFO - Using pre-combined dataset: 3727 samples
+2025-05-20 00:55:57,392 - INFO - Split data randomly: 2981 training samples, 746 test samples
+2025-05-20 00:55:57,605 - INFO - Test accuracy: 0.7989
+2025-05-20 00:55:57,605 - INFO - Test ROC AUC: 0.5000
+2025-05-20 00:55:57,605 - INFO - Classification Report:
+2025-05-20 00:55:57,631 - INFO - 
+              precision    recall  f1-score   support
+
+           0       0.80      1.00      0.89       596
+           1       0.00      0.00      0.00       150
+
+    accuracy                           0.80       746
+   macro avg       0.40      0.50      0.44       746
+weighted avg       0.64      0.80      0.71       746
+
+2025-05-20 00:55:57,641 - INFO - Model saved to models/xgboost_conflict_model_20250520.pkl
+2025-05-20 00:56:35,576 - INFO - Loading and preparing data for XGBoost training...
+2025-05-20 00:56:35,576 - INFO - Loaded combined dataset with 3727 events
+2025-05-20 00:56:35,609 - INFO - Using pre-combined dataset: 3727 samples
+2025-05-20 00:56:35,612 - INFO - Split data randomly: 2981 training samples, 746 test samples
+2025-05-20 00:56:35,802 - INFO - Test accuracy: 0.7989
+2025-05-20 00:56:35,802 - INFO - Test ROC AUC: 0.5000
+2025-05-20 00:56:35,802 - INFO - Classification Report:
+2025-05-20 00:56:35,818 - INFO - 
+              precision    recall  f1-score   support
+
+           0       0.80      1.00      0.89       596
+           1       0.00      0.00      0.00       150
+
+    accuracy                           0.80       746
+   macro avg       0.40      0.50      0.44       746
+weighted avg       0.64      0.80      0.71       746
+
+2025-05-20 00:56:35,831 - INFO - Model saved to models/xgboost_conflict_model_20250520.pkl
+2025-05-20 00:56:35,832 - INFO - Feature importance:
+2025-05-20 00:56:35,832 - INFO -   military movement: 0.0000
+2025-05-20 00:56:35,833 - INFO -   armed clash: 0.0000
+2025-05-20 00:56:35,833 - INFO -   ceasefire: 0.0000
+2025-05-20 00:56:35,833 - INFO -   civil war: 0.0000
+2025-05-20 00:56:35,833 - INFO -   diplomatic meeting: 0.0000
+2025-05-20 00:56:35,833 - INFO -   protest: 0.0000
+2025-05-20 00:56:35,834 - INFO -   coup: 0.0000
+2025-05-20 00:56:35,834 - INFO -   airstrike: 0.0000
+2025-05-20 00:56:35,834 - INFO -   non-state conflict: 0.0000
+2025-05-20 00:56:35,834 - INFO -   terror attack: 0.0000
+2025-05-20 00:56:35,835 - INFO -   cross-border raid: 0.0000
+2025-05-20 00:56:35,835 - INFO -   shelling: 0.0000
+2025-05-20 00:56:35,836 - INFO -   troop buildup: 0.0000
+2025-05-20 00:56:35,836 - INFO -   civilian deaths: 0.0000
+2025-05-20 00:56:35,836 - INFO -   ethnic violence: 0.0000
+2025-05-20 00:56:35,836 - INFO -   confidence_score: 0.0000
+2025-05-20 00:56:35,838 - INFO - Metadata saved to models/metadata_xgboost_20250520.json
+2025-05-20 01:15:04,556 - INFO - Loading and preparing data for XGBoost training...
+2025-05-20 01:15:04,556 - INFO - Loading data from all available sources
+2025-05-20 01:15:04,582 - INFO - Loaded GDELT dataset: 7942 events
+2025-05-20 01:15:04,585 - INFO - Loaded ACLED dataset: 0 events
+2025-05-20 01:15:04,586 - WARNING - UCDP API data file not found
+2025-05-20 01:15:04,588 - INFO - Loaded UCDP CSV dataset: 3 events
+2025-05-20 01:15:04,592 - INFO - Combined dataset statistics:
+2025-05-20 01:15:04,592 - INFO - GDELT: 7942 | ACLED: 0 | UCDP: 3 | Total: 7945
+2025-05-20 01:15:04,593 - INFO - Conflict events: 3180 (40.0%)
+2025-05-20 01:15:04,593 - INFO - Non-conflict events: 4765 (60.0%)
+2025-05-20 01:15:04,656 - INFO - Prepared 7945 samples for training
+2025-05-20 01:15:04,663 - INFO - Split data randomly: 6356 training samples, 1589 test samples
+2025-05-20 01:15:04,663 - INFO - Applying random oversampling to balance classes...
+2025-05-20 01:15:04,681 - INFO - After oversampling: 7624 training samples
+2025-05-20 01:15:04,682 - INFO - Class distribution after oversampling: [3812 3812]
+2025-05-20 01:15:57,991 - INFO - Loading and preparing data for XGBoost training...
+2025-05-20 01:15:57,991 - INFO - Loading data from all available sources
+2025-05-20 01:15:57,991 - INFO - Loaded GDELT dataset: 7942 events
+2025-05-20 01:15:58,007 - INFO - Loaded ACLED dataset: 0 events
+2025-05-20 01:15:58,008 - WARNING - UCDP API data file not found
+2025-05-20 01:15:58,010 - INFO - Loaded UCDP CSV dataset: 3 events
+2025-05-20 01:15:58,013 - INFO - Combined dataset statistics:
+2025-05-20 01:15:58,013 - INFO - GDELT: 7942 | ACLED: 0 | UCDP: 3 | Total: 7945
+2025-05-20 01:15:58,015 - INFO - Conflict events: 3180 (40.0%)
+2025-05-20 01:15:58,015 - INFO - Non-conflict events: 4765 (60.0%)
+2025-05-20 01:15:58,075 - INFO - Prepared 7945 samples for training
+2025-05-20 01:15:58,081 - INFO - Split data randomly: 6356 training samples, 1589 test samples
+2025-05-20 01:15:58,081 - INFO - Applying random oversampling to balance classes...
+2025-05-20 01:15:58,085 - INFO - After oversampling: 7624 training samples
+2025-05-20 01:15:58,085 - INFO - Class distribution after oversampling: [3812 3812]
+2025-05-20 01:15:58,291 - INFO - Test accuracy: 0.4003
+2025-05-20 01:15:58,292 - INFO - Test ROC AUC: 0.5000
+2025-05-20 01:15:58,292 - INFO - Test precision: 0.4003
+2025-05-20 01:15:58,293 - INFO - Test recall: 1.0000
+2025-05-20 01:15:58,293 - INFO - Test F1 score: 0.5717
+2025-05-20 01:15:58,303 - INFO - Classification Report:
+2025-05-20 01:15:58,311 - INFO - 
+              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00       953
+           1       0.40      1.00      0.57       636
+
+    accuracy                           0.40      1589
+   macro avg       0.20      0.50      0.29      1589
+weighted avg       0.16      0.40      0.23      1589
+
+2025-05-20 01:15:58,313 - INFO - Metrics saved to logs/xgb_eval_20250520/metrics.json
+2025-05-20 01:15:58,313 - INFO - Creating evaluation visualizations...
+2025-05-20 01:16:00,446 - INFO - Top False Positives (predicted conflict, actually non-conflict):
+2025-05-20 01:16:00,446 - INFO - 1. "GDELT event between Unknown and USA with code 51" (Prob: 0.5000)
+2025-05-20 01:16:00,446 - INFO - 2. "GDELT event between USA and Unknown with code 10" (Prob: 0.5000)
+2025-05-20 01:16:00,446 - INFO - 3. "GDELT event between TUR and CHN with code 31" (Prob: 0.5000)
+2025-05-20 01:16:00,446 - INFO - 4. "GDELT event between Unknown and USA with code 75" (Prob: 0.5000)
+2025-05-20 01:16:00,446 - INFO - 5. "GDELT event between CHN and Unknown with code 101" (Prob: 0.5000)
+2025-05-20 01:16:00,446 - INFO - 6. "GDELT event between ISR and ISR with code 130" (Prob: 0.5000)
+2025-05-20 01:16:00,446 - INFO - 7. "GDELT event between Unknown and USA with code 40" (Prob: 0.5000)
+2025-05-20 01:16:00,446 - INFO - 8. "GDELT event between CHN and Unknown with code 12" (Prob: 0.5000)
+2025-05-20 01:16:00,446 - INFO - 9. "GDELT event between Unknown and IRL with code 42" (Prob: 0.5000)
+2025-05-20 01:16:00,446 - INFO - 10. "GDELT event between Unknown and MLI with code 112" (Prob: 0.5000)
+2025-05-20 01:16:00,446 - INFO - Top False Negatives (predicted non-conflict, actually conflict):
+2025-05-20 01:16:00,462 - INFO - Model saved to models/xgboost_conflict_model_20250520.pkl
+2025-05-20 01:16:00,462 - INFO - Feature importance:
+2025-05-20 01:16:00,462 - INFO -   military movement: 0.0000
+2025-05-20 01:16:00,462 - INFO -   armed clash: 0.0000
+2025-05-20 01:16:00,462 - INFO -   ceasefire: 0.0000
+2025-05-20 01:16:00,462 - INFO -   civil war: 0.0000
+2025-05-20 01:16:00,462 - INFO -   diplomatic meeting: 0.0000
+2025-05-20 01:16:00,462 - INFO -   protest: 0.0000
+2025-05-20 01:16:00,472 - INFO -   coup: 0.0000
+2025-05-20 01:16:00,472 - INFO -   airstrike: 0.0000
+2025-05-20 01:16:00,473 - INFO -   non-state conflict: 0.0000
+2025-05-20 01:16:00,473 - INFO -   terror attack: 0.0000
+2025-05-20 01:16:00,473 - INFO -   cross-border raid: 0.0000
+2025-05-20 01:16:00,473 - INFO -   shelling: 0.0000
+2025-05-20 01:16:00,473 - INFO -   troop buildup: 0.0000
+2025-05-20 01:16:00,473 - INFO -   civilian deaths: 0.0000
+2025-05-20 01:16:00,474 - INFO -   ethnic violence: 0.0000
+2025-05-20 01:16:00,474 - INFO -   genocide: 0.0000
+2025-05-20 01:16:00,474 - INFO -   insurgency: 0.0000
+2025-05-20 01:16:00,474 - INFO -   artillery: 0.0000
+2025-05-20 01:16:00,474 - INFO -   diplomatic crisis: 0.0000
+2025-05-20 01:16:00,475 - INFO -   hostage: 0.0000
+2025-05-20 01:16:00,475 - INFO -   bombing: 0.0000
+2025-05-20 01:16:00,475 - INFO -   peacekeeping: 0.0000
+2025-05-20 01:16:00,475 - INFO -   mass killings: 0.0000
+2025-05-20 01:16:00,475 - INFO -   massacre: 0.0000
+2025-05-20 01:16:00,477 - INFO -   rebellion: 0.0000
+2025-05-20 01:16:00,477 - INFO -   drone strike: 0.0000
+2025-05-20 01:16:00,477 - INFO -   air defense: 0.0000
+2025-05-20 01:16:00,477 - INFO -   missile attack: 0.0000
+2025-05-20 01:16:00,477 - INFO -   territorial dispute: 0.0000
+2025-05-20 01:16:00,477 - INFO -   war crimes: 0.0000
+2025-05-20 01:16:00,478 - INFO -   confidence_score: 0.0000
+2025-05-20 01:16:00,478 - INFO - Metadata saved to models/metadata_xgboost_20250520.json
+2025-05-20 01:24:43,760 - INFO - Loading and preparing data for XGBoost training...
+2025-05-20 01:24:43,760 - INFO - Loading data from all available sources
+2025-05-20 01:24:43,776 - INFO - Loaded GDELT dataset: 7942 events
+2025-05-20 01:24:43,776 - INFO - Loaded ACLED dataset: 74 events
+2025-05-20 01:24:43,776 - WARNING - UCDP API data file not found
+2025-05-20 01:24:43,792 - INFO - Loaded UCDP CSV dataset: 3 events
+2025-05-20 01:24:43,796 - INFO - Combined dataset statistics:
+2025-05-20 01:24:43,796 - INFO - GDELT: 7942 | ACLED: 74 | UCDP: 3 | Total: 8019
+2025-05-20 01:24:43,797 - INFO - Conflict events: 3234 (40.3%)
+2025-05-20 01:24:43,797 - INFO - Non-conflict events: 4785 (59.7%)
+2025-05-20 01:24:43,851 - INFO - Prepared 8019 samples for training
+2025-05-20 01:24:43,851 - INFO - Split data randomly: 6415 training samples, 1604 test samples
+2025-05-20 01:24:43,851 - INFO - Applying random oversampling to balance classes...
+2025-05-20 01:24:43,867 - INFO - After oversampling: 7656 training samples
+2025-05-20 01:24:43,868 - INFO - Class distribution after oversampling: [3828 3828]
+2025-05-20 01:24:44,146 - INFO - Test accuracy: 0.4052
+2025-05-20 01:24:44,146 - INFO - Test ROC AUC: 0.5046
+2025-05-20 01:24:44,146 - INFO - Test precision: 0.4041
+2025-05-20 01:24:44,146 - INFO - Test recall: 1.0000
+2025-05-20 01:24:44,146 - INFO - Test F1 score: 0.5756
+2025-05-20 01:24:44,157 - INFO - Classification Report:
+2025-05-20 01:24:44,166 - INFO - 
+              precision    recall  f1-score   support
+
+           0       1.00      0.00      0.01       957
+           1       0.40      1.00      0.58       647
+
+    accuracy                           0.41      1604
+   macro avg       0.70      0.50      0.29      1604
+weighted avg       0.76      0.41      0.24      1604
+
+2025-05-20 01:24:44,167 - INFO - Metrics saved to logs/xgb_eval_20250520/metrics.json
+2025-05-20 01:24:44,168 - INFO - Creating evaluation visualizations...
+2025-05-20 01:24:45,530 - INFO - Top False Positives (predicted conflict, actually non-conflict):
+2025-05-20 01:24:45,530 - INFO - 1. "GDELT event between GBR and SWE with code 40" (Prob: 0.5001)
+2025-05-20 01:24:45,530 - INFO - 2. "GDELT event between Unknown and USA with code 20" (Prob: 0.5001)
+2025-05-20 01:24:45,530 - INFO - 3. "GDELT event between Unknown and USA with code 42" (Prob: 0.5001)
+2025-05-20 01:24:45,530 - INFO - 4. "GDELT event between KWT and BHR with code 36" (Prob: 0.5001)
+2025-05-20 01:24:45,530 - INFO - 5. "GDELT event between AUS and AUS with code 90" (Prob: 0.5001)
+2025-05-20 01:24:45,530 - INFO - 6. "GDELT event between HUN and Unknown with code 90" (Prob: 0.5001)
+2025-05-20 01:24:45,530 - INFO - 7. "GDELT event between Unknown and ISR with code 22" (Prob: 0.5001)
+2025-05-20 01:24:45,530 - INFO - 8. "GDELT event between IRQ and MEA with code 43" (Prob: 0.5001)
+2025-05-20 01:24:45,530 - INFO - 9. "GDELT event between ITA and USA with code 40" (Prob: 0.5001)
+2025-05-20 01:24:45,530 - INFO - 10. "GDELT event between USA and CHN with code 14" (Prob: 0.5001)
+2025-05-20 01:24:45,530 - INFO - Top False Negatives (predicted non-conflict, actually conflict):
+2025-05-20 01:24:45,530 - INFO - Model saved to models/xgboost_conflict_model_20250520.pkl
+2025-05-20 01:24:45,547 - INFO - Feature importance:
+2025-05-20 01:24:45,547 - INFO -   protest: 0.4823
+2025-05-20 01:24:45,547 - INFO -   airstrike: 0.4066
+2025-05-20 01:24:45,548 - INFO -   insurgency: 0.0371
+2025-05-20 01:24:45,548 - INFO -   shelling: 0.0370
+2025-05-20 01:24:45,548 - INFO -   artillery: 0.0370
+2025-05-20 01:24:45,548 - INFO -   military movement: 0.0000
+2025-05-20 01:24:45,549 - INFO -   armed clash: 0.0000
+2025-05-20 01:24:45,549 - INFO -   ceasefire: 0.0000
+2025-05-20 01:24:45,549 - INFO -   civil war: 0.0000
+2025-05-20 01:24:45,549 - INFO -   diplomatic meeting: 0.0000
+2025-05-20 01:24:45,549 - INFO -   coup: 0.0000
+2025-05-20 01:24:45,550 - INFO -   non-state conflict: 0.0000
+2025-05-20 01:24:45,550 - INFO -   terror attack: 0.0000
+2025-05-20 01:24:45,550 - INFO -   cross-border raid: 0.0000
+2025-05-20 01:24:45,550 - INFO -   troop buildup: 0.0000
+2025-05-20 01:24:45,550 - INFO -   civilian deaths: 0.0000
+2025-05-20 01:24:45,550 - INFO -   ethnic violence: 0.0000
+2025-05-20 01:24:45,551 - INFO -   genocide: 0.0000
+2025-05-20 01:24:45,551 - INFO -   diplomatic crisis: 0.0000
+2025-05-20 01:24:45,551 - INFO -   hostage: 0.0000
+2025-05-20 01:24:45,551 - INFO -   bombing: 0.0000
+2025-05-20 01:24:45,551 - INFO -   peacekeeping: 0.0000
+2025-05-20 01:24:45,551 - INFO -   mass killings: 0.0000
+2025-05-20 01:24:45,551 - INFO -   massacre: 0.0000
+2025-05-20 01:24:45,551 - INFO -   rebellion: 0.0000
+2025-05-20 01:24:45,551 - INFO -   drone strike: 0.0000
+2025-05-20 01:24:45,551 - INFO -   air defense: 0.0000
+2025-05-20 01:24:45,551 - INFO -   missile attack: 0.0000
+2025-05-20 01:24:45,551 - INFO -   territorial dispute: 0.0000
+2025-05-20 01:24:45,551 - INFO -   war crimes: 0.0000
+2025-05-20 01:24:45,551 - INFO -   confidence_score: 0.0000
+2025-05-20 01:24:45,551 - INFO - Metadata saved to models/metadata_xgboost_20250520.json
+2025-05-20 01:30:13,134 - INFO - Loading and preparing data for XGBoost training...
+2025-05-20 01:30:13,134 - INFO - Loading data from all available sources
+2025-05-20 01:30:13,140 - INFO - Loaded GDELT dataset: 812 events
+2025-05-20 01:30:13,158 - INFO - Loaded ACLED dataset: 74 events
+2025-05-20 01:30:13,180 - INFO - Loaded UCDP API dataset: 5000 events
+2025-05-20 01:30:13,183 - INFO - Combined dataset statistics:
+2025-05-20 01:30:13,183 - INFO - GDELT: 812 | ACLED: 74 | UCDP: 5000 | Total: 5886
+2025-05-20 01:30:13,183 - INFO - Conflict events: 5379 (91.4%)
+2025-05-20 01:30:13,183 - INFO - Non-conflict events: 507 (8.6%)
+2025-05-20 01:30:13,227 - INFO - Prepared 5886 samples for training
+2025-05-20 01:30:13,231 - INFO - Split data randomly: 4708 training samples, 1178 test samples
+2025-05-20 01:30:13,231 - INFO - Applying random oversampling to balance classes...
+2025-05-20 01:30:13,235 - INFO - After oversampling: 8604 training samples
+2025-05-20 01:30:13,235 - INFO - Class distribution after oversampling: [4302 4302]
+2025-05-20 01:30:13,553 - INFO - Test accuracy: 0.9177
+2025-05-20 01:30:13,553 - INFO - Test ROC AUC: 0.5202
+2025-05-20 01:30:13,553 - INFO - Test precision: 0.9174
+2025-05-20 01:30:13,553 - INFO - Test recall: 1.0000
+2025-05-20 01:30:13,553 - INFO - Test F1 score: 0.9569
+2025-05-20 01:30:13,560 - INFO - Classification Report:
+2025-05-20 01:30:13,567 - INFO - 
+              precision    recall  f1-score   support
+
+           0       1.00      0.04      0.08       101
+           1       0.92      1.00      0.96      1077
+
+    accuracy                           0.92      1178
+   macro avg       0.96      0.52      0.52      1178
+weighted avg       0.92      0.92      0.88      1178
+
+2025-05-20 01:30:13,568 - INFO - Metrics saved to logs/xgb_eval_20250520/metrics.json
+2025-05-20 01:30:13,568 - INFO - Creating evaluation visualizations...
+2025-05-20 01:30:15,077 - INFO - Top False Positives (predicted conflict, actually non-conflict):
+2025-05-20 01:30:15,078 - INFO - 1. "GDELT event between USA and USA with code 70" (Prob: 0.5086)
+2025-05-20 01:30:15,078 - INFO - 2. "GDELT event between AUS and Unknown with code 13" (Prob: 0.5086)
+2025-05-20 01:30:15,078 - INFO - 3. "GDELT event between Unknown and Unknown with code 60" (Prob: 0.5086)
+2025-05-20 01:30:15,078 - INFO - 4. "GDELT event between Unknown and Unknown with code 12" (Prob: 0.5086)
+2025-05-20 01:30:15,078 - INFO - 5. "GDELT event between GBR and EUR with code 51" (Prob: 0.5086)
+2025-05-20 01:30:15,078 - INFO - 6. "GDELT event between Unknown and Unknown with code 40" (Prob: 0.5086)
+2025-05-20 01:30:15,078 - INFO - 7. "GDELT event between Unknown and Unknown with code 13" (Prob: 0.5086)
+2025-05-20 01:30:15,078 - INFO - 8. "GDELT event between Unknown and Unknown with code 20" (Prob: 0.5086)
+2025-05-20 01:30:15,078 - INFO - 9. "GDELT event between CHN and MYS with code 42" (Prob: 0.5086)
+2025-05-20 01:30:15,078 - INFO - 10. "GDELT event between AUS and AUS with code 10" (Prob: 0.5086)
+2025-05-20 01:30:15,078 - INFO - Top False Negatives (predicted non-conflict, actually conflict):
+2025-05-20 01:30:15,089 - INFO - Model saved to models/xgboost_conflict_model_20250520.pkl
+2025-05-20 01:30:15,155 - INFO - Feature importance:
+2025-05-20 01:30:15,155 - INFO -   protest: 0.8381
+2025-05-20 01:30:15,155 - INFO -   insurgency: 0.0895
+2025-05-20 01:30:15,155 - INFO -   airstrike: 0.0501
+2025-05-20 01:30:15,155 - INFO -   shelling: 0.0167
+2025-05-20 01:30:15,155 - INFO -   artillery: 0.0056
+2025-05-20 01:30:15,155 - INFO -   military movement: 0.0000
+2025-05-20 01:30:15,155 - INFO -   armed clash: 0.0000
+2025-05-20 01:30:15,155 - INFO -   ceasefire: 0.0000
+2025-05-20 01:30:15,155 - INFO -   civil war: 0.0000
+2025-05-20 01:30:15,155 - INFO -   diplomatic meeting: 0.0000
+2025-05-20 01:30:15,155 - INFO -   coup: 0.0000
+2025-05-20 01:30:15,155 - INFO -   non-state conflict: 0.0000
+2025-05-20 01:30:15,155 - INFO -   terror attack: 0.0000
+2025-05-20 01:30:15,155 - INFO -   cross-border raid: 0.0000
+2025-05-20 01:30:15,155 - INFO -   troop buildup: 0.0000
+2025-05-20 01:30:15,155 - INFO -   civilian deaths: 0.0000
+2025-05-20 01:30:15,155 - INFO -   ethnic violence: 0.0000
+2025-05-20 01:30:15,155 - INFO -   genocide: 0.0000
+2025-05-20 01:30:15,155 - INFO -   diplomatic crisis: 0.0000
+2025-05-20 01:30:15,155 - INFO -   hostage: 0.0000
+2025-05-20 01:30:15,155 - INFO -   bombing: 0.0000
+2025-05-20 01:30:15,155 - INFO -   peacekeeping: 0.0000
+2025-05-20 01:30:15,155 - INFO -   mass killings: 0.0000
+2025-05-20 01:30:15,155 - INFO -   massacre: 0.0000
+2025-05-20 01:30:15,155 - INFO -   rebellion: 0.0000
+2025-05-20 01:30:15,155 - INFO -   drone strike: 0.0000
+2025-05-20 01:30:15,155 - INFO -   air defense: 0.0000
+2025-05-20 01:30:15,155 - INFO -   missile attack: 0.0000
+2025-05-20 01:30:15,155 - INFO -   territorial dispute: 0.0000
+2025-05-20 01:30:15,155 - INFO -   war crimes: 0.0000
+2025-05-20 01:30:15,155 - INFO -   confidence_score: 0.0000
+2025-05-20 01:30:15,155 - INFO - Metadata saved to models/metadata_xgboost_20250520.json
+2025-05-20 01:31:26,395 - INFO - Loading and preparing data for XGBoost training...
+2025-05-20 01:31:26,395 - INFO - Loading data from all available sources
+2025-05-20 01:31:26,403 - INFO - Loaded GDELT dataset: 812 events
+2025-05-20 01:31:26,405 - INFO - Loaded ACLED dataset: 74 events
+2025-05-20 01:31:26,425 - INFO - Loaded UCDP API dataset: 5000 events
+2025-05-20 01:31:26,425 - INFO - Combined dataset statistics:
+2025-05-20 01:31:26,425 - INFO - GDELT: 812 | ACLED: 74 | UCDP: 5000 | Total: 5886
+2025-05-20 01:31:26,425 - INFO - Conflict events: 5379 (91.4%)
+2025-05-20 01:31:26,425 - INFO - Non-conflict events: 507 (8.6%)
+2025-05-20 01:31:26,479 - INFO - Prepared 5886 samples for training
+2025-05-20 01:31:26,483 - INFO - Split data randomly: 4708 training samples, 1178 test samples
+2025-05-20 01:31:26,484 - INFO - Applying random oversampling to balance classes...
+2025-05-20 01:31:26,488 - INFO - After oversampling: 8604 training samples
+2025-05-20 01:31:26,488 - INFO - Class distribution after oversampling: [4302 4302]
+2025-05-20 01:31:26,807 - INFO - Test accuracy: 0.9177
+2025-05-20 01:31:26,807 - INFO - Test ROC AUC: 0.5202
+2025-05-20 01:31:26,807 - INFO - Test precision: 0.9174
+2025-05-20 01:31:26,807 - INFO - Test recall: 1.0000
+2025-05-20 01:31:26,807 - INFO - Test F1 score: 0.9569
+2025-05-20 01:31:26,807 - INFO - Classification Report:
+2025-05-20 01:31:26,824 - INFO - 
+              precision    recall  f1-score   support
+
+           0       1.00      0.04      0.08       101
+           1       0.92      1.00      0.96      1077
+
+    accuracy                           0.92      1178
+   macro avg       0.96      0.52      0.52      1178
+weighted avg       0.92      0.92      0.88      1178
+
+2025-05-20 01:31:26,824 - INFO - Metrics saved to logs/xgb_eval_20250520/metrics.json
+2025-05-20 01:31:26,824 - INFO - Creating evaluation visualizations...
+2025-05-20 01:31:28,209 - INFO - Top False Positives (predicted conflict, actually non-conflict):
+2025-05-20 01:31:28,209 - INFO - 1. "GDELT event between Unknown and Unknown with code 42" (Prob: 0.5086)
+2025-05-20 01:31:28,209 - INFO - 2. "GDELT event between Unknown and Unknown with code 40" (Prob: 0.5086)
+2025-05-20 01:31:28,209 - INFO - 3. "GDELT event between Unknown and ISR with code 311" (Prob: 0.5086)
+2025-05-20 01:31:28,209 - INFO - 4. "GDELT event between Unknown and USA with code 36" (Prob: 0.5086)
+2025-05-20 01:31:28,209 - INFO - 5. "GDELT event between PSE and PSE with code 10" (Prob: 0.5086)
+2025-05-20 01:31:28,209 - INFO - 6. "GDELT event between CAN and Unknown with code 70" (Prob: 0.5086)
+2025-05-20 01:31:28,209 - INFO - 7. "GDELT event between Unknown and GBR with code 112" (Prob: 0.5086)
+2025-05-20 01:31:28,209 - INFO - 8. "GDELT event between USA and Unknown with code 43" (Prob: 0.5086)
+2025-05-20 01:31:28,209 - INFO - 9. "GDELT event between PAK and CHN with code 57" (Prob: 0.5086)
+2025-05-20 01:31:28,209 - INFO - 10. "GDELT event between Unknown and Unknown with code 110" (Prob: 0.5086)
+2025-05-20 01:31:28,209 - INFO - Top False Negatives (predicted non-conflict, actually conflict):
+2025-05-20 01:31:28,225 - INFO - Model saved to models/xgboost_conflict_model_20250520.pkl
+2025-05-20 01:31:28,288 - INFO - Feature importance:
+2025-05-20 01:31:28,288 - INFO -   protest: 0.8381
+2025-05-20 01:31:28,288 - INFO -   insurgency: 0.0895
+2025-05-20 01:31:28,288 - INFO -   airstrike: 0.0501
+2025-05-20 01:31:28,288 - INFO -   shelling: 0.0167
+2025-05-20 01:31:28,288 - INFO -   artillery: 0.0056
+2025-05-20 01:31:28,288 - INFO -   military movement: 0.0000
+2025-05-20 01:31:28,288 - INFO -   armed clash: 0.0000
+2025-05-20 01:31:28,288 - INFO -   ceasefire: 0.0000
+2025-05-20 01:31:28,288 - INFO -   civil war: 0.0000
+2025-05-20 01:31:28,288 - INFO -   diplomatic meeting: 0.0000
+2025-05-20 01:31:28,288 - INFO -   coup: 0.0000
+2025-05-20 01:31:28,288 - INFO -   non-state conflict: 0.0000
+2025-05-20 01:31:28,288 - INFO -   terror attack: 0.0000
+2025-05-20 01:31:28,288 - INFO -   cross-border raid: 0.0000
+2025-05-20 01:31:28,288 - INFO -   troop buildup: 0.0000
+2025-05-20 01:31:28,288 - INFO -   civilian deaths: 0.0000
+2025-05-20 01:31:28,288 - INFO -   ethnic violence: 0.0000
+2025-05-20 01:31:28,288 - INFO -   genocide: 0.0000
+2025-05-20 01:31:28,288 - INFO -   diplomatic crisis: 0.0000
+2025-05-20 01:31:28,288 - INFO -   hostage: 0.0000
+2025-05-20 01:31:28,288 - INFO -   bombing: 0.0000
+2025-05-20 01:31:28,288 - INFO -   peacekeeping: 0.0000
+2025-05-20 01:31:28,288 - INFO -   mass killings: 0.0000
+2025-05-20 01:31:28,288 - INFO -   massacre: 0.0000
+2025-05-20 01:31:28,288 - INFO -   rebellion: 0.0000
+2025-05-20 01:31:28,288 - INFO -   drone strike: 0.0000
+2025-05-20 01:31:28,288 - INFO -   air defense: 0.0000
+2025-05-20 01:31:28,288 - INFO -   missile attack: 0.0000
+2025-05-20 01:31:28,288 - INFO -   territorial dispute: 0.0000
+2025-05-20 01:31:28,288 - INFO -   war crimes: 0.0000
+2025-05-20 01:31:28,288 - INFO -   confidence_score: 0.0000
+2025-05-20 01:31:28,288 - INFO - Metadata saved to models/metadata_xgboost_20250520.json
+2025-05-20 01:32:36,250 - INFO - Loading and preparing data for XGBoost training...
+2025-05-20 01:32:36,250 - INFO - Loading data from all available sources
+2025-05-20 01:32:36,268 - INFO - Loaded GDELT dataset: 812 events
+2025-05-20 01:32:36,283 - INFO - Loaded ACLED dataset: 74 events
+2025-05-20 01:32:36,303 - INFO - Loaded UCDP API dataset: 5000 events
+2025-05-20 01:32:36,306 - INFO - Combined dataset statistics:
+2025-05-20 01:32:36,307 - INFO - GDELT: 812 | ACLED: 74 | UCDP: 5000 | Total: 5886
+2025-05-20 01:32:36,307 - INFO - Conflict events: 5379 (91.4%)
+2025-05-20 01:32:36,307 - INFO - Non-conflict events: 507 (8.6%)
+2025-05-20 01:32:36,352 - INFO - Prepared 5886 samples for training
+2025-05-20 01:32:36,357 - INFO - Split data randomly: 4708 training samples, 1178 test samples
+2025-05-20 01:32:36,357 - INFO - Applying random oversampling to balance classes...
+2025-05-20 01:32:36,360 - INFO - After oversampling: 8604 training samples
+2025-05-20 01:32:36,361 - INFO - Class distribution after oversampling: [4302 4302]
+2025-05-20 01:32:36,686 - INFO - Test accuracy: 0.9177
+2025-05-20 01:32:36,686 - INFO - Test ROC AUC: 0.5202
+2025-05-20 01:32:36,686 - INFO - Test precision: 0.9174
+2025-05-20 01:32:36,686 - INFO - Test recall: 1.0000
+2025-05-20 01:32:36,686 - INFO - Test F1 score: 0.9569
+2025-05-20 01:32:36,692 - INFO - Classification Report:
+2025-05-20 01:32:36,699 - INFO - 
+              precision    recall  f1-score   support
+
+           0       1.00      0.04      0.08       101
+           1       0.92      1.00      0.96      1077
+
+    accuracy                           0.92      1178
+   macro avg       0.96      0.52      0.52      1178
+weighted avg       0.92      0.92      0.88      1178
+
+2025-05-20 01:32:36,701 - INFO - Metrics saved to logs/xgb_eval_20250520/metrics.json
+2025-05-20 01:32:36,701 - INFO - Creating evaluation visualizations...
+2025-05-20 01:32:38,060 - INFO - Top False Positives (predicted conflict, actually non-conflict):
+2025-05-20 01:32:38,061 - INFO - 1. "GDELT event between IRN and FRA with code 46" (Prob: 0.5086)
+2025-05-20 01:32:38,061 - INFO - 2. "GDELT event between AUS and AUS with code 13" (Prob: 0.5086)
+2025-05-20 01:32:38,061 - INFO - 3. "GDELT event between Unknown and Unknown with code 10" (Prob: 0.5086)
+2025-05-20 01:32:38,061 - INFO - 4. "GDELT event between Unknown and Unknown with code 42" (Prob: 0.5086)
+2025-05-20 01:32:38,061 - INFO - 5. "GDELT event between Unknown and USA with code 13" (Prob: 0.5086)
+2025-05-20 01:32:38,061 - INFO - 6. "GDELT event between Unknown and PAK with code 42" (Prob: 0.5086)
+2025-05-20 01:32:38,061 - INFO - 7. "GDELT event between Unknown and EUR with code 36" (Prob: 0.5086)
+2025-05-20 01:32:38,061 - INFO - 8. "GDELT event between NZL and JPN with code 43" (Prob: 0.5086)
+2025-05-20 01:32:38,061 - INFO - 9. "GDELT event between Unknown and Unknown with code 43" (Prob: 0.5086)
+2025-05-20 01:32:38,061 - INFO - 10. "GDELT event between Unknown and USA with code 42" (Prob: 0.5086)
+2025-05-20 01:32:38,061 - INFO - Top False Negatives (predicted non-conflict, actually conflict):
+2025-05-20 01:32:38,072 - INFO - Model saved to models/xgboost_conflict_model_20250520.pkl
+2025-05-20 01:32:38,137 - INFO - Feature importance:
+2025-05-20 01:32:38,138 - INFO -   protest: 0.8381
+2025-05-20 01:32:38,138 - INFO -   insurgency: 0.0895
+2025-05-20 01:32:38,138 - INFO -   airstrike: 0.0501
+2025-05-20 01:32:38,138 - INFO -   shelling: 0.0167
+2025-05-20 01:32:38,138 - INFO -   artillery: 0.0056
+2025-05-20 01:32:38,138 - INFO -   military movement: 0.0000
+2025-05-20 01:32:38,138 - INFO -   armed clash: 0.0000
+2025-05-20 01:32:38,138 - INFO -   ceasefire: 0.0000
+2025-05-20 01:32:38,138 - INFO -   civil war: 0.0000
+2025-05-20 01:32:38,138 - INFO -   diplomatic meeting: 0.0000
+2025-05-20 01:32:38,138 - INFO -   coup: 0.0000
+2025-05-20 01:32:38,138 - INFO -   non-state conflict: 0.0000
+2025-05-20 01:32:38,139 - INFO -   terror attack: 0.0000
+2025-05-20 01:32:38,139 - INFO -   cross-border raid: 0.0000
+2025-05-20 01:32:38,139 - INFO -   troop buildup: 0.0000
+2025-05-20 01:32:38,139 - INFO -   civilian deaths: 0.0000
+2025-05-20 01:32:38,139 - INFO -   ethnic violence: 0.0000
+2025-05-20 01:32:38,139 - INFO -   genocide: 0.0000
+2025-05-20 01:32:38,140 - INFO -   diplomatic crisis: 0.0000
+2025-05-20 01:32:38,140 - INFO -   hostage: 0.0000
+2025-05-20 01:32:38,140 - INFO -   bombing: 0.0000
+2025-05-20 01:32:38,140 - INFO -   peacekeeping: 0.0000
+2025-05-20 01:32:38,140 - INFO -   mass killings: 0.0000
+2025-05-20 01:32:38,140 - INFO -   massacre: 0.0000
+2025-05-20 01:32:38,140 - INFO -   rebellion: 0.0000
+2025-05-20 01:32:38,140 - INFO -   drone strike: 0.0000
+2025-05-20 01:32:38,140 - INFO -   air defense: 0.0000
+2025-05-20 01:32:38,141 - INFO -   missile attack: 0.0000
+2025-05-20 01:32:38,141 - INFO -   territorial dispute: 0.0000
+2025-05-20 01:32:38,141 - INFO -   war crimes: 0.0000
+2025-05-20 01:32:38,141 - INFO -   confidence_score: 0.0000
+2025-05-20 01:32:38,142 - INFO - Metadata saved to models/metadata_xgboost_20250520.json
+2025-05-20 01:49:12,557 - INFO - Imported 15 tags from fetch_and_clean_data
+2025-05-20 01:49:12,557 - INFO - Loading and preparing data for model training...
+2025-05-20 01:49:12,572 - WARNING - Could not load model-ready data: [Errno 2] No such file or directory: 'data/model_ready/X_features.npy'
+2025-05-20 01:49:12,572 - INFO - Falling back to loading and processing from CSV
+2025-05-20 01:49:12,572 - INFO - Loading data from all available sources
+2025-05-20 01:49:12,572 - INFO - Loaded GDELT dataset: 812 events
+2025-05-20 01:49:12,580 - INFO - Loaded ACLED dataset: 74 events
+2025-05-20 01:49:12,583 - INFO - Loaded UCDP API dataset: 500 events
+2025-05-20 01:49:12,596 - INFO - Loaded combined dataset: 45 events
+2025-05-20 01:50:39,631 - INFO - Imported 15 tags from fetch_and_clean_data
+2025-05-20 01:50:39,632 - INFO - Loading and preparing data for model training...
+2025-05-20 01:50:39,632 - WARNING - Could not load model-ready data: [Errno 2] No such file or directory: 'data/model_ready/X_features.npy'
+2025-05-20 01:50:39,632 - INFO - Falling back to loading and processing from CSV
+2025-05-20 01:50:39,632 - INFO - Loading data from all available sources
+2025-05-20 01:50:39,644 - INFO - Loaded GDELT dataset: 314 events
+2025-05-20 01:50:39,665 - INFO - Loaded ACLED dataset: 74 events
+2025-05-20 01:50:39,669 - INFO - Loaded UCDP API dataset: 1000 events
+2025-05-20 01:50:39,685 - INFO - Loaded combined dataset: 45 events

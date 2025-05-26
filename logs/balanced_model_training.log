@@ -1,0 +1,297 @@
+2025-05-20 01:59:09,058 - INFO - Step 1: Preparing balanced dataset with peaceful events
+2025-05-20 01:59:10,340 - INFO - Creating combined peaceful events dataset
+2025-05-20 01:59:10,340 - INFO - Peaceful GDELT events file already exists at data/gdelt_peaceful_events.csv
+2025-05-20 01:59:10,362 - INFO - Creating synthetic peaceful events dataset
+2025-05-20 01:59:10,365 - INFO - Created 25 synthetic peaceful events
+2025-05-20 01:59:10,366 - INFO - Encoding tags for peaceful events...
+2025-05-20 01:59:10,368 - INFO - [STATS] Total peaceful events: 29
+2025-05-20 01:59:10,368 - INFO - [WARNING] Peaceful events with 0 matched tags: 29 (100.0%)
+2025-05-20 01:59:10,369 - INFO - Most common tags in peaceful events:
+2025-05-20 01:59:10,372 - INFO - Saved 29 peaceful events to data/all_peaceful_events.csv
+2025-05-20 01:59:10,375 - INFO - Loaded 45 conflict events
+2025-05-20 01:59:10,378 - INFO - Saved 74 balanced events (with peaceful data) to data/balanced_conflict_data.csv
+2025-05-20 01:59:10,379 - INFO - Balanced dataset statistics:
+2025-05-20 01:59:10,379 - INFO -   Total events: 74
+2025-05-20 01:59:10,379 - INFO -   Conflict events: 45 (60.8%)
+2025-05-20 01:59:10,380 - INFO -   Peaceful events: 29 (39.2%)
+2025-05-20 01:59:10,380 - ERROR - Error preparing balanced dataset: setting an array element with a sequence. The requested array has an inhomogeneous shape after 1 dimensions. The detected shape was (74,) + inhomogeneous part.
+2025-05-20 01:59:10,380 - ERROR - Cannot proceed without balanced dataset
+2025-05-20 01:59:35,004 - INFO - Step 1: Preparing balanced dataset with peaceful events
+2025-05-20 01:59:36,223 - INFO - Creating combined peaceful events dataset
+2025-05-20 01:59:36,223 - INFO - Peaceful GDELT events file already exists at data/gdelt_peaceful_events.csv
+2025-05-20 01:59:36,223 - INFO - Creating synthetic peaceful events dataset
+2025-05-20 01:59:36,223 - INFO - Created 25 synthetic peaceful events
+2025-05-20 01:59:36,230 - INFO - Encoding tags for peaceful events...
+2025-05-20 01:59:36,233 - INFO - [STATS] Total peaceful events: 29
+2025-05-20 01:59:36,233 - INFO - [WARNING] Peaceful events with 0 matched tags: 29 (100.0%)
+2025-05-20 01:59:36,233 - INFO - Most common tags in peaceful events:
+2025-05-20 01:59:36,236 - INFO - Saved 29 peaceful events to data/all_peaceful_events.csv
+2025-05-20 01:59:36,236 - INFO - Balanced dataset already exists at data/balanced_conflict_data.csv
+2025-05-20 01:59:36,241 - ERROR - Error preparing balanced dataset: all the input arrays must have same number of dimensions, but the array at index 0 has 1 dimension(s) and the array at index 1 has 2 dimension(s)
+2025-05-20 01:59:36,241 - ERROR - Cannot proceed without balanced dataset
+2025-05-20 01:59:41,393 - INFO - Step 1: Preparing balanced dataset with peaceful events
+2025-05-20 01:59:42,652 - INFO - Creating combined peaceful events dataset
+2025-05-20 01:59:42,653 - INFO - Peaceful GDELT events file already exists at data/gdelt_peaceful_events.csv
+2025-05-20 01:59:42,657 - INFO - Creating synthetic peaceful events dataset
+2025-05-20 01:59:42,659 - INFO - Created 25 synthetic peaceful events
+2025-05-20 01:59:42,660 - INFO - Encoding tags for peaceful events...
+2025-05-20 01:59:42,662 - INFO - [STATS] Total peaceful events: 29
+2025-05-20 01:59:42,662 - INFO - [WARNING] Peaceful events with 0 matched tags: 29 (100.0%)
+2025-05-20 01:59:42,663 - INFO - Most common tags in peaceful events:
+2025-05-20 01:59:42,666 - INFO - Saved 29 peaceful events to data/all_peaceful_events.csv
+2025-05-20 01:59:42,669 - INFO - Loaded 45 conflict events
+2025-05-20 01:59:42,673 - INFO - Saved 74 balanced events (with peaceful data) to data/balanced_conflict_data.csv
+2025-05-20 01:59:42,673 - INFO - Balanced dataset statistics:
+2025-05-20 01:59:42,674 - INFO -   Total events: 74
+2025-05-20 01:59:42,674 - INFO -   Conflict events: 45 (60.8%)
+2025-05-20 01:59:42,674 - INFO -   Peaceful events: 29 (39.2%)
+2025-05-20 01:59:42,675 - ERROR - Error preparing balanced dataset: setting an array element with a sequence. The requested array has an inhomogeneous shape after 1 dimensions. The detected shape was (74,) + inhomogeneous part.
+2025-05-20 01:59:42,675 - ERROR - Cannot proceed without balanced dataset
+2025-05-20 02:00:29,896 - INFO - Step 1: Preparing balanced dataset with peaceful events
+2025-05-20 02:00:31,115 - INFO - Creating combined peaceful events dataset
+2025-05-20 02:00:31,115 - INFO - Peaceful GDELT events file already exists at data/gdelt_peaceful_events.csv
+2025-05-20 02:00:31,120 - INFO - Creating synthetic peaceful events dataset
+2025-05-20 02:00:31,122 - INFO - Created 25 synthetic peaceful events
+2025-05-20 02:00:31,123 - INFO - Encoding tags for peaceful events...
+2025-05-20 02:00:31,125 - INFO - [STATS] Total peaceful events: 29
+2025-05-20 02:00:31,126 - INFO - [WARNING] Peaceful events with 0 matched tags: 29 (100.0%)
+2025-05-20 02:00:31,126 - INFO - Most common tags in peaceful events:
+2025-05-20 02:00:31,128 - INFO - Saved 29 peaceful events to data/all_peaceful_events.csv
+2025-05-20 02:00:31,132 - INFO - Loaded 45 conflict events
+2025-05-20 02:00:31,132 - WARNING - Conflict data missing tags column or contains NaN values
+2025-05-20 02:00:31,133 - INFO - Re-encoding tags for conflict events...
+2025-05-20 02:00:31,136 - INFO - Tag statistics: 74/74 events have no tags (100.0%)
+2025-05-20 02:00:31,139 - INFO - Saved 74 balanced events (with peaceful data) to data/balanced_conflict_data.csv
+2025-05-20 02:00:31,140 - INFO - Balanced dataset statistics:
+2025-05-20 02:00:31,140 - INFO -   Total events: 74
+2025-05-20 02:00:31,140 - INFO -   Conflict events: 45 (60.8%)
+2025-05-20 02:00:31,141 - INFO -   Peaceful events: 29 (39.2%)
+2025-05-20 02:00:31,141 - INFO - Saving balanced model-ready data...
+2025-05-20 02:00:31,141 - INFO - Saved balanced model-ready data: X.shape=(74, 16), y.shape=(74,)
+2025-05-20 02:00:31,141 - INFO - Successfully prepared balanced dataset: 74 samples
+2025-05-20 02:00:31,141 - INFO - Class balance: 45 conflict events (60.8%), 29 peaceful events (39.2%)
+2025-05-20 02:00:31,141 - INFO - Step 2: Training XGBoost model with balanced dataset
+2025-05-20 02:00:33,151 - INFO - Imported 15 tags from fetch_and_clean_data
+2025-05-20 02:00:33,152 - INFO - Loading and preparing data for model training...
+2025-05-20 02:00:33,182 - INFO - Loaded balanced model-ready data: X.shape=(74, 16), y.shape=(74,), 74 texts
+2025-05-20 02:00:33,185 - INFO - Class balance: 45/74 positive examples (60.8%)
+2025-05-20 02:00:33,185 - INFO - Loaded 74 samples with 16 features
+2025-05-20 02:00:33,186 - INFO - Split data: 59 training samples, 15 test samples
+2025-05-20 02:00:33,188 - INFO - Applying random oversampling to balance classes...
+2025-05-20 02:00:33,190 - INFO - After oversampling: 72 training samples
+2025-05-20 02:00:33,190 - INFO - Class distribution after oversampling: [36 36]
+2025-05-20 02:00:33,190 - INFO - Performing hyperparameter tuning with GridSearchCV...
+2025-05-20 02:00:38,130 - ERROR - Error during model training: 
+All the 108 fits failed.
+It is very likely that your model is misconfigured.
+You can try to debug the error by setting error_score='raise'.
+
+Below are more details about the failures:
+--------------------------------------------------------------------------------
+108 fits failed with the following error:
+Traceback (most recent call last):
+  File "C:\Users\2022e\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sklearn\model_selection\_validation.py", line 866, in _fit_and_score
+    estimator.fit(X_train, y_train, **fit_params)
+  File "C:\Users\2022e\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sklearn\base.py", line 1389, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\2022e\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sklearn\ensemble\_gb.py", line 658, in fit
+    X, y = validate_data(
+           ^^^^^^^^^^^^^^
+  File "C:\Users\2022e\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sklearn\utils\validation.py", line 2961, in validate_data
+    X, y = check_X_y(X, y, **check_params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\2022e\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sklearn\utils\validation.py", line 1370, in check_X_y
+    X = check_array(
+        ^^^^^^^^^^^^
+  File "C:\Users\2022e\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sklearn\utils\validation.py", line 1107, in check_array
+    _assert_all_finite(
+  File "C:\Users\2022e\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sklearn\utils\validation.py", line 120, in _assert_all_finite
+    _assert_all_finite_element_wise(
+  File "C:\Users\2022e\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sklearn\utils\validation.py", line 169, in _assert_all_finite_element_wise
+    raise ValueError(msg_err)
+ValueError: Input X contains NaN.
+GradientBoostingClassifier does not accept missing values encoded as NaN natively. For supervised learning, you might want to consider sklearn.ensemble.HistGradientBoostingClassifier and Regressor which accept missing values encoded as NaNs natively. Alternatively, it is possible to preprocess the data, for instance by using an imputer transformer in a pipeline or drop samples with missing values. See https://scikit-learn.org/stable/modules/impute.html You can find a list of all estimators that handle NaN values at the following page: https://scikit-learn.org/stable/modules/impute.html#estimators-that-handle-nan-values
+
+2025-05-20 02:01:21,341 - INFO - Step 1: Preparing balanced dataset with peaceful events
+2025-05-20 02:01:22,602 - INFO - Creating combined peaceful events dataset
+2025-05-20 02:01:22,602 - INFO - Peaceful GDELT events file already exists at data/gdelt_peaceful_events.csv
+2025-05-20 02:01:22,602 - INFO - Creating synthetic peaceful events dataset
+2025-05-20 02:01:22,602 - INFO - Created 25 synthetic peaceful events
+2025-05-20 02:01:22,616 - INFO - Encoding tags for peaceful events...
+2025-05-20 02:01:22,618 - INFO - [STATS] Total peaceful events: 29
+2025-05-20 02:01:22,619 - INFO - [WARNING] Peaceful events with 0 matched tags: 29 (100.0%)
+2025-05-20 02:01:22,620 - INFO - Most common tags in peaceful events:
+2025-05-20 02:01:22,623 - INFO - Saved 29 peaceful events to data/all_peaceful_events.csv
+2025-05-20 02:01:22,625 - INFO - Loaded 45 conflict events
+2025-05-20 02:01:22,625 - WARNING - Conflict data missing tags column or contains NaN values
+2025-05-20 02:01:22,625 - INFO - Re-encoding tags for conflict events...
+2025-05-20 02:01:22,629 - INFO - Tag statistics: 74/74 events have no tags (100.0%)
+2025-05-20 02:01:22,631 - INFO - Saved 74 balanced events (with peaceful data) to data/balanced_conflict_data.csv
+2025-05-20 02:01:22,632 - INFO - Balanced dataset statistics:
+2025-05-20 02:01:22,632 - INFO -   Total events: 74
+2025-05-20 02:01:22,632 - INFO -   Conflict events: 45 (60.8%)
+2025-05-20 02:01:22,632 - INFO -   Peaceful events: 29 (39.2%)
+2025-05-20 02:01:22,632 - WARNING - Found NaN values in confidence column, filling with default value
+2025-05-20 02:01:22,632 - INFO - Building feature matrix...
+2025-05-20 02:01:22,635 - INFO - Saving balanced model-ready data...
+2025-05-20 02:01:22,637 - INFO - Saved balanced model-ready data: X.shape=(74, 16), y.shape=(74,)
+2025-05-20 02:01:22,637 - INFO - Successfully prepared balanced dataset: 74 samples
+2025-05-20 02:01:22,638 - INFO - Class balance: 45 conflict events (60.8%), 29 peaceful events (39.2%)
+2025-05-20 02:01:22,638 - INFO - Step 2: Training XGBoost model with balanced dataset
+2025-05-20 02:01:24,754 - INFO - Imported 15 tags from fetch_and_clean_data
+2025-05-20 02:01:24,754 - INFO - Loading and preparing data for model training...
+2025-05-20 02:01:24,755 - INFO - Loaded balanced model-ready data: X.shape=(74, 16), y.shape=(74,), 74 texts
+2025-05-20 02:01:24,755 - INFO - Class balance: 45/74 positive examples (60.8%)
+2025-05-20 02:01:24,755 - INFO - Loaded 74 samples with 16 features
+2025-05-20 02:01:24,769 - INFO - Split data: 59 training samples, 15 test samples
+2025-05-20 02:01:24,770 - INFO - Applying random oversampling to balance classes...
+2025-05-20 02:01:24,772 - INFO - After oversampling: 72 training samples
+2025-05-20 02:01:24,773 - INFO - Class distribution after oversampling: [36 36]
+2025-05-20 02:01:24,773 - INFO - Performing hyperparameter tuning with GridSearchCV...
+2025-05-20 02:01:31,439 - INFO - Best hyperparameters: {'learning_rate': 0.05, 'max_depth': 3, 'n_estimators': 100, 'subsample': 0.8}
+2025-05-20 02:01:31,439 - INFO - Performing cross-validation...
+2025-05-20 02:01:31,861 - INFO - Cross-validation ROC AUC scores: [1.         0.9375     0.92857143 1.         1.        ]
+2025-05-20 02:01:31,871 - INFO - Calibrating predicted probabilities...
+2025-05-20 02:01:32,151 - INFO - Test accuracy: 1.0000
+2025-05-20 02:01:32,151 - INFO - Test ROC AUC: 1.0000
+2025-05-20 02:01:32,151 - INFO - Test precision: 1.0000
+2025-05-20 02:01:32,151 - INFO - Test recall: 1.0000
+2025-05-20 02:01:32,151 - INFO - Test F1 score: 1.0000
+2025-05-20 02:01:32,151 - INFO - Classification Report:
+2025-05-20 02:01:32,167 - INFO - 
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00         6
+           1       1.00      1.00      1.00         9
+
+    accuracy                           1.00        15
+   macro avg       1.00      1.00      1.00        15
+weighted avg       1.00      1.00      1.00        15
+
+2025-05-20 02:01:32,168 - ERROR - Error during model training: 'CalibratedClassifierCV' object has no attribute 'base_estimator'
+2025-05-20 02:02:11,208 - INFO - Step 1: Preparing balanced dataset with peaceful events
+2025-05-20 02:02:12,446 - INFO - Creating combined peaceful events dataset
+2025-05-20 02:02:12,446 - INFO - Peaceful GDELT events file already exists at data/gdelt_peaceful_events.csv
+2025-05-20 02:02:12,462 - INFO - Creating synthetic peaceful events dataset
+2025-05-20 02:02:12,468 - INFO - Created 25 synthetic peaceful events
+2025-05-20 02:02:12,469 - INFO - Encoding tags for peaceful events...
+2025-05-20 02:02:12,471 - INFO - [STATS] Total peaceful events: 29
+2025-05-20 02:02:12,472 - INFO - [WARNING] Peaceful events with 0 matched tags: 29 (100.0%)
+2025-05-20 02:02:12,472 - INFO - Most common tags in peaceful events:
+2025-05-20 02:02:12,474 - INFO - Saved 29 peaceful events to data/all_peaceful_events.csv
+2025-05-20 02:02:12,474 - INFO - Balanced dataset already exists at data/balanced_conflict_data.csv
+2025-05-20 02:02:12,492 - WARNING - Found NaN values in confidence column, filling with default value
+2025-05-20 02:02:12,492 - INFO - Building feature matrix...
+2025-05-20 02:02:12,494 - INFO - Saving balanced model-ready data...
+2025-05-20 02:02:12,497 - INFO - Saved balanced model-ready data: X.shape=(74, 16), y.shape=(74,)
+2025-05-20 02:02:12,497 - INFO - Successfully prepared balanced dataset: 74 samples
+2025-05-20 02:02:12,498 - INFO - Class balance: 45 conflict events (60.8%), 29 peaceful events (39.2%)
+2025-05-20 02:02:12,498 - INFO - Step 2: Training XGBoost model with balanced dataset
+2025-05-20 02:02:14,397 - INFO - Imported 15 tags from fetch_and_clean_data
+2025-05-20 02:02:14,397 - INFO - Loading and preparing data for model training...
+2025-05-20 02:02:14,419 - INFO - Loaded balanced model-ready data: X.shape=(74, 16), y.shape=(74,), 74 texts
+2025-05-20 02:02:14,420 - INFO - Class balance: 45/74 positive examples (60.8%)
+2025-05-20 02:02:14,420 - INFO - Loaded 74 samples with 16 features
+2025-05-20 02:02:14,421 - INFO - Split data: 59 training samples, 15 test samples
+2025-05-20 02:02:14,422 - INFO - Applying random oversampling to balance classes...
+2025-05-20 02:02:14,424 - INFO - After oversampling: 72 training samples
+2025-05-20 02:02:14,424 - INFO - Class distribution after oversampling: [36 36]
+2025-05-20 02:02:14,424 - INFO - Performing hyperparameter tuning with GridSearchCV...
+2025-05-20 02:02:20,830 - INFO - Best hyperparameters: {'learning_rate': 0.05, 'max_depth': 3, 'n_estimators': 100, 'subsample': 0.8}
+2025-05-20 02:02:20,830 - INFO - Performing cross-validation...
+2025-05-20 02:02:21,313 - INFO - Cross-validation ROC AUC scores: [1.         0.9375     0.92857143 1.         1.        ]
+2025-05-20 02:02:21,314 - INFO - CV ROC AUC: 0.9732 ± 0.0329
+2025-05-20 02:02:21,314 - INFO - Calibrating predicted probabilities...
+2025-05-20 02:02:21,599 - INFO - Test accuracy: 1.0000
+2025-05-20 02:02:21,599 - INFO - Test ROC AUC: 1.0000
+2025-05-20 02:02:21,599 - INFO - Test precision: 1.0000
+2025-05-20 02:02:21,599 - INFO - Test recall: 1.0000
+2025-05-20 02:02:21,599 - INFO - Test F1 score: 1.0000
+2025-05-20 02:02:21,599 - INFO - Classification Report:
+2025-05-20 02:02:21,614 - INFO - 
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00         6
+           1       1.00      1.00      1.00         9
+
+    accuracy                           1.00        15
+   macro avg       1.00      1.00      1.00        15
+weighted avg       1.00      1.00      1.00        15
+
+2025-05-20 02:02:21,614 - INFO - Using calibrated_model.estimators_[0] for newer scikit-learn versions
+2025-05-20 02:02:21,615 - ERROR - Error during model training: 'CalibratedClassifierCV' object has no attribute 'estimators_'
+2025-05-20 02:03:18,116 - INFO - Step 1: Preparing balanced dataset with peaceful events
+2025-05-20 02:03:19,351 - INFO - Creating combined peaceful events dataset
+2025-05-20 02:03:19,351 - INFO - Peaceful GDELT events file already exists at data/gdelt_peaceful_events.csv
+2025-05-20 02:03:19,351 - INFO - Creating synthetic peaceful events dataset
+2025-05-20 02:03:19,351 - INFO - Created 25 synthetic peaceful events
+2025-05-20 02:03:19,351 - INFO - Encoding tags for peaceful events...
+2025-05-20 02:03:19,351 - INFO - [STATS] Total peaceful events: 29
+2025-05-20 02:03:19,351 - INFO - [WARNING] Peaceful events with 0 matched tags: 29 (100.0%)
+2025-05-20 02:03:19,351 - INFO - Most common tags in peaceful events:
+2025-05-20 02:03:19,367 - INFO - Saved 29 peaceful events to data/all_peaceful_events.csv
+2025-05-20 02:03:19,367 - INFO - Balanced dataset already exists at data/balanced_conflict_data.csv
+2025-05-20 02:03:19,369 - WARNING - Found NaN values in confidence column, filling with default value
+2025-05-20 02:03:19,369 - INFO - Building feature matrix...
+2025-05-20 02:03:19,369 - INFO - Saving balanced model-ready data...
+2025-05-20 02:03:19,369 - INFO - Saved balanced model-ready data: X.shape=(74, 16), y.shape=(74,)
+2025-05-20 02:03:19,369 - INFO - Successfully prepared balanced dataset: 74 samples
+2025-05-20 02:03:19,369 - INFO - Class balance: 45 conflict events (60.8%), 29 peaceful events (39.2%)
+2025-05-20 02:03:19,369 - INFO - Step 2: Training XGBoost model with balanced dataset
+2025-05-20 02:03:21,362 - INFO - Imported 15 tags from fetch_and_clean_data
+2025-05-20 02:03:21,362 - INFO - Loading and preparing data for model training...
+2025-05-20 02:03:21,378 - INFO - Loaded balanced model-ready data: X.shape=(74, 16), y.shape=(74,), 74 texts
+2025-05-20 02:03:21,378 - INFO - Class balance: 45/74 positive examples (60.8%)
+2025-05-20 02:03:21,378 - INFO - Loaded 74 samples with 16 features
+2025-05-20 02:03:21,378 - INFO - Split data: 59 training samples, 15 test samples
+2025-05-20 02:03:21,378 - INFO - Applying random oversampling to balance classes...
+2025-05-20 02:03:21,378 - INFO - After oversampling: 72 training samples
+2025-05-20 02:03:21,378 - INFO - Class distribution after oversampling: [36 36]
+2025-05-20 02:03:21,378 - INFO - Performing hyperparameter tuning with GridSearchCV...
+2025-05-20 02:03:27,721 - INFO - Best hyperparameters: {'learning_rate': 0.05, 'max_depth': 3, 'n_estimators': 100, 'subsample': 0.8}
+2025-05-20 02:03:27,721 - INFO - Performing cross-validation...
+2025-05-20 02:03:28,496 - INFO - Cross-validation ROC AUC scores: [1.         0.9375     0.92857143 1.         1.        ]
+2025-05-20 02:03:28,496 - INFO - CV ROC AUC: 0.9732 ± 0.0329
+2025-05-20 02:03:28,509 - INFO - Test accuracy: 1.0000
+2025-05-20 02:03:28,510 - INFO - Test ROC AUC: 1.0000
+2025-05-20 02:03:28,510 - INFO - Test precision: 1.0000
+2025-05-20 02:03:28,511 - INFO - Test recall: 1.0000
+2025-05-20 02:03:28,511 - INFO - Test F1 score: 1.0000
+2025-05-20 02:03:28,522 - INFO - Classification Report:
+2025-05-20 02:03:28,535 - INFO - 
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00         6
+           1       1.00      1.00      1.00         9
+
+    accuracy                           1.00        15
+   macro avg       1.00      1.00      1.00        15
+weighted avg       1.00      1.00      1.00        15
+
+2025-05-20 02:03:28,539 - INFO - Metrics saved to logs/xgb_eval_20250520/metrics.json
+2025-05-20 02:03:28,539 - INFO - Creating evaluation visualizations...
+2025-05-20 02:03:30,023 - INFO - Top False Positives (predicted conflict, actually non-conflict):
+2025-05-20 02:03:30,024 - INFO - Top False Negatives (predicted non-conflict, actually conflict):
+2025-05-20 02:03:30,034 - INFO - Base model saved to models/xgboost_conflict_model_20250520.pkl
+2025-05-20 02:03:30,035 - INFO - Feature importance:
+2025-05-20 02:03:30,035 - INFO -   confidence_score: 1.0000
+2025-05-20 02:03:30,035 - INFO -   military movement: 0.0000
+2025-05-20 02:03:30,036 - INFO -   armed clash: 0.0000
+2025-05-20 02:03:30,036 - INFO -   ceasefire: 0.0000
+2025-05-20 02:03:30,036 - INFO -   civil war: 0.0000
+2025-05-20 02:03:30,037 - INFO -   diplomatic meeting: 0.0000
+2025-05-20 02:03:30,037 - INFO -   protest: 0.0000
+2025-05-20 02:03:30,037 - INFO -   coup: 0.0000
+2025-05-20 02:03:30,039 - INFO -   airstrike: 0.0000
+2025-05-20 02:03:30,039 - INFO -   terror attack: 0.0000
+2025-05-20 02:03:30,039 - INFO -   cross-border raid: 0.0000
+2025-05-20 02:03:30,040 - INFO -   shelling: 0.0000
+2025-05-20 02:03:30,040 - INFO -   civilian deaths: 0.0000
+2025-05-20 02:03:30,040 - INFO -   ethnic violence: 0.0000
+2025-05-20 02:03:30,041 - INFO -   insurgency: 0.0000
+2025-05-20 02:03:30,041 - INFO - Metadata saved to models/metadata_xgboost_20250520.json
+2025-05-20 02:03:30,042 - INFO - Model training completed successfully with accuracy: 1.0000
+2025-05-20 02:03:30,042 - INFO - Model F1 score: 1.0000
+2025-05-20 02:03:30,043 - INFO - Model ROC AUC: 1.0000
+2025-05-20 02:03:30,043 - INFO - Balanced model training pipeline completed successfully
