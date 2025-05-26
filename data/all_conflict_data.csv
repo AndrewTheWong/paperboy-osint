@@ -1,46 +1,501 @@
-text,label,date,source
-Type 1 conflict between Government of Algeria and AQIM in Algeria,1,2008-01-01,ucdp_api
-Type 1 conflict between Government of Algeria and AIS in Algeria,1,1992-01-01,ucdp_api
-Type 1 conflict between Government of Algeria and AIS in Algeria,1,1994-01-01,ucdp_api
-Type 1 conflict between Government of Algeria and GIA in Algeria,1,1998-01-01,ucdp_api
-Type 1 conflict between Government of Algeria and GIA in Algeria,1,1999-01-01,ucdp_api
-Type 1 conflict between Government of Algeria and AQIM in Algeria,1,2006-01-01,ucdp_api
-Type 1 conflict between Government of Algeria and AQIM in Algeria,1,2000-01-01,ucdp_api
-Type 1 conflict between Government of Algeria and AIS in Algeria,1,1993-01-01,ucdp_api
-Type 1 conflict between Government of Algeria and AQIM in Algeria,1,2007-01-01,ucdp_api
-Type 1 conflict between Government of Algeria and AQIM in Algeria,1,2003-01-01,ucdp_api
-Type 3 conflict between GIA and Civilians in Algeria,1,2002-01-01,ucdp_api
-Type 1 conflict between Government of Algeria and GIA in Algeria,1,1996-01-01,ucdp_api
-Type 1 conflict between Government of Algeria and AQIM in Algeria,1,2004-01-01,ucdp_api
-Type 3 conflict between GIA and Civilians in Algeria,1,1997-01-01,ucdp_api
-Type 1 conflict between Government of Algeria and AQIM in Algeria,1,2010-01-01,ucdp_api
-Type 1 conflict between Government of Algeria and AQIM in Algeria,1,2001-01-01,ucdp_api
-Type 1 conflict between Government of Algeria and GIA in Algeria,1,1995-01-01,ucdp_api
-Type 1 conflict between Government of Algeria and Takfir wa'l Hijra in Algeria,1,1992-01-01,ucdp_api
-Type 1 conflict between Government of Algeria and GIA in Algeria,1,1997-01-01,ucdp_api
-Type 1 conflict between Government of Algeria and GIA in Algeria,1,1994-01-01,ucdp_api
-Type 1 conflict between Government of Algeria and AQIM in Algeria,1,2009-01-01,ucdp_api
-Type 2 conflict between GIA - El Ahd Battalion and GIA - El Khadra Battalion in Algeria,1,1998-01-01,ucdp_api
-Type 1 conflict between Government of Algeria and GIA in Algeria,1,2001-01-01,ucdp_api
-Type 1 conflict between Government of Algeria and AQIM in Algeria,1,2005-01-01,ucdp_api
-Type 1 conflict between Government of Algeria and AQIM in Algeria,1,2002-01-01,ucdp_api
-Type 3 conflict between AQIM and Civilians in Algeria,1,2004-01-01,ucdp_api
-Type 3 conflict between AQIM and Civilians in Algeria,1,2007-01-01,ucdp_api
-Type 3 conflict between GIA and Civilians in Algeria,1,2003-01-01,ucdp_api
-Type 3 conflict between GIA and Civilians in Algeria,1,1998-01-01,ucdp_api
-Type 1 conflict between Government of Algeria and AIS in Algeria,1,1999-01-01,ucdp_api
-Type 3 conflict between GIA and Civilians in Algeria,1,1999-01-01,ucdp_api
-Type 1 conflict between Government of Algeria and GIA in Algeria,1,2004-01-01,ucdp_api
-Type 3 conflict between AQIM and Civilians in Algeria,1,2006-01-01,ucdp_api
-Type 2 conflict between AIS and GIA in Algeria,1,1994-01-01,ucdp_api
-Type 3 conflict between AQIM and Civilians in Algeria,1,2010-01-01,ucdp_api
-Type 3 conflict between GIA and Civilians in Algeria,1,2000-01-01,ucdp_api
-Type 1 conflict between Government of Algeria and GIA in Algeria,1,2003-01-01,ucdp_api
-Type 3 conflict between AQIM and Civilians in Algeria,1,2009-01-01,ucdp_api
-Type 2 conflict between GIA - El Forkane and GIA - El Khadra Battalion in Algeria,1,1998-01-01,ucdp_api
-Type 3 conflict between AQIM and Civilians in Algeria,1,2002-01-01,ucdp_api
-Type 1 conflict between Government of Algeria and Takfir wa'l Hijra in Algeria,1,1991-01-01,ucdp_api
-Type 1 conflict between Government of Algeria and Takfir wa'l Hijra in Algeria,1,1990-01-01,ucdp_api
-Type 2 conflict between AIS and GIA in Algeria,1,1997-01-01,ucdp_api
-Type 1 conflict between Government of Algeria and GIA in Algeria,1,2002-01-01,ucdp_api
-Type 1 conflict between Government of Mali and AQIM in Mali,1,2009-01-01,ucdp_api
+text,label,confidence,source,tags,tag_count,no_tags
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.23,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.12,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.06,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.05,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.13,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.19,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.08,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.16,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.08,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.26,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.0,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.05,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.52,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and Takfir wa'l Hijra,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.06,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.06,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 2 between GIA - El Ahd Battalion and GIA - El Khadra Battalion,1,0.31,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.06,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.26,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.07,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.1,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between AQIM and Civilians,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.05,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.05,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.07,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between AQIM and Civilians,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.06,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,1.0,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.05,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.1,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between AQIM and Civilians,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.0,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.05,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.06,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.06,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.05,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.08,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.05,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.05,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.13,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.06,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.08,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.1,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.06,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.06,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.0,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between AQIM and Civilians,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.4,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.1,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 2 between AIS and GIA,1,0.15,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between AQIM and Civilians,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between AQIM and Civilians,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.1,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.28,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.14,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.23,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between AQIM and Civilians,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.08,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.05,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.14,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.19,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.1,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.06,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.0,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.07,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.06,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.07,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.33,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.1,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.0,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.08,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.1,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.08,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.0,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.06,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.0,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.18,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between AQIM and Civilians,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.21,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between AQIM and Civilians,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between AQIM and Civilians,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.0,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.22,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 2 between GIA - El Forkane and GIA - El Khadra Battalion,1,0.56,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.1,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.07,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between AQIM and Civilians,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between AQIM and Civilians,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.26,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between AQIM and Civilians,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.22,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.06,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.0,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.0,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.07,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.15,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.06,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between AQIM and Civilians,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between AQIM and Civilians,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between AQIM and Civilians,1,0.09,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between AQIM and Civilians,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between AQIM and Civilians,1,0.16,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.0,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between AQIM and Civilians,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.1,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.05,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.17,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.34,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.05,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.05,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and Takfir wa'l Hijra,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.21,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.11,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.1,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.12,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.05,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.05,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.13,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between AQIM and Civilians,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.1,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between AQIM and Civilians,1,0.21,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between AQIM and Civilians,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.0,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between AQIM and Civilians,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.07,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.07,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and Takfir wa'l Hijra,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.0,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.05,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.14,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.05,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.11,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 2 between AIS and GIA,1,1.0,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.06,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between AQIM and Civilians,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.41,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.0,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.09,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.08,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.49,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between AQIM and Civilians,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.1,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.1,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.06,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.25,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between AQIM and Civilians,1,0.0,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and Takfir wa'l Hijra,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.07,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.0,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.1,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.07,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.0,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.0,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.06,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.12,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between AQIM and Civilians,1,0.0,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between AQIM and Civilians,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.0,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.1,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.13,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.1,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.13,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.06,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.05,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Mali and AQIM,1,0.3,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.0,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.0,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between AQIM and Civilians,1,0.0,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between AQIM and Civilians,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.06,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.43,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between AQIM and Civilians,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.21,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.0,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.07,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.75,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.11,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.25,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.1,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between AQIM and Civilians,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.07,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.1,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.0,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.05,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 3 between GIA and Civilians,1,0.25,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.08,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.01,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.06,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.0,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and GIA,1,0.08,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.03,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.04,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.15,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.18,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.1,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AIS,1,0.09,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
+Violence type 1 between Government of Algeria and AQIM,1,0.02,ucdp,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",0,True
