@@ -13,6 +13,10 @@ scikit-learn>=1.0.2
 numpy>=1.23.5
 flair>=0.12.0
 
+# Time series forecasting dependencies
+pytorch-forecasting>=1.0.0
+pytorch-lightning>=2.0.0
+
 # Data processing
 nltk>=3.7
 pytest>=7.0.0
@@ -32,4 +36,7 @@ beautifulsoup4>=4.9.3
 psycopg2-binary
 plotly
 qdrant-client
+
+# BigQuery dependencies
+google-cloud-bigquery>=3.0.0
 

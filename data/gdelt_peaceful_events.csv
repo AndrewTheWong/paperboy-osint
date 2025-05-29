@@ -1,5 +1,0 @@
-text,label,confidence,source,date
-Interaction between RUS and UKR with EventCode 010,0,0.4,gdelt_peaceful,2023-01-02
-Interaction between JPN and KOR with EventCode 020,0,0.5,gdelt_peaceful,2023-01-04
-Interaction between FRA and ITA with EventCode 080,0,0.65,gdelt_peaceful,2023-01-05
-Interaction between DEU and ESP with EventCode 040,0,0.55,gdelt_peaceful,2023-01-06
