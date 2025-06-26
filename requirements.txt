@@ -33,3 +33,6 @@ psycopg2-binary
 plotly
 qdrant-client
 
+# Scheduling dependencies
+schedule>=1.2.0
+
