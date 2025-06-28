@@ -22,7 +22,54 @@ venv/
 data/
 logs/
 keys/
-venv/
+
+# Large ML model files
+models/*.pkl
+models/*.pt
+models/*.ckpt
+models/*.h5
+models/*.pb
+models/*.onnx
+models/*.bin
+models/*.safetensors
+models/*.csv
+models/*.json
+models/backup/
+models/visualizations/
+models/metrics/
+models/lstm/
+models/transformer/
+models/enhanced_transformer_100k/
+models/GDELT_Tension/
+models/OSINT_Tension/
+models/ensemble/
+
+# Analytics outputs and cache
+analytics/outputs/
+analytics/inference/*.pkl
+analytics/inference/*.csv
+analytics/inference/*.ckpt
+analytics/inference/visualizations/
+analytics/time_series/forecasts/
+analytics/time_series/models/
+analytics/time_series/processed/
+
+# Cache directories
+cache/
+*.cache
+
+# Large data files
+*.csv
+*.json
+*.parquet
+*.hdf5
+*.h5
+*.pkl
+*.pickle
+
+# Reports (keep only the latest)
+reports/*.md
+reports/*.json
 
 # VSCode settings
 .vscode/
@@ -32,4 +79,26 @@ venv/
 
 # macOS/Linux/Windows system files
 .DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+*.bak
+*.swp
+*.swo
+
+# IDE files
+.idea/
+*.sublime-*
+.atom/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
