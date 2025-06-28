@@ -1,0 +1,395 @@
+{
+  "metadata": {
+    "pipeline_version": "2.0_enhanced",
+    "analysis_timestamp": "2025-06-22T18:55:55.496740",
+    "articles_processed": 5,
+    "pipeline_components": [
+      "clustering",
+      "escalation_scoring",
+      "similarity_analysis",
+      "significance_detection",
+      "intelligence_summarization"
+    ],
+    "analysis_completed": "2025-06-22T18:55:55.785990"
+  },
+  "clustering": [
+    {
+      "id": "demo_1",
+      "title": "Military exercises conducted in disputed region",
+      "source": "Defense News",
+      "content": "Large-scale military exercises involving multiple branches of armed forces were conducted in a strategically important disputed region, raising tensions among neighboring countries.",
+      "published_at": "2024-01-01T10:00:00",
+      "cluster_id": "0"
+    },
+    {
+      "id": "demo_2",
+      "title": "Regional tensions escalate following border incident",
+      "source": "Security Today",
+      "content": "Tensions in the region have escalated significantly following a serious border incident that resulted in casualties and prompted emergency diplomatic meetings.",
+      "published_at": "2024-01-01T11:30:00",
+      "cluster_id": "0"
+    },
+    {
+      "id": "demo_3",
+      "title": "Defense spending increases amid security concerns",
+      "source": "Military Times",
+      "content": "Government announces substantial increase in defense spending citing growing security concerns and need to modernize military capabilities.",
+      "published_at": "2024-01-01T14:00:00",
+      "cluster_id": "1"
+    },
+    {
+      "id": "demo_4",
+      "title": "Diplomatic summit scheduled for crisis resolution",
+      "source": "Foreign Affairs",
+      "content": "Emergency diplomatic summit has been scheduled to address the ongoing crisis and find peaceful resolution to escalating tensions.",
+      "published_at": "2024-01-01T16:00:00",
+      "cluster_id": "2"
+    },
+    {
+      "id": "demo_5",
+      "title": "Cyber attack targets critical infrastructure",
+      "source": "Cyber Security News",
+      "content": "Major cyber attack has targeted critical infrastructure systems, prompting concerns about national security and digital warfare capabilities.",
+      "published_at": "2024-01-01T18:00:00",
+      "cluster_id": "3"
+    }
+  ],
+  "escalation_scoring": {
+    "model_type": "xgboost_transformer_ensemble",
+    "average_score": 0.22075,
+    "high_risk_threshold": 0.5,
+    "article_scores": [
+      {
+        "article_id": "demo_1",
+        "escalation_score": 0.39875000000000005,
+        "risk_factors": [
+          "military",
+          "tension"
+        ]
+      },
+      {
+        "article_id": "demo_2",
+        "escalation_score": 0.10624999999999998,
+        "risk_factors": [
+          "tension"
+        ]
+      },
+      {
+        "article_id": "demo_3",
+        "escalation_score": 0.09374999999999999,
+        "risk_factors": [
+          "military"
+        ]
+      },
+      {
+        "article_id": "demo_4",
+        "escalation_score": 0.1625,
+        "risk_factors": [
+          "tension"
+        ]
+      },
+      {
+        "article_id": "demo_5",
+        "escalation_score": 0.3425,
+        "risk_factors": [
+          "conflict",
+          "violence"
+        ]
+      }
+    ],
+    "total_articles": 5,
+    "high_risk_count": 0
+  },
+  "similarity_analysis": {
+    "similarity_matrix": {},
+    "high_similarity_pairs": [],
+    "cluster_coherence": {
+      "0": {
+        "size": 2,
+        "keywords": [],
+        "coherence_score": 0.2
+      },
+      "1": {
+        "size": 1,
+        "keywords": [],
+        "coherence_score": 0.1
+      },
+      "2": {
+        "size": 1,
+        "keywords": [],
+        "coherence_score": 0.1
+      },
+      "3": {
+        "size": 1,
+        "keywords": [],
+        "coherence_score": 0.1
+      }
+    },
+    "duplicate_detection": []
+  },
+  "intelligence_report": {
+    "metadata": {
+      "report_id": "intel_report_20250622_185555",
+      "generation_timestamp": "2025-06-22T18:55:55.770745",
+      "articles_analyzed": 5,
+      "analytics_version": "1.0"
+    },
+    "significant_events": {
+      "high_escalation_events": [
+        {
+          "type": "high_escalation",
+          "article": {
+            "id": "demo_1",
+            "title": "Military exercises conducted in disputed region",
+            "source": "Defense News",
+            "content": "Large-scale military exercises involving multiple branches of armed forces were conducted in a strategically important disputed region, raising tensions among neighboring countries.",
+            "published_at": "2024-01-01T10:00:00",
+            "cluster_id": "0"
+          },
+          "escalation_score": 0.39875000000000005,
+          "risk_factors": [
+            "military",
+            "tension"
+          ],
+          "significance_reason": "High escalation score: 0.399"
+        },
+        {
+          "type": "high_escalation",
+          "article": {
+            "id": "demo_5",
+            "title": "Cyber attack targets critical infrastructure",
+            "source": "Cyber Security News",
+            "content": "Major cyber attack has targeted critical infrastructure systems, prompting concerns about national security and digital warfare capabilities.",
+            "published_at": "2024-01-01T18:00:00",
+            "cluster_id": "3"
+          },
+          "escalation_score": 0.3425,
+          "risk_factors": [
+            "conflict",
+            "violence"
+          ],
+          "significance_reason": "High escalation score: 0.343"
+        }
+      ],
+      "large_cluster_events": [
+        {
+          "type": "large_cluster",
+          "cluster_id": "0",
+          "cluster_size": 2,
+          "articles": [
+            {
+              "id": "demo_1",
+              "title": "Military exercises conducted in disputed region",
+              "source": "Defense News",
+              "content": "Large-scale military exercises involving multiple branches of armed forces were conducted in a strategically important disputed region, raising tensions among neighboring countries.",
+              "published_at": "2024-01-01T10:00:00",
+              "cluster_id": "0"
+            },
+            {
+              "id": "demo_2",
+              "title": "Regional tensions escalate following border incident",
+              "source": "Security Today",
+              "content": "Tensions in the region have escalated significantly following a serious border incident that resulted in casualties and prompted emergency diplomatic meetings.",
+              "published_at": "2024-01-01T11:30:00",
+              "cluster_id": "0"
+            }
+          ],
+          "cluster_keywords": [],
+          "significance_reason": "Large cluster with 2 articles"
+        }
+      ],
+      "anomalous_events": [],
+      "trending_events": [],
+      "cross_source_events": [],
+      "temporal_anomalies": [],
+      "metadata": {
+        "detection_timestamp": "2025-06-22T18:55:55.770745",
+        "total_articles_analyzed": 5,
+        "significance_criteria": {
+          "escalation_threshold": 0.2,
+          "cluster_size_threshold": 2,
+          "anomaly_threshold": 2.0
+        },
+        "total_significant_events": 3,
+        "significance_rate": 0.6
+      }
+    },
+    "intelligence_summary": {
+      "executive_summary": "INTELLIGENCE SUMMARY - HIGH PRIORITY\nAnalysis Period: 2025-06-22\nSources Analyzed: 5 articles (OSINT + GDELT)\n\nKEY METRICS:\n- Total Significant Events: 3\n- High Escalation Events: 2\n- Large Clusters: 1\n- Cross-Source Confirmations: 0\n- Temporal Anomalies: 0\n\nASSESSMENT: Low activity levels within normal parameters.",
+      "high_priority_events": [
+        {
+          "event_type": "high_escalation_events",
+          "significance_reason": "High escalation score: 0.399",
+          "summary": "Detected High escalation score: 0.399 across 0 articles. ",
+          "key_themes": [],
+          "sources": [],
+          "countries_involved": [],
+          "article_count": 0,
+          "escalation_score": 0.0,
+          "confidence_level": "LOW",
+          "implications": "Standard intelligence monitoring recommended."
+        },
+        {
+          "event_type": "high_escalation_events",
+          "significance_reason": "High escalation score: 0.343",
+          "summary": "Detected High escalation score: 0.343 across 0 articles. ",
+          "key_themes": [],
+          "sources": [],
+          "countries_involved": [],
+          "article_count": 0,
+          "escalation_score": 0.0,
+          "confidence_level": "LOW",
+          "implications": "Standard intelligence monitoring recommended."
+        }
+      ],
+      "medium_priority_events": [
+        {
+          "event_type": "large_cluster_events",
+          "significance_reason": "Large cluster with 2 articles",
+          "summary": "Detected Large cluster with 2 articles across 2 articles. Key themes: military_escalation, diplomatic_activity. Sample headlines: Military exercises conducted in disputed region; Regional tensions escalate following border incide.",
+          "key_themes": [
+            "military_escalation",
+            "diplomatic_activity"
+          ],
+          "sources": [
+            "Security Today",
+            "Defense News"
+          ],
+          "countries_involved": [],
+          "article_count": 2,
+          "escalation_score": 0.16666666666666666,
+          "confidence_level": "LOW",
+          "implications": "Diplomatic developments may affect regional stability."
+        }
+      ],
+      "low_priority_events": [],
+      "trend_analysis": "TREND ANALYSIS:\n- Trending Events: 0 detected\n- Large Clusters: 1 identified\n\nLarge article clusters suggest coordinated information campaigns or significant developments. Recommend continued monitoring of trending patterns.",
+      "threat_assessment": "THREAT LEVEL: MODERATE - 2 high-priority events require monitoring.",
+      "recommendations": "\u2022 Monitor 2 high-escalation events closely\n\u2022 Investigate 1 large article clusters for coordination\n\u2022 Update escalation thresholds based on current findings\n\u2022 Archive significant events for trend analysis",
+      "metadata": {
+        "generation_timestamp": "2025-06-22T18:55:55.774383",
+        "model_used": "fast_lightweight_processor",
+        "total_events_summarized": 3,
+        "processing_time_seconds": 0.007067680358886719
+      }
+    },
+    "detailed_analysis": {
+      "event_breakdown": {
+        "high_escalation_events": {
+          "count": 2,
+          "percentage": 66.66666666666666
+        },
+        "large_cluster_events": {
+          "count": 1,
+          "percentage": 33.33333333333333
+        },
+        "anomalous_events": {
+          "count": 0,
+          "percentage": 0.0
+        },
+        "trending_events": {
+          "count": 0,
+          "percentage": 0.0
+        },
+        "cross_source_events": {
+          "count": 0,
+          "percentage": 0.0
+        },
+        "temporal_anomalies": {
+          "count": 0,
+          "percentage": 0.0
+        }
+      },
+      "geographic_distribution": {
+        "United States": 1,
+        "Other": 4
+      },
+      "temporal_patterns": {
+        "publication_frequency": {
+          "10": 1,
+          "11": 1,
+          "14": 1,
+          "16": 1,
+          "18": 1
+        },
+        "peak_hours": [],
+        "unusual_patterns": []
+      },
+      "source_credibility": {
+        "Defense News": {
+          "significant_events": 2,
+          "event_types": 2,
+          "credibility_score": 60
+        },
+        "Cyber Security News": {
+          "significant_events": 1,
+          "event_types": 1,
+          "credibility_score": 30
+        },
+        "Security Today": {
+          "significant_events": 1,
+          "event_types": 1,
+          "credibility_score": 30
+        }
+      },
+      "escalation_trends": {
+        "average_score": 0.22075,
+        "high_risk_percentage": 0.0,
+        "trend_direction": "stable",
+        "concerning_patterns": []
+      }
+    },
+    "sources": {
+      "total_sources": 5,
+      "source_distribution": {
+        "Defense News": 1,
+        "Security Today": 1,
+        "Military Times": 1,
+        "Foreign Affairs": 1,
+        "Cyber Security News": 1
+      },
+      "high_value_sources": [
+        "Cyber Security News",
+        "Security Today",
+        "Defense News"
+      ],
+      "cross_verification": {},
+      "source_reliability_scores": {
+        "Defense News": 60,
+        "Security Today": 60,
+        "Military Times": 10,
+        "Foreign Affairs": 10,
+        "Cyber Security News": 60
+      }
+    },
+    "recommendations": {
+      "immediate_actions": [
+        "URGENT: 2 high-escalation events require immediate assessment",
+        "Activate enhanced monitoring protocols for escalation indicators"
+      ],
+      "medium_term_monitoring": [
+        "Monitor 1 major story clusters for development patterns"
+      ],
+      "long_term_strategic": [
+        "Develop automated early warning systems based on detected patterns",
+        "Expand source coverage in under-represented geographic regions"
+      ],
+      "resource_allocation": {
+        "analyst_hours": "Low - Routine monitoring",
+        "automation_priority": "Low - Maintain current systems"
+      },
+      "risk_mitigation": [
+        "Establish direct communication channels with relevant stakeholders",
+        "Prepare contingency response plans for identified escalation scenarios",
+        "Maintain diversified source portfolio to prevent information gaps"
+      ]
+    }
+  },
+  "processing_time": {
+    "clustering": 0.001193,
+    "escalation_scoring": 0.270798,
+    "similarity_analysis": 0.0,
+    "intelligence_report": 0.015227,
+    "total": 0.28925
+  }
+}

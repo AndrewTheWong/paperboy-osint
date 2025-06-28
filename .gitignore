@@ -1,0 +1,35 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Virtual environment
+.venv/
+env/
+venv/
+
+# Environment variables
+.env
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Data and logs (can be large or sensitive)
+data/
+logs/
+keys/
+venv/
+
+# VSCode settings
+.vscode/
+
+# Streamlit secrets
+.streamlit/secrets.toml
+
+# macOS/Linux/Windows system files
+.DS_Store
+Thumbs.db

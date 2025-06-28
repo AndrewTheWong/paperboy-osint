@@ -1,0 +1,248 @@
+{
+  "metadata": {
+    "pipeline_version": "2.0_enhanced",
+    "analysis_timestamp": "2025-06-22T17:33:07.896711",
+    "articles_processed": 2,
+    "pipeline_components": [
+      "clustering",
+      "escalation_scoring",
+      "similarity_analysis",
+      "significance_detection",
+      "intelligence_summarization"
+    ],
+    "analysis_completed": "2025-06-22T17:33:08.217771"
+  },
+  "clustering": [
+    {
+      "id": "test_1",
+      "title": "Taiwan Military Conducts Defense Exercises Amid Regional Tensions",
+      "text": "Taiwan military forces conducted large-scale defense exercises this week as regional tensions continue to escalate.",
+      "url": "https://example.com/taiwan-defense",
+      "source": "Taipei Times",
+      "language": "en",
+      "scraped_at": "2025-06-22T17:33:03.876337",
+      "tags": [
+        "uncategorized"
+      ],
+      "translated_text": "Taiwan military forces conducted large-scale defense exercises this week as regional tensions continue to escalate.",
+      "needs_review": true
+    },
+    {
+      "id": "test_2",
+      "title": "Naval Patrol Activities Increase in South China Sea",
+      "text": "Multiple naval forces have increased patrol activities in the South China Sea region.",
+      "url": "https://example.com/naval-patrols",
+      "source": "Defense Weekly",
+      "language": "en",
+      "scraped_at": "2025-06-22T17:33:03.876337",
+      "tags": [
+        "uncategorized"
+      ],
+      "translated_text": "Multiple naval forces have increased patrol activities in the South China Sea region.",
+      "needs_review": true
+    }
+  ],
+  "escalation_scoring": {
+    "model_type": "xgboost_transformer_ensemble",
+    "average_score": 0.23687500000000003,
+    "high_risk_threshold": 0.5,
+    "article_scores": [
+      {
+        "article_id": "test_1",
+        "escalation_score": 0.38000000000000006,
+        "risk_factors": [
+          "military",
+          "tension"
+        ]
+      },
+      {
+        "article_id": "test_2",
+        "escalation_score": 0.09375000000000001,
+        "risk_factors": [
+          "military"
+        ]
+      }
+    ],
+    "total_articles": 2,
+    "high_risk_count": 0
+  },
+  "similarity_analysis": {
+    "similarity_matrix": {},
+    "high_similarity_pairs": [],
+    "cluster_coherence": {},
+    "duplicate_detection": []
+  },
+  "intelligence_report": {
+    "metadata": {
+      "report_id": "intel_report_20250622_173308",
+      "generation_timestamp": "2025-06-22T17:33:08.137601",
+      "articles_analyzed": 2,
+      "analytics_version": "1.0"
+    },
+    "significant_events": {
+      "high_escalation_events": [
+        {
+          "type": "high_escalation",
+          "article": {
+            "id": "test_1",
+            "title": "Taiwan Military Conducts Defense Exercises Amid Regional Tensions",
+            "text": "Taiwan military forces conducted large-scale defense exercises this week as regional tensions continue to escalate.",
+            "url": "https://example.com/taiwan-defense",
+            "source": "Taipei Times",
+            "language": "en",
+            "scraped_at": "2025-06-22T17:33:03.876337",
+            "tags": [
+              "uncategorized"
+            ],
+            "translated_text": "Taiwan military forces conducted large-scale defense exercises this week as regional tensions continue to escalate.",
+            "needs_review": true
+          },
+          "escalation_score": 0.38000000000000006,
+          "risk_factors": [
+            "military",
+            "tension"
+          ],
+          "significance_reason": "High escalation score: 0.380"
+        }
+      ],
+      "large_cluster_events": [],
+      "anomalous_events": [],
+      "trending_events": [],
+      "cross_source_events": [],
+      "temporal_anomalies": [],
+      "metadata": {
+        "detection_timestamp": "2025-06-22T17:33:08.143708",
+        "total_articles_analyzed": 2,
+        "significance_criteria": {
+          "escalation_threshold": 0.15,
+          "cluster_size_threshold": 2,
+          "anomaly_threshold": 2.0
+        },
+        "total_significant_events": 1,
+        "significance_rate": 0.5
+      }
+    },
+    "intelligence_summary": {
+      "executive_summary": "INTELLIGENCE SUMMARY - HIGH PRIORITY\nAnalysis Period: 2025-06-22\nSources Analyzed: 2 articles (OSINT + GDELT)\n\nKEY METRICS:\n- Total Significant Events: 1\n- High Escalation Events: 1\n- Large Clusters: 0\n- Cross-Source Confirmations: 0\n- Temporal Anomalies: 0\n\nASSESSMENT: Low activity levels within normal parameters.",
+      "high_priority_events": [
+        {
+          "event_type": "high_escalation_events",
+          "significance_reason": "High escalation score: 0.380",
+          "summary": "Detected High escalation score: 0.380 across 0 articles. ",
+          "key_themes": [],
+          "sources": [],
+          "countries_involved": [],
+          "article_count": 0,
+          "escalation_score": 0.0,
+          "confidence_level": "LOW",
+          "implications": "Standard intelligence monitoring recommended."
+        }
+      ],
+      "medium_priority_events": [],
+      "low_priority_events": [],
+      "trend_analysis": "No significant trending patterns detected in current analysis period.",
+      "threat_assessment": "THREAT LEVEL: MODERATE - 1 high-priority events require monitoring.",
+      "recommendations": "\u2022 Monitor 1 high-escalation events closely\n\u2022 Update escalation thresholds based on current findings\n\u2022 Archive significant events for trend analysis",
+      "metadata": {
+        "generation_timestamp": "2025-06-22T17:33:08.171400",
+        "model_used": "fast_lightweight_processor",
+        "total_events_summarized": 1,
+        "processing_time_seconds": 0.02981281280517578
+      }
+    },
+    "detailed_analysis": {
+      "event_breakdown": {
+        "high_escalation_events": {
+          "count": 1,
+          "percentage": 100.0
+        },
+        "large_cluster_events": {
+          "count": 0,
+          "percentage": 0.0
+        },
+        "anomalous_events": {
+          "count": 0,
+          "percentage": 0.0
+        },
+        "trending_events": {
+          "count": 0,
+          "percentage": 0.0
+        },
+        "cross_source_events": {
+          "count": 0,
+          "percentage": 0.0
+        },
+        "temporal_anomalies": {
+          "count": 0,
+          "percentage": 0.0
+        }
+      },
+      "geographic_distribution": {
+        "Taiwan": 1,
+        "United States": 1
+      },
+      "temporal_patterns": {
+        "publication_frequency": {
+          "17": 2
+        },
+        "peak_hours": [],
+        "unusual_patterns": []
+      },
+      "source_credibility": {
+        "Taipei Times": {
+          "significant_events": 1,
+          "event_types": 1,
+          "credibility_score": 30
+        }
+      },
+      "escalation_trends": {
+        "average_score": 0.23687500000000003,
+        "high_risk_percentage": 0.0,
+        "trend_direction": "stable",
+        "concerning_patterns": []
+      }
+    },
+    "sources": {
+      "total_sources": 2,
+      "source_distribution": {
+        "Taipei Times": 1,
+        "Defense Weekly": 1
+      },
+      "high_value_sources": [
+        "Taipei Times"
+      ],
+      "cross_verification": {},
+      "source_reliability_scores": {
+        "Taipei Times": 60,
+        "Defense Weekly": 10
+      }
+    },
+    "recommendations": {
+      "immediate_actions": [
+        "URGENT: 1 high-escalation events require immediate assessment",
+        "Activate enhanced monitoring protocols for escalation indicators"
+      ],
+      "medium_term_monitoring": [],
+      "long_term_strategic": [
+        "Develop automated early warning systems based on detected patterns",
+        "Expand source coverage in under-represented geographic regions"
+      ],
+      "resource_allocation": {
+        "analyst_hours": "Low - Routine monitoring",
+        "automation_priority": "Low - Maintain current systems"
+      },
+      "risk_mitigation": [
+        "Establish direct communication channels with relevant stakeholders",
+        "Prepare contingency response plans for identified escalation scenarios",
+        "Maintain diversified source portfolio to prevent information gaps"
+      ]
+    }
+  },
+  "processing_time": {
+    "clustering": 0.0,
+    "escalation_scoring": 0.221367,
+    "similarity_analysis": 0.0,
+    "intelligence_report": 0.08019,
+    "total": 0.32106
+  }
+}

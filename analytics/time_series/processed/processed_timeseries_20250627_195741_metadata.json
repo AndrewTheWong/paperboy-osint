@@ -1,0 +1,198 @@
+{
+  "quality_metrics": {
+    "total_records": 1,
+    "date_range": {
+      "start": "2025-06-27 00:00:00",
+      "end": "2025-06-27 00:00:00",
+      "days": 0
+    },
+    "missing_values": {
+      "escalation_score_mean": {
+        "count": 0,
+        "percentage": 0.0
+      },
+      "escalation_score_std": {
+        "count": 0,
+        "percentage": 0.0
+      },
+      "escalation_score_min": {
+        "count": 0,
+        "percentage": 0.0
+      },
+      "escalation_score_max": {
+        "count": 0,
+        "percentage": 0.0
+      },
+      "escalation_score_count": {
+        "count": 0,
+        "percentage": 0.0
+      },
+      "article_length_mean": {
+        "count": 0,
+        "percentage": 0.0
+      },
+      "article_length_sum": {
+        "count": 0,
+        "percentage": 0.0
+      },
+      "title_length_mean": {
+        "count": 0,
+        "percentage": 0.0
+      },
+      "region_<lambda>": {
+        "count": 0,
+        "percentage": 0.0
+      },
+      "topic_<lambda>": {
+        "count": 0,
+        "percentage": 0.0
+      },
+      "hour_avg": {
+        "count": 0,
+        "percentage": 0.0
+      },
+      "day_of_week_mode": {
+        "count": 0,
+        "percentage": 0.0
+      },
+      "escalation_score_mean_lag1": {
+        "count": 1,
+        "percentage": 100.0
+      },
+      "escalation_score_mean_lag7": {
+        "count": 1,
+        "percentage": 100.0
+      },
+      "escalation_score_mean_lag30": {
+        "count": 1,
+        "percentage": 100.0
+      },
+      "escalation_score_ma7": {
+        "count": 1,
+        "percentage": 100.0
+      },
+      "escalation_score_ma30": {
+        "count": 1,
+        "percentage": 100.0
+      },
+      "escalation_score_std7": {
+        "count": 1,
+        "percentage": 100.0
+      },
+      "year": {
+        "count": 0,
+        "percentage": 0.0
+      },
+      "month": {
+        "count": 0,
+        "percentage": 0.0
+      },
+      "day": {
+        "count": 0,
+        "percentage": 0.0
+      },
+      "quarter": {
+        "count": 0,
+        "percentage": 0.0
+      },
+      "day_of_year": {
+        "count": 0,
+        "percentage": 0.0
+      },
+      "week_of_year": {
+        "count": 0,
+        "percentage": 0.0
+      },
+      "is_weekend": {
+        "count": 0,
+        "percentage": 0.0
+      },
+      "is_month_start": {
+        "count": 0,
+        "percentage": 0.0
+      },
+      "is_month_end": {
+        "count": 0,
+        "percentage": 0.0
+      },
+      "month_sin": {
+        "count": 0,
+        "percentage": 0.0
+      },
+      "month_cos": {
+        "count": 0,
+        "percentage": 0.0
+      },
+      "day_sin": {
+        "count": 0,
+        "percentage": 0.0
+      },
+      "day_cos": {
+        "count": 0,
+        "percentage": 0.0
+      },
+      "dow_sin": {
+        "count": 0,
+        "percentage": 0.0
+      },
+      "dow_cos": {
+        "count": 0,
+        "percentage": 0.0
+      },
+      "time_trend": {
+        "count": 0,
+        "percentage": 0.0
+      },
+      "time_trend_sq": {
+        "count": 0,
+        "percentage": 0.0
+      },
+      "volatility_7d": {
+        "count": 1,
+        "percentage": 100.0
+      },
+      "volatility_30d": {
+        "count": 1,
+        "percentage": 100.0
+      },
+      "escalation_change": {
+        "count": 1,
+        "percentage": 100.0
+      },
+      "escalation_pct_change": {
+        "count": 1,
+        "percentage": 100.0
+      },
+      "momentum_3d": {
+        "count": 1,
+        "percentage": 100.0
+      },
+      "momentum_7d": {
+        "count": 1,
+        "percentage": 100.0
+      },
+      "position_in_30d_range": {
+        "count": 1,
+        "percentage": 100.0
+      }
+    },
+    "data_consistency": {
+      "escalation_score": {
+        "min": 0.5,
+        "max": 0.5,
+        "mean": 0.5,
+        "std": NaN,
+        "negative_values": 0,
+        "zero_values": 0
+      }
+    },
+    "outliers": {
+      "escalation_score": {
+        "count": 0,
+        "percentage": 0.0,
+        "values": []
+      }
+    },
+    "frequency": "<Day>"
+  }
+}
