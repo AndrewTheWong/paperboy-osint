@@ -129,6 +129,21 @@ CREATE TABLE intelligence_reports (
     created_at TIMESTAMP DEFAULT NOW()
 );
 
+-- Clusters table for storing thematic clusters
+CREATE TABLE clusters (
+    id SERIAL PRIMARY KEY,
+    theme TEXT NOT NULL,
+    summary TEXT,
+    article_ids INTEGER[],
+    status TEXT DEFAULT 'processing',
+    priority_level TEXT DEFAULT 'MEDIUM',
+    escalation_score REAL DEFAULT 0.0,
+    region TEXT,
+    topic TEXT,
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+
 -- Create indexes for performance
 CREATE INDEX idx_osint_articles_url ON osint_articles(url);
 CREATE INDEX idx_osint_articles_relevant ON osint_articles(relevant);
@@ -155,3 +170,7 @@ CREATE INDEX idx_forecasts_created_at ON forecasts(created_at);
 
 CREATE INDEX idx_agent_runs_agent_name ON agent_runs(agent_name);
 CREATE INDEX idx_agent_runs_created_at ON agent_runs(created_at);
+
+CREATE INDEX idx_clusters_status ON clusters(status);
+CREATE INDEX idx_clusters_created_at ON clusters(created_at);
+CREATE INDEX idx_clusters_priority_level ON clusters(priority_level);

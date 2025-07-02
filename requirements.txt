@@ -41,3 +41,66 @@ qdrant-client
 # BigQuery dependencies
 google-cloud-bigquery>=3.0.0
 
+# FastAPI and web framework
+fastapi==0.115.14
+uvicorn[standard]==0.35.0
+pydantic==2.10.1
+pydantic-settings==2.10.1
+
+# Database and ORM
+supabase==1.0.3
+postgrest==0.10.7
+realtime==1.0.6
+storage3==0.5.3
+
+# Task queue and caching
+celery==5.5.3
+redis==6.2.0
+billiard==4.2.1
+
+# HTTP client and networking
+httpx==0.24.1
+aiohttp==3.12.3
+requests==2.32.3
+
+# Web scraping
+beautifulsoup4==4.13.4
+trafilatura==8.1.2
+newspaper3k==0.2.8
+lxml==5.3.0
+readability-lxml==0.8.4.1
+
+# Machine Learning
+sentence-transformers==3.6.1
+transformers==4.44.2
+torch==2.7.1
+torchvision==0.22.1
+torchaudio==2.7.1
+scikit-learn==1.6.2
+numpy==2.3.1
+pandas==2.3.1
+
+# Natural Language Processing
+spacy==3.8.7
+langdetect==1.0.9
+deep-translator==1.11.4
+
+# Data processing and analysis
+chromadb==1.0.13
+tqdm==4.67.1
+python-dateutil==2.9.0
+dateparser==1.2.1
+
+# Utilities
+python-dotenv==1.0.1
+click==8.2.1
+colorlog==6.9.0
+coloredlogs==15.0.1
+
+# Development and testing
+pytest==8.3.4
+pytest-asyncio==1.0.0
+
+# Optional: GPU support
+# torch==2.7.1+cu118 --index-url https://download.pytorch.org/whl/cu118
+
