@@ -1,6 +1,9 @@
 # Byte-compiled / cache
 __pycache__/
+**/__pycache__/
 *.py[cod]
+*.pyo
+*.pyd
 *.so
 *.egg
 *.egg-info/
@@ -17,6 +20,7 @@ venv/
 
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/
+*.ipynb_checkpoints/
 
 # Data and logs (can be large or sensitive)
 data/
@@ -57,6 +61,7 @@ analytics/time_series/processed/
 # Cache directories
 cache/
 *.cache
+.pytest_cache/
 
 # Large data files
 *.csv
@@ -88,6 +93,16 @@ Thumbs.db
 *.bak
 *.swp
 *.swo
+*.pid
+*.sqlite3
+*.db
+*.coverage
+.coverage
+*.lock
+*.orig
+*.rej
+*.out
+*.err
 
 # IDE files
 .idea/
@@ -102,3 +117,13 @@ Thumbs.db
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Supabase temp files
+supabase/.temp/
+
+# Test files (optional - uncomment if you don't want to track test scripts)
+# test_*.py
+# *_test.py
+
+# Local configuration files
+scraper/input_urls.json
