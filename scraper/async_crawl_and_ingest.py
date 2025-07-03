@@ -325,7 +325,7 @@ class AsyncCrawler:
         # Extract article content
         article = self.extract_article_content(soup, url)
         if article:
-            article['id'] = str(uuid.uuid4())
+            article['article_id'] = str(uuid.uuid4())
             article['source_url'] = article['source_url']
             if self.collect_batch:
                 self.collected_articles.append(article)
@@ -336,7 +336,14 @@ class AsyncCrawler:
             else:
                 # Send to backend
                 try:
-                    result = self.ingest_client.send_article(**article)
+                    result = self.ingest_client.send_article(
+                        title=article['title'],
+                        body=article['body'],
+                        source_url=article['source_url'],
+                        region=article.get('region'),
+                        topic=article.get('topic'),
+                        article_id=article.get('article_id')
+                    )
                     if result.get('status') == 'queued':
                         self.stats['sent'] += 1
                         logger.info(f"✅ Sent article: {article['title'][:50]}...")

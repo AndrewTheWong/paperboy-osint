@@ -6,7 +6,7 @@ Supabase service for database operations
 import sys
 import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
-from utils.supabase_client import get_supabase_client
+from app.utils.supabase_client import get_supabase_client
 from datetime import datetime, timedelta
 from typing import List, Dict, Optional, Any
 import logging

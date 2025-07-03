@@ -62,7 +62,7 @@ async def get_digest_status():
         dict: Status information about digest generation
     """
     try:
-        from utils.supabase_client import get_supabase_client
+        from app.utils.supabase_client import get_supabase_client
         from datetime import datetime, timedelta
         
         supabase = get_supabase_client()

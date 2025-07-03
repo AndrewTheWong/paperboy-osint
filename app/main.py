@@ -90,7 +90,7 @@ async def ingest_article(article: Article):
     """Ingest a single article"""
     try:
         # Import here to avoid circular imports
-        from utils.supabase_client import get_supabase_client
+        from app.utils.supabase_client import get_supabase_client
         
         supabase = get_supabase_client()
         
@@ -135,7 +135,7 @@ async def ingest_article(article: Article):
 async def get_ingest_status():
     """Get ingestion pipeline status"""
     try:
-        from utils.supabase_client import get_supabase_client
+        from app.utils.supabase_client import get_supabase_client
         
         supabase = get_supabase_client()
         
@@ -165,7 +165,7 @@ async def get_ingest_status():
 async def get_articles(limit: int = 100, offset: int = 0):
     """Get list of articles"""
     try:
-        from utils.supabase_client import get_supabase_client
+        from app.utils.supabase_client import get_supabase_client
         
         supabase = get_supabase_client()
         
@@ -231,7 +231,7 @@ async def generate_report(request: ReportRequest):
 async def get_quick_report():
     """Get a quick summary report without full analysis"""
     try:
-        from utils.supabase_client import get_supabase_client
+        from app.utils.supabase_client import get_supabase_client
         
         supabase = get_supabase_client()
         
@@ -268,7 +268,7 @@ async def get_quick_report():
 async def get_report_status():
     """Get status of report generation capabilities"""
     try:
-        from utils.supabase_client import get_supabase_client
+        from app.utils.supabase_client import get_supabase_client
         
         supabase = get_supabase_client()
         
@@ -344,7 +344,7 @@ async def get_scraper_status():
     """Get scraper status and available sources"""
     try:
         from app.services.scraper_service import TAIWAN_STRAIT_SOURCES
-        from utils.supabase_client import get_supabase_client
+        from app.utils.supabase_client import get_supabase_client
         
         supabase = get_supabase_client()
         

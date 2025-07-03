@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 from typing import Dict, List, Any, Optional
 from collections import defaultdict, Counter
 
-from utils.supabase_client import get_supabase_client
+from app.utils.supabase_client import get_supabase_client
 from app.utils.formatter import format_digest
 
 # Configure logging

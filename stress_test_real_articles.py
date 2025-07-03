@@ -129,7 +129,6 @@ class StressTestRunner:
             source = sources[i % len(sources)]
             
             article = {
-                "article_id": f"fallback-{i+1:03d}",
                 "title": f"{topic} Update in {region} - Article {i+1}",
                 "body": f"""
                 <article>
@@ -149,7 +148,7 @@ class StressTestRunner:
                 geographic tagging, and clustering effectively.</p>
                 </article>
                 """,
-                "url": f"https://{source}.com/articles/{i+1}",
+                "source_url": f"https://{source}.com/articles/{i+1}",
                 "source": source,
                 "region": region,
                 "topic": topic,
@@ -164,16 +163,23 @@ class StressTestRunner:
         try:
             start_time = time.time()
             
+            # Prepare article data for API (only send required fields)
+            api_article = {
+                "title": article["title"],
+                "body": article["body"],
+                "source_url": article["source_url"]
+            }
+            
             response = requests.post(
                 f"{self.api_base_url}/ingest/v2/",
-                json=article,
+                json=api_article,
                 timeout=120
             )
             
             end_time = time.time()
             
             return {
-                "article_id": article["article_id"],
+                "article_id": article.get("article_id", "unknown"),
                 "status": "success" if response.status_code == 200 else "failed",
                 "status_code": response.status_code,
                 "response_time": end_time - start_time,
@@ -183,7 +189,7 @@ class StressTestRunner:
             
         except Exception as e:
             return {
-                "article_id": article["article_id"],
+                "article_id": article.get("article_id", "unknown"),
                 "status": "error",
                 "status_code": None,
                 "response_time": None,
@@ -196,9 +202,18 @@ class StressTestRunner:
         try:
             start_time = time.time()
             
+            # Prepare articles data for API (only send required fields)
+            api_articles = []
+            for article in articles:
+                api_articles.append({
+                    "title": article["title"],
+                    "body": article["body"],
+                    "source_url": article["source_url"]
+                })
+            
             response = requests.post(
                 f"{self.api_base_url}/ingest/v2/batch-optimized/?batch_size={batch_size}",
-                json=articles,
+                json=api_articles,
                 timeout=300
             )
             

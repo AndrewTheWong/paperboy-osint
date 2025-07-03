@@ -83,100 +83,108 @@ def preprocess_article(self, article: Dict[str, Any]) -> Dict[str, Any]:
 @celery_app.task(bind=True, max_retries=3)
 def tag_article_ner(self, article: Dict[str, Any]) -> Dict[str, Any]:
     """
-    Apply Named Entity Recognition and tagging
+    Apply comprehensive OSINT tagging using gazetteer, patterns, and NER
     """
     try:
-        logger.info(f"🏷️  Tagging article {article.get('article_id', 'unknown')}")
+        logger.info(f"🏷️  Tagging article {article.get('id', article.get('article_id', 'unknown'))}")
         
-        content = article.get("cleaned_text", "").lower()
-        title = article.get("title", "").lower()
-        full_text = f"{title} {content}"
+        # Import the tagging service
+        from app.services.tagger import tag_article
         
-        tags = []
+        # Get article content
+        content = article.get("cleaned_text", article.get("body", ""))
+        title = article.get("title", "")
+        
+        if not content:
+            logger.warning(f"⚠️ Article {article.get('id')} has no content for tagging")
+            # Set default values
+            article.update({
+                "tag_categories": {},
+                "tags": [],
+                "entities": [],
+                "confidence_score": 0.0,
+                "priority_level": "LOW",
+                "region": article.get("region", "Unknown"),
+                "topic": article.get("topic", "General")
+            })
+            return article
+        
+        # Perform comprehensive tagging
+        tagging_result = tag_article(content, title)
+        
+        # Extract entities from tags for backward compatibility
         entities = []
-        
-        # Geographic entities
-        geographic_terms = {
-            "taiwan": "Taiwan",
-            "china": "China", 
-            "south china sea": "South China Sea",
-            "strait of malacca": "Strait of Malacca",
-            "singapore": "Singapore",
-            "malaysia": "Malaysia",
-            "philippines": "Philippines",
-            "indonesia": "Indonesia",
-            "vietnam": "Vietnam",
-            "thailand": "Thailand",
-            "myanmar": "Myanmar",
-            "brunei": "Brunei"
-        }
-        
-        # Security/Military entities  
-        security_terms = {
-            "naval": "Naval Operations",
-            "military": "Military",
-            "exercise": "Military Exercise",
-            "cybersecurity": "Cybersecurity",
-            "cyber": "Cyber Operations",
-            "hacking": "Cyber Attack",
-            "surveillance": "Surveillance",
-            "intelligence": "Intelligence",
-            "terrorism": "Terrorism",
-            "piracy": "Maritime Piracy"
-        }
-        
-        # Check for geographic entities
-        for term, entity in geographic_terms.items():
-            if term in full_text:
+        for tag in tagging_result['tags']:
+            if ':' in tag:
+                entity = tag.split(":")[-1]
                 if entity not in entities:
                     entities.append(entity)
-                    tags.append(f"GEO:{entity}")
         
-        # Check for security entities
-        for term, entity in security_terms.items():
-            if term in full_text:
-                if entity not in entities:
-                    entities.append(entity)
-                    tags.append(f"SEC:{entity}")
-        
-        # Determine primary region
+        # Determine region and topic from tags if not already set
         region = article.get("region", "Unknown")
-        if not region or region == "Unknown":
-            if any(term in full_text for term in ["taiwan", "china", "south china sea"]):
+        topic = article.get("topic", "General")
+        
+        # Update region based on geographic tags
+        geo_tags = tagging_result['tag_categories'].get('geo', [])
+        if geo_tags:
+            if any(geo in ['Taiwan', 'China', 'South China Sea', 'East China Sea'] for geo in geo_tags):
                 region = "East Asia"
-            elif any(term in full_text for term in ["malacca", "singapore", "malaysia", "indonesia"]):
+            elif any(geo in ['Philippines', 'Vietnam', 'Malaysia', 'Indonesia', 'Singapore'] for geo in geo_tags):
                 region = "Southeast Asia"
+            elif any(geo in ['Japan', 'South Korea'] for geo in geo_tags):
+                region = "Northeast Asia"
             else:
                 region = "Asia Pacific"
         
-        # Determine primary topic
-        topic = article.get("topic", "General")
-        if not topic or topic == "General":
-            if any(term in full_text for term in ["cyber", "hacking", "cybersecurity"]):
-                topic = "Cybersecurity"
-            elif any(term in full_text for term in ["naval", "military", "exercise"]):
-                topic = "Maritime Security"
-            elif any(term in full_text for term in ["terrorism", "intelligence"]):
-                topic = "Security Intelligence"
-            else:
-                topic = "General"
+        # Update topic based on capability and event tags
+        capability_tags = tagging_result['tag_categories'].get('capability', [])
+        event_tags = tagging_result['tag_categories'].get('event', [])
         
-        article["tags"] = tags
-        article["entities"] = entities
-        article["region"] = region
-        article["topic"] = topic
+        if any(cap in ['Cyber Warfare', 'Information Warfare', 'Cognitive Warfare'] for cap in capability_tags):
+            topic = "Cybersecurity"
+        elif any(event in ['Live Fire Drill', 'Military Exercise', 'Naval Patrol'] for event in event_tags):
+            topic = "Maritime Security"
+        elif any(cap in ['ISR', 'Surveillance'] for cap in capability_tags):
+            topic = "Intelligence"
+        else:
+            topic = "General"
         
-        logger.info(f"✅ Tagged article {article.get('article_id')}: {len(tags)} tags, region={region}, topic={topic}")
+        # Update article with tagging results
+        article.update({
+            "tag_categories": tagging_result['tag_categories'],
+            "tags": tagging_result['tags'],
+            "entities": entities,
+            "confidence_score": tagging_result['confidence_score'],
+            "priority_level": tagging_result['priority_level'],
+            "region": region,
+            "topic": topic
+        })
+        
+        logger.info(f"✅ Tagged article {article.get('id')}: {len(tagging_result['tags'])} tags, "
+                   f"confidence={tagging_result['confidence_score']:.3f}, "
+                   f"priority={tagging_result['priority_level']}, "
+                   f"region={region}, topic={topic}")
+        
         return article
         
     except Exception as e:
-        logger.error(f"❌ Error tagging article {article.get('article_id')}: {e}")
+        logger.error(f"❌ Error tagging article {article.get('id', article.get('article_id'))}: {e}")
+        # Set default values on error
+        article.update({
+            "tag_categories": {},
+            "tags": [],
+            "entities": [],
+            "confidence_score": 0.0,
+            "priority_level": "LOW",
+            "region": article.get("region", "Unknown"),
+            "topic": article.get("topic", "General")
+        })
         raise self.retry(countdown=60, max_retries=3)
 
 @celery_app.task(bind=True, max_retries=3)
 def embed_and_cluster_article(self, article: Dict[str, Any]) -> Dict[str, Any]:
     """
-    Generate embedding and assign cluster
+    Generate embedding and assign to cluster using FAISS
     """
     try:
         logger.info(f"🔢 Embedding and clustering article {article.get('article_id', 'unknown')}")
@@ -188,15 +196,21 @@ def embed_and_cluster_article(self, article: Dict[str, Any]) -> Dict[str, Any]:
         text_to_embed = f"{article.get('title', '')} {article.get('cleaned_text', '')}"
         embedding = sbert_model.encode(text_to_embed)
         
-        # For now, assign a preliminary cluster ID based on topic similarity
-        # In a full implementation, this would use existing clusters from database
-        cluster_id = hash(f"{article.get('region', 'Unknown')}_{article.get('topic', 'General')}") % 1000
+        # Use FAISS for cluster assignment - ensure fresh data
+        from app.services.faiss_cluster import assign_cluster, label_cluster, reload_faiss
+        reload_faiss()  # Force reload to get latest data
+        cluster_id = assign_cluster(embedding)
+        
+        # Generate cluster label with fresh data
+        cluster_label, cluster_description = label_cluster(cluster_id)
         
         article["embedding"] = embedding.tolist()
         article["cluster_id"] = cluster_id
+        article["cluster_label"] = cluster_label
+        article["cluster_description"] = cluster_description
         article["embedding_dimensions"] = len(embedding)
         
-        logger.info(f"✅ Embedded article {article.get('article_id')}: {len(embedding)} dimensions, cluster={cluster_id}")
+        logger.info(f"✅ Embedded article {article.get('article_id')}: {len(embedding)} dims, cluster={cluster_id}, label='{cluster_label}'")
         return article
         
     except Exception as e:
@@ -206,78 +220,78 @@ def embed_and_cluster_article(self, article: Dict[str, Any]) -> Dict[str, Any]:
 @celery_app.task(bind=True, max_retries=3)
 def store_to_supabase(self, article: Dict[str, Any]) -> Dict[str, Any]:
     """
-    Store processed article to local Supabase (Updated Schema)
+    Store article to Supabase and update/create cluster entry
     """
     try:
-        logger.info(f"💾 Storing article {article.get('article_id', 'unknown')} to Supabase")
-        
-        # Import Supabase client with proper path handling
-        import sys
-        import os
-        
-        # Add project root to path
-        project_root = os.path.join(os.path.dirname(__file__), '..', '..')
-        if project_root not in sys.path:
-            sys.path.append(project_root)
-        
-        try:
-            from utils.supabase_client import get_supabase_client
-            supabase = get_supabase_client()
-        except ImportError:
-            # Fallback to direct Supabase client creation
-            from supabase import create_client, Client
-            SUPABASE_URL = "http://localhost:54321"
-            SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU"
-            supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
-        
-        # Prepare article data for updated schema
+        from app.services.supabase import get_supabase_client
+        supabase = get_supabase_client()
+        import uuid
+        import datetime
+
+        # Prepare article data
         article_data = {
-            "title": article["title"],
-            "content": article.get("body", article.get("content", "")),
-            "cleaned": article.get("cleaned_text", article.get("cleaned", "")),
-            "url": article.get("source_url", article.get("url", f"https://pipeline.local/{article['article_id']}")),
-            "source": article.get("source", "StraitWatch Pipeline"),
-            "region": article.get("region", ""),
-            "topic": article.get("topic", ""),
-            "tags": article.get("tags", []),
-            "entities": article.get("entities", []),
-            "cluster_id": str(article.get("cluster_id", "")),
-            "confidence_score": article.get("confidence_score"),
-            "embedding_dimensions": len(article.get("embedding", [])) if article.get("embedding") else None,
-            "processed_by": "StraitWatch Pipeline v2"
+            'id': article.get('article_id') or str(uuid.uuid4()),
+            'title': article.get('title', ''),
+            'url': article.get('source_url', ''),
+            'content': article.get('body', ''),
+            'cleaned': article.get('cleaned_text', ''),
+            'tags': article.get('tags', []),
+            'tag_categories': article.get('tag_categories', {}),
+            'entities': article.get('entities', []),
+            'region': article.get('region', 'Unknown'),
+            'topic': article.get('topic', 'General'),
+            'confidence_score': article.get('confidence_score', 0.0),
+            'priority_level': article.get('priority_level', 'LOW'),
+            'embedding': article.get('embedding', []),
+            'embedding_dimensions': len(article.get('embedding', [])),
+            'cluster_id': article.get('cluster_id', None),
+            'cluster_label': article.get('cluster_label', ''),
+            'inserted_at': datetime.datetime.now().isoformat(),
+            'created_at': datetime.datetime.now().isoformat(),
+            'updated_at': datetime.datetime.now().isoformat(),
+            'status': 'processed',
         }
-        
-        # Only set original_id if it's a valid UUID
-        try:
-            import uuid
-            uuid.UUID(article["article_id"])
-            article_data["original_id"] = article["article_id"]
-        except (ValueError, TypeError):
-            # If not a valid UUID, let the database auto-generate the ID
-            logger.info(f"Article ID '{article['article_id']}' is not a valid UUID, letting DB auto-generate")
-        
-        # Insert into articles table (let database auto-generate ID)
-        response = supabase.table("articles").insert(article_data).execute()
-        
-        if response.data:
-            db_id = response.data[0].get("id")
-            logger.info(f"✅ Stored article {article.get('article_id')} to Supabase with DB ID {db_id}")
-            
-            return {
-                "status": "stored",
-                "article_id": article.get("article_id"),
-                "database_id": db_id,
-                "cluster_id": article.get("cluster_id"),
-                "tags_count": len(article.get("tags", [])),
-                "entities_count": len(article.get("entities", [])),
-                "embedding_dimensions": len(article.get("embedding", [])) if article.get("embedding") else 0,
-                "stored_schema": "updated_schema_v2"
-            }
-        else:
-            raise Exception("No data returned from Supabase insert")
-        
+        # Store article
+        res = supabase.table('articles').upsert(article_data).execute()
+        logger.info(f"💾 Stored article {article_data['id']} to Supabase")
+
+        # Handle cluster creation/update
+        cluster_id = article_data.get('cluster_id')
+        if cluster_id:
+            # Try to fetch cluster
+            cluster_res = supabase.table('clusters').select('*').eq('cluster_id', cluster_id).execute()
+            if cluster_res.data and len(cluster_res.data) > 0:
+                # Update existing cluster
+                cluster = cluster_res.data[0]
+                article_ids = cluster.get('article_ids') or []
+                if article_data['id'] not in article_ids:
+                    article_ids.append(article_data['id'])
+                supabase.table('clusters').update({'article_ids': article_ids, 'updated_at': datetime.datetime.now().isoformat()}).eq('cluster_id', cluster_id).execute()
+            else:
+                # Create new cluster
+                supabase.table('clusters').insert({
+                    'cluster_id': cluster_id,
+                    'article_ids': [article_data['id']],
+                    'region': article_data['region'],
+                    'topic': article_data['topic'],
+                    'status': 'pending',
+                    'created_at': datetime.datetime.now().isoformat(),
+                    'updated_at': datetime.datetime.now().isoformat(),
+                }).execute()
+
+        # Update cluster label in clusters table
+        if article.get('cluster_id') and article.get('cluster_label'):
+            cluster_label = article.get('cluster_label', '')
+            if cluster_label and cluster_label != 'Unlabeled':
+                supabase.table('clusters').update({
+                    'theme': cluster_label,
+                    'updated_at': datetime.datetime.now().isoformat()
+                }).eq('cluster_id', article['cluster_id']).execute()
+                logger.info(f"🏷️ Updated cluster {article['cluster_id']} with label: {cluster_label}")
+
+        return {'status': 'stored', 'article_id': article_data['id'], 'cluster_id': cluster_id}
     except Exception as e:
-        logger.error(f"❌ Error storing article {article.get('article_id')} to Supabase: {e}")
+        logger.error(f"❌ Error storing article {article.get('article_id')}: {e}")
         raise self.retry(countdown=60, max_retries=3)
 
 # === PIPELINE ORCHESTRATOR ===
@@ -341,7 +355,7 @@ def store_batch_to_supabase(self, articles: List[Dict[str, Any]]) -> Dict[str, A
             sys.path.append(project_root)
         
         try:
-            from utils.supabase_client import get_supabase_client
+            from app.utils.supabase_client import get_supabase_client
             supabase = get_supabase_client()
         except ImportError:
             # Fallback to direct Supabase client creation
@@ -354,28 +368,34 @@ def store_batch_to_supabase(self, articles: List[Dict[str, Any]]) -> Dict[str, A
         batch_data = []
         
         for article in articles:
-            # Prepare article data for updated schema
+            # Prepare article data for updated schema with enhanced tagging and clustering
             article_data = {
                 "title": article["title"],
                 "content": article.get("body", article.get("content", "")),
                 "cleaned": article.get("cleaned_text", article.get("cleaned", "")),
-                "url": article.get("source_url", article.get("url", f"https://pipeline.local/{article['article_id']}")),
+                "url": article.get("source_url", article.get("url", f"https://pipeline.local/{article.get('id', article.get('article_id'))}")),
                 "source": article.get("source", "StraitWatch Pipeline"),
                 "region": article.get("region", ""),
                 "topic": article.get("topic", ""),
                 "tags": article.get("tags", []),
+                "tag_categories": article.get("tag_categories", {}),
                 "entities": article.get("entities", []),
                 "cluster_id": str(article.get("cluster_id", "")),
-                "confidence_score": article.get("confidence_score"),
+                "cluster_label": article.get("cluster_label", ""),
+                "cluster_description": article.get("cluster_description", ""),
+                "embedding": article.get("embedding", []),
+                "confidence_score": article.get("confidence_score", 0.0),
+                "priority_level": article.get("priority_level", "LOW"),
                 "embedding_dimensions": len(article.get("embedding", [])) if article.get("embedding") else None,
-                "processed_by": "StraitWatch Pipeline v2 Batch"
+                "processed_by": "StraitWatch Pipeline v2 Enhanced Tagging & Clustering Batch"
             }
             
             # Only set original_id if it's a valid UUID
+            article_id = article.get('id', article.get('article_id'))
             try:
                 import uuid
-                uuid.UUID(article["article_id"])
-                article_data["original_id"] = article["article_id"]
+                uuid.UUID(article_id)
+                article_data["original_id"] = article_id
             except (ValueError, TypeError):
                 # If not a valid UUID, let the database auto-generate the ID
                 pass
@@ -392,7 +412,7 @@ def store_batch_to_supabase(self, articles: List[Dict[str, Any]]) -> Dict[str, A
                 "status": "batch_stored",
                 "article_count": len(articles),
                 "database_ids": stored_ids,
-                "stored_schema": "updated_schema_v2"
+                "stored_schema": "updated_schema_v2_enhanced_tagging"
             }
         else:
             raise Exception(f"Batch insert failed: expected {len(articles)} records, got {len(response.data) if response.data else 0}")

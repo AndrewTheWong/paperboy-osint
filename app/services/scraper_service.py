@@ -15,7 +15,7 @@ import trafilatura
 from urllib.parse import urljoin, urlparse
 import re
 
-from utils.supabase_client import get_supabase_client
+from app.utils.supabase_client import get_supabase_client
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
