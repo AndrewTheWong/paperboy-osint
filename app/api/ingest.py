@@ -66,7 +66,7 @@ async def ingest_article(article: ArticleIngest):
         logger.info(f"STARTING: Ingesting article {article.id}: {article.title}")
         
         # Import the pipeline task
-        from app.tasks.pipeline_tasks import run_article_pipeline
+        from workers.pipeline import run_article_pipeline
         
         # Prepare article data for the pipeline
         article_data = {
@@ -113,7 +113,7 @@ async def ingest_batch(articles: List[ArticleIngest]):
         logger.info(f"STARTING: Batch ingesting {len(articles)} articles")
         
         # Import the batch pipeline task
-        from app.tasks.pipeline_tasks import run_batch_pipeline
+        from workers.pipeline import run_batch_pipeline
         
         # Prepare articles data
         articles_data = []
@@ -175,18 +175,24 @@ async def get_ingest_status():
         dict: Status information about the ingestion pipeline
     """
     try:
-        from app.services.supabase import get_articles_count, get_unprocessed_count
+        from db.redis_queue import get_queue_size
+        from db.supabase_client import get_articles_count
         
+        # Get Redis queue sizes
+        clustering_queue_size = get_queue_size()
+        
+        # Get Supabase article counts
         total_articles = get_articles_count()
-        unprocessed_articles = get_unprocessed_count()
-        processed_articles = total_articles - unprocessed_articles
+        
+        # Calculate ingestion rate based on recent activity
+        ingestion_rate = "active" if clustering_queue_size > 0 else "inactive"
         
         return {
-            "status": "running" if unprocessed_articles > 0 else "idle",
+            "status": "running" if clustering_queue_size > 0 else "idle",
             "total_articles": total_articles,
-            "processed_articles": processed_articles,
-            "unprocessed_articles": unprocessed_articles,
-            "pipeline": "preprocess -> tag -> embed -> store"
+            "queued_for_processing": clustering_queue_size,
+            "ingestion_rate": ingestion_rate,
+            "pipeline": "scrape -> queue -> preprocess -> cluster -> store"
         }
         
     except Exception as e:
@@ -232,7 +238,7 @@ async def ingest_article_v2(article: ArticleIngest):
         logger.info(f"STARTING: [V2] Ingesting article {article.id}: {article.title}")
         
         # Import the new pipeline task
-        from app.tasks.pipeline_tasks import run_article_pipeline
+        from workers.pipeline import run_article_pipeline
         
         # Prepare article data for the new pipeline
         article_data = {
@@ -279,7 +285,7 @@ async def ingest_batch_v2(articles: List[ArticleIngest]):
         logger.info(f"STARTING: [V2] Batch ingesting {len(articles)} articles")
         
         # Import the batch pipeline task
-        from app.tasks.pipeline_tasks import run_batch_pipeline
+        from workers.pipeline import run_batch_pipeline
         
         # Prepare articles data
         articles_data = []
@@ -332,7 +338,7 @@ async def ingest_batch_optimized(articles: List[ArticleIngest], batch_size: int 
         logger.info(f"STARTING: [V2-OPTIMIZED] Batch ingesting {len(articles)} articles with batch_size={batch_size}")
         
         # Import the optimized batch processing task
-        from app.tasks.pipeline_tasks import process_article_batch
+        from workers.pipeline import process_article_batch
         
         # Prepare articles data
         articles_data = []

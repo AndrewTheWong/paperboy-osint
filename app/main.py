@@ -27,7 +27,7 @@ app = FastAPI(
 )
 
 # Mount static files
-app.mount("/static", StaticFiles(directory="app/static"), name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Include routers
 from app.api import report, ingest
@@ -96,7 +96,7 @@ async def get_task_status(task_id: str):
     """Get the status of a Celery task"""
     try:
         from celery.result import AsyncResult
-        from app.celery_worker import celery_app
+        from celery_worker import celery_app
         
         result = AsyncResult(task_id, app=celery_app)
         
@@ -121,7 +121,7 @@ async def ingest_article(article: Article):
     """Ingest a single article"""
     try:
         # Import here to avoid circular imports
-        from app.utils.supabase_client import get_supabase_client
+        from config.supabase_client import get_supabase_client
         
         supabase = get_supabase_client()
         
@@ -169,7 +169,7 @@ async def ingest_article(article: Article):
 async def get_articles(limit: int = 100, offset: int = 0):
     """Get list of articles"""
     try:
-        from app.utils.supabase_client import get_supabase_client
+        from config.supabase_client import get_supabase_client
         
         supabase = get_supabase_client()
         
@@ -312,18 +312,24 @@ async def get_report_status():
 async def run_scraper(request: ScraperRequest):
     """Run the scraper to fetch articles and store in Supabase"""
     try:
-        from app.tasks.scraper import run_async_scraper
-        from app.services.scraper_service import TAIWAN_STRAIT_SOURCES
+        from workers.scraper import run_async_scraper
+        from services.scraper import UnifiedHighSpeedScraper
         
         logger.info("🚀 Starting async scraper task...")
         
+        # Load sources from JSON file
+        scraper = UnifiedHighSpeedScraper()
+        sources = scraper.sources
+        
         # Determine sources to use
         if request.use_default_sources:
-            sources = TAIWAN_STRAIT_SOURCES
+            # Use all sources from JSON
+            pass
         elif request.sources:
             sources = request.sources
         else:
-            sources = TAIWAN_STRAIT_SOURCES
+            # Use all sources from JSON
+            pass
         
         # Run scraper as Celery task
         task = run_async_scraper.delay(sources, request.max_articles_per_source)
@@ -348,8 +354,12 @@ async def run_scraper(request: ScraperRequest):
 async def get_scraper_status():
     """Get scraper status and available sources"""
     try:
-        from app.services.scraper_service import TAIWAN_STRAIT_SOURCES
+        from services.scraper import UnifiedHighSpeedScraper
         from app.utils.supabase_client import get_supabase_client
+        
+        # Load sources from JSON file
+        scraper = UnifiedHighSpeedScraper()
+        sources = scraper.sources
         
         supabase = get_supabase_client()
         
@@ -365,14 +375,14 @@ async def get_scraper_status():
             "status": "available",
             "total_articles": total_articles,
             "today_articles": today_articles,
-            "available_sources": len(TAIWAN_STRAIT_SOURCES),
+            "available_sources": len(sources),
             "default_sources": [
                 {
                     "name": source["name"],
                     "url": source["url"],
                     "type": source["type"]
                 }
-                for source in TAIWAN_STRAIT_SOURCES
+                for source in sources
             ],
             "capabilities": [
                 "parallel_scraping",
@@ -393,15 +403,19 @@ async def get_scraper_status():
 async def get_available_sources():
     """Get list of available scraping sources"""
     try:
-        from app.services.scraper_service import TAIWAN_STRAIT_SOURCES
+        from services.scraper import UnifiedHighSpeedScraper
+        
+        # Load sources from JSON file
+        scraper = UnifiedHighSpeedScraper()
+        sources = scraper.sources
         
         return {
-            "sources": TAIWAN_STRAIT_SOURCES,
-            "total_sources": len(TAIWAN_STRAIT_SOURCES),
+            "sources": sources,
+            "total_sources": len(sources),
             "categories": {
-                "taiwan_media": len([s for s in TAIWAN_STRAIT_SOURCES if "taiwan" in s["name"].lower()]),
-                "chinese_media": len([s for s in TAIWAN_STRAIT_SOURCES if "china" in s["name"].lower()]),
-                "international_media": len([s for s in TAIWAN_STRAIT_SOURCES if "china" not in s["name"].lower() and "taiwan" not in s["name"].lower()])
+                "taiwan_media": len([s for s in sources if "taiwan" in s["name"].lower()]),
+                "chinese_media": len([s for s in sources if "china" in s["name"].lower()]),
+                "international_media": len([s for s in sources if "china" not in s["name"].lower() and "taiwan" not in s["name"].lower()])
             }
         }
         
@@ -416,8 +430,8 @@ async def get_available_sources():
 async def run_clustering():
     """Run fast clustering on articles in database"""
     try:
-        from app.services.fast_clustering import cluster_articles_complete_with_summaries
-        from app.services.supabase import get_articles_with_embeddings, save_cluster
+        from services.clusterer import cluster_articles_complete_with_summaries
+        from db.supabase_client import get_articles_with_embeddings, save_cluster
         import uuid
         
         logger.info("🚀 Starting fast clustering process...")
@@ -522,7 +536,7 @@ async def run_clustering():
 async def run_summarization():
     """Trigger summarization of articles"""
     try:
-        from app.tasks.summarize import summarize_articles_task
+        from workers.summarize import summarize_articles_task
         
         logger.info("📝 Triggering summarization...")
         
@@ -576,38 +590,75 @@ async def get_enhanced_status():
     try:
         from app.utils.supabase_client import get_supabase_client
         import redis
+        import time
         
         supabase = get_supabase_client()
         
-        # Get article counts
-        total_result = supabase.table('articles').select('id', count='exact').execute()
-        total_articles = total_result.count or 0
-        
-        processed_result = supabase.table('articles').select('id', count='exact').not_.is_('relevant', 'null').execute()
-        processed_articles = processed_result.count or 0
-        
-        # Get cluster count
-        cluster_result = supabase.table('clusters').select('id', count='exact').execute()
-        clusters_created = cluster_result.count or 0
-        
-        # Get summary count (articles with summaries)
-        summary_result = supabase.table('articles').select('id', count='exact').not_.is_('summary', 'null').execute()
-        summaries_generated = summary_result.count or 0
-        
-        # Get queue size
+        # Get Redis queue information
         try:
             r = redis.Redis(host='localhost', port=6379, db=0)
-            queue_size = r.llen('preprocess') if r.exists('preprocess') else 0
+            
+            # Get queue sizes
+            preprocess_queue_size = r.llen('preprocess') if r.exists('preprocess') else 0
+            clustering_queue_size = r.llen('clustering') if r.exists('clustering') else 0
+            scrape_queue_size = r.llen('scrape') if r.exists('scrape') else 0
+            
+            total_queue_size = preprocess_queue_size + clustering_queue_size + scrape_queue_size
+            
+            # Get recent activity (last 60 seconds)
+            current_time = time.time()
+            recent_activity = 0
+            
+            # Check for recent tasks in Redis
+            if r.exists('celery'):
+                recent_activity = len([k for k in r.keys('celery-task-meta-*') if r.ttl(k) > 0])
+                
+        except Exception as e:
+            logger.error(f"Redis connection error: {e}")
+            total_queue_size = 0
+            recent_activity = 0
+        
+        # Get cluster count from Supabase
+        try:
+            cluster_result = supabase.table('clusters').select('id', count='exact').execute()
+            clusters_created = cluster_result.count or 0
         except:
-            queue_size = 0
+            clusters_created = 0
+        
+        # Get summary count from Supabase
+        try:
+            summary_result = supabase.table('articles').select('id', count='exact').not_.is_('summary', 'null').execute()
+            summaries_generated = summary_result.count or 0
+        except:
+            summaries_generated = 0
+        
+        # Calculate articles scraped (from queue + processed)
+        try:
+            total_result = supabase.table('articles').select('id', count='exact').execute()
+            stored_articles = total_result.count or 0
+        except:
+            stored_articles = 0
+        
+        articles_scraped = stored_articles + total_queue_size
+        
+        # Calculate articles processed (stored articles with relevant flag)
+        try:
+            processed_result = supabase.table('articles').select('id', count='exact').not_.is_('relevant', 'null').execute()
+            processed_articles = processed_result.count or 0
+        except:
+            processed_articles = 0
+        
+        # Calculate ingestion rate (articles per minute)
+        ingestion_rate = recent_activity if recent_activity > 0 else 0
         
         return {
-            "articles_scraped": total_articles,
+            "articles_scraped": articles_scraped,
             "articles_processed": processed_articles,
             "clusters_created": clusters_created,
             "summaries_generated": summaries_generated,
-            "queue_size": queue_size,
-            "status": "active" if queue_size > 0 or processed_articles < total_articles else "inactive"
+            "queue_size": total_queue_size,
+            "ingestion_rate": ingestion_rate,
+            "status": "active" if total_queue_size > 0 or recent_activity > 0 else "inactive"
         }
         
     except Exception as e:
