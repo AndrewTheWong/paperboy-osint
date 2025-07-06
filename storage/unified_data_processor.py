@@ -28,7 +28,6 @@ class ProcessedData:
     semantic_tags: List[str] = field(default_factory=list)
     geographic_tags: List[str] = field(default_factory=list)
     sentiment_score: Optional[float] = None
-    escalation_score: Optional[float] = None
     significance_score: Optional[float] = None
     title_embedding: Optional[List[float]] = None
     content_embedding: Optional[List[float]] = None
@@ -122,7 +121,6 @@ class UnifiedDataProcessor:
             processed.coordinates = geo_info.get('coordinates')
             
             processed.sentiment_score = self._analyze_sentiment(title, content)
-            processed.escalation_score = self._calculate_escalation_score(processed)
             processed.significance_score = self._calculate_significance_score(processed)
             
             return processed
@@ -286,37 +284,10 @@ class UnifiedDataProcessor:
             logger.warning(f"Failed to analyze sentiment: {e}")
             return 0.0
     
-    def _calculate_escalation_score(self, processed: ProcessedData) -> float:
-        """Calculate escalation score using existing models"""
-        try:
-            escalation_keywords = [
-                'threat', 'attack', 'war', 'conflict', 'military', 'weapon',
-                'missile', 'invasion', 'tension', 'crisis', 'escalation'
-            ]
-            
-            text = f"{processed.title} {processed.content}".lower()
-            keyword_matches = sum(1 for keyword in escalation_keywords if keyword in text)
-            
-            base_score = min(keyword_matches / 5.0, 1.0)
-            
-            if processed.sentiment_score and processed.sentiment_score < -0.5:
-                base_score *= 1.2
-            
-            return min(base_score, 1.0)
-            
-        except Exception as e:
-            logger.warning(f"Failed to calculate escalation score: {e}")
-            return 0.0
-    
     def _calculate_significance_score(self, processed: ProcessedData) -> float:
         """Calculate significance score based on multiple factors"""
         try:
             score = 0.0
-            
-            score += abs(processed.escalation_score or 0) * 0.4
-            
-            if processed.sentiment_score:
-                score += abs(processed.sentiment_score) * 0.2
             
             tag_richness = len(processed.keyword_tags) / 10.0
             score += min(tag_richness, 0.3)
@@ -354,7 +325,6 @@ class UnifiedDataProcessor:
                     'semantic_tags': article.semantic_tags,
                     'geographic_tags': article.geographic_tags,
                     'sentiment_score': article.sentiment_score,
-                    'escalation_score': article.escalation_score,
                     'significance_score': article.significance_score,
                     'language': article.language,
                     'scraped_at': datetime.utcnow().isoformat(),
@@ -401,7 +371,6 @@ class UnifiedDataProcessor:
                     'semantic_tags': event.semantic_tags,
                     'geographic_tags': event.geographic_tags,
                     'sentiment_score': event.sentiment_score,
-                    'escalation_score': event.escalation_score,
                     'significance_score': event.significance_score,
                     'language': event.language,
                     'processed_at': event.processed_at.isoformat()

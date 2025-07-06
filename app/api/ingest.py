@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Ingest API Router for StraitWatch Backend
+Ingest API Router for Paperboy Backend
 Handles article ingestion endpoints
 """
 
@@ -48,34 +48,122 @@ async def ingest_article(article: ArticleIngest):
         if not article.id:
             article.id = str(uuid.uuid4())
         
-        logger.info(f"📥 Ingesting article {article.id}: {article.title}")
+        # Validate article content
+        if not article.body or len(article.body.strip()) < 50:
+            logger.warning(f"⚠️ Rejecting article {article.id} with insufficient content")
+            raise HTTPException(
+                status_code=400,
+                detail=f"Article must have at least 50 characters of content. Current length: {len(article.body or '')}"
+            )
         
-        # Import Celery task
-        from app.tasks.preprocess import preprocess_and_enqueue
+        if not article.title or len(article.title.strip()) < 5:
+            logger.warning(f"⚠️ Rejecting article {article.id} with insufficient title")
+            raise HTTPException(
+                status_code=400,
+                detail=f"Article must have a title of at least 5 characters. Current length: {len(article.title or '')}"
+            )
         
-        # Call the preprocessing task
-        task = preprocess_and_enqueue.delay(
-            article_id=article.id,
-            title=article.title,
-            body=article.body,
-            region=article.region,
-            topic=article.topic,
-            source_url=article.source_url
-        )
+        logger.info(f"STARTING: Ingesting article {article.id}: {article.title}")
         
-        logger.info(f"✅ Article {article.id} queued for preprocessing (task: {task.id})")
+        # Import the pipeline task
+        from app.tasks.pipeline_tasks import run_article_pipeline
+        
+        # Prepare article data for the pipeline
+        article_data = {
+            "article_id": article.id,
+            "title": article.title,
+            "body": article.body,
+            "region": article.region,
+            "topic": article.topic,
+            "source_url": article.source_url
+        }
+        
+        # Run the pipeline
+        task = run_article_pipeline.delay(article_data)
+        
+        logger.info(f"SUCCESS: Article {article.id} queued for pipeline (task: {task.id})")
         
         return IngestResponse(
             id=article.id,
-            status="queued",
-            message=f"Article queued for preprocessing. Task ID: {task.id}"
+            status="pipeline_started",
+            message=f"Article queued for processing pipeline. Task ID: {task.id}"
         )
         
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"❌ Error ingesting article: {e}")
         raise HTTPException(
             status_code=500,
             detail=f"Failed to ingest article: {str(e)}"
+        )
+
+@router.post("/batch/")
+async def ingest_batch(articles: List[ArticleIngest]):
+    """
+    Batch ingest articles using the pipeline (parallel processing)
+    
+    Args:
+        articles: List of article data
+        
+    Returns:
+        dict: Batch processing results
+    """
+    try:
+        logger.info(f"STARTING: Batch ingesting {len(articles)} articles")
+        
+        # Import the batch pipeline task
+        from app.tasks.pipeline_tasks import run_batch_pipeline
+        
+        # Prepare articles data
+        articles_data = []
+        for article in articles:
+            if not article.id:
+                article.id = str(uuid.uuid4())
+            
+            # Validate article content
+            if not article.body or len(article.body.strip()) < 50:
+                logger.warning(f"⚠️ Skipping article {article.id} with insufficient content")
+                continue
+            
+            if not article.title or len(article.title.strip()) < 5:
+                logger.warning(f"⚠️ Skipping article {article.id} with insufficient title")
+                continue
+            
+            articles_data.append({
+                "article_id": article.id,
+                "title": article.title,
+                "body": article.body,
+                "region": article.region,
+                "topic": article.topic,
+                "source_url": article.source_url
+            })
+        
+        if not articles_data:
+            raise HTTPException(
+                status_code=400,
+                detail="No valid articles provided for batch ingestion"
+            )
+        
+        # Run the batch pipeline
+        task = run_batch_pipeline.delay(articles_data)
+        
+        logger.info(f"SUCCESS: Batch ingestion queued {len(articles_data)} articles (task: {task.id})")
+        
+        return {
+            "status": "batch_started",
+            "message": f"Batch ingestion queued successfully. Task ID: {task.id}",
+            "articles_queued": len(articles_data),
+            "task_id": task.id
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"❌ Error in batch ingestion: {e}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to batch ingest articles: {str(e)}"
         )
 
 @router.get("/status")
@@ -98,7 +186,7 @@ async def get_ingest_status():
             "total_articles": total_articles,
             "processed_articles": processed_articles,
             "unprocessed_articles": unprocessed_articles,
-            "pipeline": "preprocess -> cluster -> summarize"
+            "pipeline": "preprocess -> tag -> embed -> store"
         }
         
     except Exception as e:
@@ -126,7 +214,22 @@ async def ingest_article_v2(article: ArticleIngest):
         if not article.id:
             article.id = str(uuid.uuid4())
         
-        logger.info(f"🚀 [V2] Ingesting article {article.id}: {article.title}")
+        # Validate article content
+        if not article.body or len(article.body.strip()) < 50:
+            logger.warning(f"⚠️ Rejecting article {article.id} with insufficient content (length: {len(article.body or '')})")
+            raise HTTPException(
+                status_code=400,
+                detail=f"Article must have at least 50 characters of content. Current length: {len(article.body or '')}"
+            )
+        
+        if not article.title or len(article.title.strip()) < 5:
+            logger.warning(f"⚠️ Rejecting article {article.id} with insufficient title (length: {len(article.title or '')})")
+            raise HTTPException(
+                status_code=400,
+                detail=f"Article must have a title of at least 5 characters. Current length: {len(article.title or '')}"
+            )
+        
+        logger.info(f"STARTING: [V2] Ingesting article {article.id}: {article.title}")
         
         # Import the new pipeline task
         from app.tasks.pipeline_tasks import run_article_pipeline
@@ -144,7 +247,7 @@ async def ingest_article_v2(article: ArticleIngest):
         # Run the upgraded pipeline
         task = run_article_pipeline.delay(article_data)
         
-        logger.info(f"✅ [V2] Article {article.id} queued for upgraded pipeline (task: {task.id})")
+        logger.info(f"SUCCESS: [V2] Article {article.id} queued for upgraded pipeline (task: {task.id})")
         
         return IngestResponse(
             id=article.id,
@@ -152,6 +255,8 @@ async def ingest_article_v2(article: ArticleIngest):
             message=f"Article queued for upgraded pipeline. Task ID: {task.id}"
         )
         
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"❌ [V2] Error ingesting article: {e}")
         raise HTTPException(
@@ -171,7 +276,7 @@ async def ingest_batch_v2(articles: List[ArticleIngest]):
         dict: Batch processing results
     """
     try:
-        logger.info(f"🔄 [V2] Batch ingesting {len(articles)} articles")
+        logger.info(f"STARTING: [V2] Batch ingesting {len(articles)} articles")
         
         # Import the batch pipeline task
         from app.tasks.pipeline_tasks import run_batch_pipeline
@@ -194,7 +299,7 @@ async def ingest_batch_v2(articles: List[ArticleIngest]):
         # Run batch pipeline
         task = run_batch_pipeline.delay(articles_data)
         
-        logger.info(f"✅ [V2] Batch of {len(articles)} articles queued (task: {task.id})")
+        logger.info(f"SUCCESS: [V2] Batch of {len(articles)} articles queued (task: {task.id})")
         
         return {
             "status": "batch_started",
@@ -224,7 +329,7 @@ async def ingest_batch_optimized(articles: List[ArticleIngest], batch_size: int 
         dict: Optimized batch processing results
     """
     try:
-        logger.info(f"🚀 [V2-OPTIMIZED] Batch ingesting {len(articles)} articles with batch_size={batch_size}")
+        logger.info(f"STARTING: [V2-OPTIMIZED] Batch ingesting {len(articles)} articles with batch_size={batch_size}")
         
         # Import the optimized batch processing task
         from app.tasks.pipeline_tasks import process_article_batch
@@ -247,7 +352,7 @@ async def ingest_batch_optimized(articles: List[ArticleIngest], batch_size: int 
         # Run optimized batch processing
         task = process_article_batch.delay(articles_data, batch_size)
         
-        logger.info(f"✅ [V2-OPTIMIZED] Batch of {len(articles)} articles queued for optimized processing (task: {task.id})")
+        logger.info(f"SUCCESS: [V2-OPTIMIZED] Batch of {len(articles)} articles queued for optimized processing (task: {task.id})")
         
         return {
             "status": "optimized_batch_started",

@@ -3,11 +3,26 @@
 Celery worker for StraitWatch backend
 """
 
+import sys
+import os
+from pathlib import Path
+
+# Add the project root to Python path
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root))
+
 from celery import Celery
 import logging
 
-# Configure logging
-logging.basicConfig(level=logging.INFO)
+# Configure enhanced logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler(),
+        logging.FileHandler('celery_worker.log', encoding='utf-8')
+    ]
+)
 logger = logging.getLogger(__name__)
 
 # Initialize Celery app
@@ -15,25 +30,27 @@ celery_app = Celery('straitwatch')
 celery_app.config_from_object('app.celery_config')
 
 # IMPORTANT: Import all tasks to register them with Celery
-logger.info("🔄 Importing tasks for registration...")
+logger.info("Importing tasks for registration...")
 
 try:
     from app.tasks.preprocess import preprocess_and_enqueue
-    logger.info("✅ Imported preprocess tasks")
+    logger.info("SUCCESS: Imported preprocess tasks")
 except Exception as e:
-    logger.error(f"❌ Failed to import preprocess tasks: {e}")
+    logger.error(f"FAILED: Import preprocess tasks: {e}")
+    logger.error(f"Python path: {sys.path}")
+    logger.error(f"Current directory: {os.getcwd()}")
 
 try:
-    from app.tasks.cluster import run_clustering, cluster_single_batch
-    logger.info("✅ Imported cluster tasks")
+    from app.tasks.cluster import run_clustering
+    logger.info("SUCCESS: Imported cluster tasks")
 except Exception as e:
-    logger.error(f"❌ Failed to import cluster tasks: {e}")
+    logger.error(f"FAILED: Import cluster tasks: {e}")
 
 try:
     from app.tasks.summarize import summarize_cluster, summarize_all_pending_clusters
-    logger.info("✅ Imported summarize tasks")
+    logger.info("SUCCESS: Imported summarize tasks")
 except Exception as e:
-    logger.error(f"❌ Failed to import summarize tasks: {e}")
+    logger.error(f"FAILED: Import summarize tasks: {e}")
 
 try:
     from app.tasks.pipeline_tasks import (
@@ -41,15 +58,21 @@ try:
         store_to_supabase, run_article_pipeline, run_batch_pipeline,
         store_batch_to_supabase, process_article_batch
     )
-    logger.info("✅ Imported new pipeline tasks")
+    logger.info("SUCCESS: Imported new pipeline tasks")
 except Exception as e:
-    logger.error(f"❌ Failed to import pipeline tasks: {e}")
+    logger.error(f"FAILED: Import pipeline tasks: {e}")
+
+try:
+    from app.tasks.scraper import run_async_scraper, run_continuous_scraper
+    logger.info("SUCCESS: Imported async scraper tasks")
+except Exception as e:
+    logger.error(f"FAILED: Import async scraper tasks: {e}")
 
 # Auto-discover tasks as backup
 celery_app.autodiscover_tasks(['app.tasks'])
 
-logger.info(f"📋 Registered tasks: {list(celery_app.tasks.keys())}")
+logger.info(f"Registered tasks: {list(celery_app.tasks.keys())}")
 
 if __name__ == '__main__':
-    logger.info("🚀 Starting StraitWatch Celery worker")
+    logger.info("Starting StraitWatch Celery worker")
     celery_app.start() 

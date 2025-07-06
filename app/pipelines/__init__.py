@@ -1,1 +1,1 @@
-# Pipelines package for StraitWatch Backend 
+# Pipelines module for Paperboy 

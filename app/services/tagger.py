@@ -1,17 +1,12 @@
 #!/usr/bin/env python3
 """
 OSINT Article Tagger Service
-Combines gazetteer lookup, pattern matching, and NER for comprehensive article tagging
+NER-only tagging using spaCy
 """
 
-import re
 import logging
 from typing import Dict, List, Any, Set
 import spacy
-
-from app.services.tag_data import TAGS
-from app.services.patterns import PATTERNS
-from app.services.escalation_score import compute_confidence_score, get_priority_level
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -27,83 +22,148 @@ except OSError:
 
 def tag_article(text: str, title: str = "") -> Dict[str, Any]:
     """
-    Tag article with structured categories, flat tags, and confidence score
-    
-    Args:
-        text: Article body text
-        title: Article title (optional, for additional context)
-        
-    Returns:
-        Dict containing:
-        - tag_categories: Dict of categories with lists of values
-        - tags: Flat list of tags in "CATEGORY:Value" format
-        - confidence_score: Float between 0.0 and 1.0
-        - priority_level: "HIGH", "MEDIUM", or "LOW"
+    Tag article with comprehensive NER analysis to fill all Supabase schema fields
     """
+    logger.info(f"[TAGGER] Starting NER analysis")
+    logger.info(f"[TAGGER] Input text length: {len(text)} chars")
+    logger.info(f"[TAGGER] Input title length: {len(title)} chars")
+    
     # Combine title and text for analysis
     full_text = f"{title} {text}".strip()
-    text_lower = full_text.lower()
+    logger.info(f"[TAGGER] Combined text length: {len(full_text)} chars")
     
-    # Initialize tag categories
-    tag_categories = {k: [] for k in TAGS.keys()}
+    # Initialize comprehensive tag categories
+    tag_categories = {
+        "geo": [],           # Geographic locations (GPE, LOC)
+        "actor": [],         # Organizations, companies, institutions (ORG)
+        "command": [],       # People, leaders, officials (PERSON)
+        "event": [],         # Events, incidents, activities (EVENT)
+        "facility": [],      # Facilities, buildings, installations (FAC)
+        "technology": [],    # Technology, products, systems (PRODUCT)
+        "time": [],          # Dates, times, periods (DATE, TIME)
+        "quantity": [],      # Numbers, amounts, measurements (QUANTITY, CARDINAL)
+        "money": [],         # Financial amounts, currencies (MONEY)
+        "law": [],           # Laws, regulations, policies (LAW)
+        "language": [],      # Languages, dialects (LANGUAGE)
+        "nationality": [],   # Nationalities, ethnic groups (NORP)
+        "ordinal": []        # Ordinal numbers, rankings (ORDINAL)
+    }
+    
     flat_tags: Set[str] = set()
+    all_entities: Set[str] = set()
     
-    # 1. Gazetteer matching (exact string matching)
-    logger.info("🔍 Performing gazetteer matching...")
-    for category, values in TAGS.items():
-        for val in values:
-            # Case-insensitive matching
-            if val.lower() in text_lower:
-                tag_categories[category].append(val)
-                flat_tags.add(f"{category.upper()[:4]}:{val}")
-                logger.debug(f"Found gazetteer match: {category}:{val}")
-    
-    # 2. Pattern matching (regex patterns)
-    logger.info("🔍 Performing pattern matching...")
-    for pattern, category, val in PATTERNS:
-        if re.search(pattern, text_lower):
-            tag_categories[category].append(val)
-            flat_tags.add(f"{category.upper()[:4]}:{val}")
-            logger.debug(f"Found pattern match: {category}:{val}")
-    
-    # 3. NER fallback (if spaCy is available)
+    # Comprehensive NER analysis
     if nlp:
-        logger.info("🔍 Performing NER analysis...")
+        logger.info("[TAGGER] Performing comprehensive NER analysis...")
+        logger.info(f"[TAGGER] spaCy model loaded: {nlp is not None}")
         doc = nlp(full_text)
+        logger.info(f"[TAGGER] Processed document, found {len(doc.ents)} entities")
+        
+        entity_count = 0
         for ent in doc.ents:
             label = ent.label_
             value = ent.text.strip()
+            entity_count += 1
             
-            # Map NER labels to our categories
-            if label == "GPE" and value not in [tag.split(":")[-1] for tag in flat_tags if tag.startswith("GEO:")]:
+            logger.info(f"[TAGGER] Entity {entity_count}: '{value}' (type: {label})")
+            
+            # Map spaCy entity types to our categories
+            if label == "GPE" or label == "LOC":
                 tag_categories["geo"].append(value)
                 flat_tags.add(f"GEO:{value}")
-                logger.debug(f"Found NER GPE: {value}")
-            elif label == "ORG" and value not in [tag.split(":")[-1] for tag in flat_tags if tag.startswith("ACT:")]:
+                all_entities.add(value)
+                logger.info(f"[TAGGER] Added geographic entity: {value}")
+            elif label == "ORG":
                 tag_categories["actor"].append(value)
                 flat_tags.add(f"ACT:{value}")
-                logger.debug(f"Found NER ORG: {value}")
-            elif label == "PERSON" and value not in [tag.split(":")[-1] for tag in flat_tags if tag.startswith("CMD:")]:
+                all_entities.add(value)
+                logger.info(f"[TAGGER] Added organization: {value}")
+            elif label == "PERSON":
                 tag_categories["command"].append(value)
                 flat_tags.add(f"CMD:{value}")
-                logger.debug(f"Found NER PERSON: {value}")
+                all_entities.add(value)
+                logger.info(f"[TAGGER] Added person: {value}")
+            elif label == "EVENT":
+                tag_categories["event"].append(value)
+                flat_tags.add(f"EVT:{value}")
+                all_entities.add(value)
+                logger.info(f"[TAGGER] Added event: {value}")
+            elif label == "FAC":
+                tag_categories["facility"].append(value)
+                flat_tags.add(f"FAC:{value}")
+                all_entities.add(value)
+                logger.info(f"[TAGGER] Added facility: {value}")
+            elif label == "PRODUCT":
+                tag_categories["technology"].append(value)
+                flat_tags.add(f"TECH:{value}")
+                all_entities.add(value)
+                logger.info(f"[TAGGER] Added technology: {value}")
+            elif label == "DATE":
+                tag_categories["time"].append(value)
+                flat_tags.add(f"TIME:{value}")
+                all_entities.add(value)
+                logger.info(f"[TAGGER] Added date: {value}")
+            elif label == "TIME":
+                tag_categories["time"].append(value)
+                flat_tags.add(f"TIME:{value}")
+                all_entities.add(value)
+                logger.info(f"[TAGGER] Added time: {value}")
+            elif label == "QUANTITY":
+                tag_categories["quantity"].append(value)
+                flat_tags.add(f"QTY:{value}")
+                all_entities.add(value)
+                logger.info(f"[TAGGER] Added quantity: {value}")
+            elif label == "CARDINAL":
+                tag_categories["quantity"].append(value)
+                flat_tags.add(f"QTY:{value}")
+                all_entities.add(value)
+                logger.info(f"[TAGGER] Added cardinal: {value}")
+            elif label == "MONEY":
+                tag_categories["money"].append(value)
+                flat_tags.add(f"MONEY:{value}")
+                all_entities.add(value)
+                logger.info(f"[TAGGER] Added money: {value}")
+            elif label == "LAW":
+                tag_categories["law"].append(value)
+                flat_tags.add(f"LAW:{value}")
+                all_entities.add(value)
+                logger.info(f"[TAGGER] Added law: {value}")
+            elif label == "LANGUAGE":
+                tag_categories["language"].append(value)
+                flat_tags.add(f"LANG:{value}")
+                all_entities.add(value)
+                logger.info(f"[TAGGER] Added language: {value}")
+            elif label == "NORP":
+                tag_categories["nationality"].append(value)
+                flat_tags.add(f"NAT:{value}")
+                all_entities.add(value)
+                logger.info(f"[TAGGER] Added nationality: {value}")
+            elif label == "ORDINAL":
+                tag_categories["ordinal"].append(value)
+                flat_tags.add(f"ORD:{value}")
+                all_entities.add(value)
+                logger.info(f"[TAGGER] Added ordinal: {value}")
+            else:
+                # Catch any other entity types
+                all_entities.add(value)
+                logger.info(f"[TAGGER] Added unknown entity type '{label}': {value}")
     
-    # 4. Deduplicate and sort
+    # Deduplicate and sort
     for k in tag_categories:
         tag_categories[k] = sorted(list(set(tag_categories[k])))
     flat_tags = sorted(list(flat_tags))
+    all_entities = sorted(list(all_entities))
     
-    # 5. Compute confidence score
-    confidence_score = compute_confidence_score(flat_tags)
-    priority_level = get_priority_level(confidence_score)
-    
-    logger.info(f"✅ Tagging complete: {len(flat_tags)} tags, confidence: {confidence_score:.3f}, priority: {priority_level}")
+    logger.info(f"SUCCESS: [TAGGER] Comprehensive NER tagging complete:")
+    logger.info(f"   Tags: {len(flat_tags)}")
+    logger.info(f"   Entities: {entity_count}")
+    logger.info(f"   Tag categories: {tag_categories}")
+    logger.info(f"   All entities: {all_entities}")
     
     return {
         "tag_categories": tag_categories,
         "tags": flat_tags,
-        "confidence_score": confidence_score,
-        "priority_level": priority_level
+        "entities": all_entities,
     }
 
 def tag_article_batch(articles: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
@@ -136,12 +196,11 @@ def tag_article_batch(articles: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
             article.update({
                 'tag_categories': tagging_result['tag_categories'],
                 'tags': tagging_result['tags'],
-                'confidence_score': tagging_result['confidence_score'],
-                'priority_level': tagging_result['priority_level']
+                'entities': tagging_result['entities'],
             })
             
             tagged_articles.append(article)
-            logger.info(f"✅ Tagged article {i+1}/{len(articles)}: {len(tagging_result['tags'])} tags, score: {tagging_result['confidence_score']:.3f}")
+            logger.info(f"✅ Tagged article {i+1}/{len(articles)}: {len(tagging_result['tags'])} tags, {len(tagging_result['entities'])} entities")
             
         except Exception as e:
             logger.error(f"❌ Error tagging article {i+1}: {e}")
@@ -149,8 +208,7 @@ def tag_article_batch(articles: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
             article.update({
                 'tag_categories': {},
                 'tags': [],
-                'confidence_score': 0.0,
-                'priority_level': 'LOW'
+                'entities': [],
             })
             tagged_articles.append(article)
     
@@ -187,13 +245,11 @@ def get_high_priority_tags(tags: List[str], threshold: float = 0.7) -> List[str]
     Returns:
         List of high-priority tags
     """
-    from app.services.escalation_score import ESCALATION_WEIGHTS
-    
     high_priority = []
     for tag in tags:
         if ':' in tag:
             value = tag.split(":")[-1]
-            if ESCALATION_WEIGHTS.get(value, 0.0) >= threshold:
+            if value in ESCALATION_WEIGHTS and ESCALATION_WEIGHTS[value] >= threshold:
                 high_priority.append(tag)
     
     return high_priority 

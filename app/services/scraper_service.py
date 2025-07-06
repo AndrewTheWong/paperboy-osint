@@ -14,6 +14,10 @@ from bs4 import BeautifulSoup
 import trafilatura
 from urllib.parse import urljoin, urlparse
 import re
+try:
+    from newspaper import Article as NewspaperArticle
+except ImportError:
+    NewspaperArticle = None
 
 from app.utils.supabase_client import get_supabase_client
 
@@ -215,7 +219,17 @@ class ArticleScraper:
                 # Use trafilatura for content extraction
                 extracted = trafilatura.extract(html, include_formatting=True, include_links=True)
                 
-                if not extracted:
+                if not extracted and NewspaperArticle is not None:
+                    # Fallback to newspaper3k if available
+                    try:
+                        n3k = NewspaperArticle(url)
+                        n3k.download()
+                        n3k.parse()
+                        content = n3k.text
+                    except Exception as e:
+                        logger.warning(f"newspaper3k extraction failed for {url}: {e}")
+                        content = None
+                elif not extracted:
                     # Fallback to BeautifulSoup
                     soup = BeautifulSoup(html, 'html.parser')
                     
@@ -249,7 +263,12 @@ class ArticleScraper:
                     content = extracted
                 
                 # Extract title
-                title = trafilatura.extract_metadata(html, title_only=True)
+                try:
+                    meta = trafilatura.extract_metadata(html)
+                    title = meta["title"] if meta and "title" in meta else None
+                except Exception as e:
+                    logger.warning(f"trafilatura.extract_metadata failed: {e}")
+                    title = None
                 if not title:
                     soup = BeautifulSoup(html, 'html.parser')
                     title_elem = soup.find('title')

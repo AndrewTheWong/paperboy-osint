@@ -1,207 +1,242 @@
-# StraitWatch Backend
+# Paperboy - Intelligent News Pipeline
 
-A comprehensive intelligence analysis backend system for monitoring Taiwan Strait tensions and regional security developments. This system processes real news articles from verified sources to generate actionable intelligence reports.
+A sophisticated news scraping, processing, and clustering pipeline built with FastAPI, Celery, Redis, and Supabase.
 
-## 🎯 Overview
+## 🚀 Features
 
-StraitWatch Backend is a production-ready intelligence analysis pipeline that:
-
-- **Ingests real articles** from verified news sources
-- **Performs NLP analysis** including tagging, sentiment analysis, and entity extraction
-- **Builds time series** for escalation tracking
-- **Generates forecasts** using ML models
-- **Creates intelligence reports** with threat assessments and recommendations
-- **Prevents hallucination** by using only real article data
+- **Intelligent Scraping**: Multi-source news scraping with Trifiltura and Newspaper3k
+- **AI Processing**: Article cleaning, tagging, and embedding generation
+- **Smart Clustering**: HDBSCAN-based article clustering for topic discovery
+- **Real-time Dashboard**: Beautiful web interface for monitoring and control
+- **Scalable Architecture**: Redis queue with Celery workers for distributed processing
 
 ## 🏗️ Architecture
 
 ```
-StraitWatch-Backend/
-├── agents/                    # Agent system for pipeline orchestration
-├── analytics/                 # ML components (clustering, inference, time series)
-├── cache/                     # Cache storage
-├── config/                    # Configuration files
-├── data/                      # Data storage
-├── models/                    # Trained ML models
-├── pipelines/                 # Pipeline components
-├── reports/                   # Generated intelligence reports
-├── storage/                   # Database schemas and data processing
-├── supabase/                  # Database migrations
-├── utils/                     # Core utilities
-├── run_complete_straitwatch_pipeline.py  # Main entry point
-└── storage_based_reporter.py  # Report generation
+┌─────────────────┐    ┌──────────────┐    ┌──────────────┐    ┌──────────────┐
+│   Frontend      │    │   FastAPI    │    │   Redis      │    │   Supabase   │
+│   Dashboard     │◄──►│   Backend    │◄──►│   Queue      │◄──►│   Database   │
+└─────────────────┘    └──────────────┘    └──────────────┘    └──────────────┘
+                              │                     │
+                              ▼                     ▼
+                       ┌──────────────┐    ┌──────────────┐
+                       │   Celery     │    │   Celery     │
+                       │   Workers    │    │   Workers    │
+                       │ (Scraper,    │    │ (Preprocess, │
+                       │  Preprocess, │    │  Cluster)    │
+                       │  Cluster)    │    │              │
+                       └──────────────┘    └──────────────┘
+```
+
+## 📋 Prerequisites
+
+- Python 3.8+
+- Docker (for Redis)
+- Supabase CLI (for local development)
+
+## 🛠️ Installation
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/yourusername/paperboy.git
+cd paperboy
+```
+
+### 2. Set Up Virtual Environment
+```bash
+python -m venv venv
+# On Windows:
+venv\Scripts\activate
+# On macOS/Linux:
+source venv/bin/activate
+```
+
+### 3. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Install Additional Dependencies
+```bash
+pip install trafilatura newspaper3k
+pip install supabase==1.2.0 gotrue==1.3.1 postgrest==0.10.8 httpx==0.24.1 realtime==1.0.2 websockets==11.0
+```
+
+### 5. Start Redis (Docker)
+```bash
+docker run -d --name redis-server -p 6379:6379 redis:7-alpine
+```
+
+### 6. Start Local Supabase
+```bash
+# Install Supabase CLI if not already installed
+npm install -g supabase
+
+# Start local Supabase
+supabase start
 ```
 
 ## 🚀 Quick Start
 
-### Prerequisites
+### 1. Start the FastAPI Server
+```bash
+python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+```
 
-- Python 3.8+
-- Supabase account and project
-- Required API keys (see Configuration section)
+### 2. Start Celery Workers
+```bash
+# Terminal 1 - Scraper Worker
+celery -A app.celery_worker worker --loglevel=info --pool=solo -n Scraper@%h -Q scrape
 
-### Installation
+# Terminal 2 - Preprocess Worker  
+celery -A app.celery_worker worker --loglevel=info --pool=solo -n Preprocess@%h -Q preprocess
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd StraitWatch-Backend
-   ```
+# Terminal 3 - Cluster Worker
+celery -A app.celery_worker worker --loglevel=info --pool=solo -n Cluster@%h -Q clustering
+```
 
-2. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
+### 3. Access the Dashboard
+Open your browser and navigate to: http://localhost:8000
 
-3. **Set up environment variables**
-   ```bash
-   cp .env.example .env
-   # Edit .env with your Supabase credentials and API keys
-   ```
+## 🎛️ Usage
 
-4. **Run the complete pipeline**
-   ```bash
-   python run_complete_straitwatch_pipeline.py
-   ```
+### Web Dashboard
+The dashboard provides:
+- **Real-time Statistics**: Articles scraped, processed, clusters created
+- **Control Buttons**: Start scraper, run clustering, generate summaries
+- **Live Logs**: Real-time pipeline activity monitoring
+- **Status Monitoring**: Pipeline status and queue information
 
-## 📋 Pipeline Components
+### API Endpoints
 
-### 1. Article Ingestion Agent
-- Scrapes articles from verified news sources
-- Handles paywalls and dynamic content
-- Performs initial content validation
+#### Scraper
+```bash
+# Start scraping with default sources
+curl -X POST http://localhost:8000/scraper/run \
+  -H "Content-Type: application/json" \
+  -d '{"use_default_sources": true, "max_articles_per_source": 5}'
+```
 
-### 2. NLP Tagging Agent
-- Extracts entities, events, and relationships
-- Performs sentiment analysis
-- Tags articles with escalation indicators
+#### Ingest
+```bash
+# Ingest a single article
+curl -X POST http://localhost:8000/ingest \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Article Title",
+    "body": "Article content...",
+    "source_url": "https://example.com/article"
+  }'
+```
 
-### 3. Time Series Builder Agent
-- Builds escalation time series from tagged articles
-- Aggregates data by country/region
-- Prepares data for forecasting
+#### Clustering
+```bash
+# Run clustering on processed articles
+curl -X POST http://localhost:8000/cluster/run
+```
 
-### 4. Forecasting Agent
-- Generates escalation forecasts using XGBoost
-- Provides confidence intervals
-- Supports multiple forecasting horizons
-
-### 5. Report Generator Agent
-- Creates comprehensive intelligence reports
-- Includes threat assessments and recommendations
-- Generates both summary and detailed reports
+#### Status
+```bash
+# Get pipeline status
+curl http://localhost:8000/ingest/status
+```
 
 ## 🔧 Configuration
 
 ### Environment Variables
-
-Create a `.env` file with the following variables:
+Create a `.env` file in the root directory:
 
 ```env
-# Supabase Configuration
-SUPABASE_URL=your_supabase_url
+SUPABASE_URL=http://127.0.0.1:54321
 SUPABASE_KEY=your_supabase_anon_key
-
-# API Keys (optional)
-NEWS_API_KEY=your_news_api_key
-OPENAI_API_KEY=your_openai_api_key
-
-# Database Configuration
-DATABASE_URL=your_database_url
+REDIS_URL=redis://localhost:6379
 ```
 
-### Source Configuration
+### Scraper Sources
+Configure news sources in `app/services/scraper_service.py`:
 
-Edit `config/sources_config.json` to configure news sources:
-
-```json
-{
-  "sources": {
-    "scmp": {
-      "url": "https://www.scmp.com",
-      "enabled": true,
-      "priority": "high"
-    },
-    "defensenews": {
-      "url": "https://www.defensenews.com",
-      "enabled": true,
-      "priority": "high"
-    }
-  }
-}
+```python
+DEFAULT_SOURCES = [
+    "https://www.bbc.com/news",
+    "https://www.reuters.com",
+    "https://www.theguardian.com"
+]
 ```
 
-## 📊 Output
+## 📊 Pipeline Flow
 
-### Intelligence Reports
+1. **Scraping**: Celery scraper worker fetches articles from configured sources
+2. **Ingestion**: Articles are cleaned and stored in Supabase
+3. **Preprocessing**: Articles are tagged, embedded, and queued for clustering
+4. **Clustering**: HDBSCAN groups similar articles into clusters
+5. **Reporting**: Generate summaries and intelligence reports
 
-Reports are generated in the `reports/` directory with the following structure:
+## 🐛 Troubleshooting
 
-- **Executive Summary** - High-level threat assessment
-- **Key Developments** - Thematic clusters of significant events
-- **Threat Assessment** - Military, diplomatic, and economic analysis
-- **Regional Analysis** - Geographic focus and actor analysis
-- **Recommendations** - Actionable intelligence insights
+### Common Issues
 
-### Data Storage
+#### Redis Connection Error
+```bash
+# Check if Redis is running
+docker ps | grep redis
 
-- **Articles** - Stored in Supabase with full metadata
-- **Tags** - Entity and event tags with confidence scores
-- **Time Series** - Escalation metrics by country/region
-- **Forecasts** - Predicted escalation levels with confidence intervals
+# Start Redis if not running
+docker start redis-server
+```
 
-## 🔒 Security & Data Authenticity
+#### Supabase Client Errors
+```bash
+# Reinstall compatible versions
+pip install --force-reinstall supabase==1.2.0 gotrue==1.3.1 postgrest==0.10.8 httpx==0.24.1 realtime==1.0.2 websockets==11.0
+```
 
-- **Real Articles Only** - No synthetic content generation
-- **Verified Sources** - All sources are validated and monitored
-- **Hallucination Prevention** - Multiple validation layers
-- **Data Integrity** - Comprehensive logging and validation
+#### Celery Worker Issues
+```bash
+# Check worker status
+celery -A app.celery_worker inspect active
 
-## 🧪 Testing
+# Restart workers
+taskkill /F /IM python.exe  # Windows
+# or
+pkill -f celery  # Linux/macOS
+```
 
-The pipeline includes comprehensive error handling and graceful degradation:
+### Logs
+- **FastAPI**: Check terminal running uvicorn
+- **Celery Workers**: Check individual worker terminals
+- **Redis**: `docker logs redis-server`
 
-- **Dependency Checks** - Validates required components
-- **Source Validation** - Ensures data quality
-- **Model Validation** - Verifies ML model performance
-- **Database Health** - Monitors connection status
+## 📁 Project Structure
 
-## 📈 Performance
-
-Typical pipeline execution:
-- **Ingestion**: 2-5 minutes for 100+ articles
-- **Analysis**: 3-7 minutes for NLP processing
-- **Forecasting**: 1-2 minutes for predictions
-- **Report Generation**: 30-60 seconds
+```
+paperboy/
+├── app/
+│   ├── api/                 # FastAPI endpoints
+│   ├── services/            # Core services (scraper, embedding, etc.)
+│   ├── tasks/              # Celery tasks
+│   ├── utils/              # Utilities and helpers
+│   └── static/             # Frontend dashboard
+├── storage/                # Database schemas and migrations
+├── supabase/              # Supabase configuration
+└── logs/                  # Application logs
+```
 
 ## 🤝 Contributing
 
 1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🆘 Support
+## 🙏 Acknowledgments
 
-For issues and questions:
-1. Check the logs in the `reports/` directory
-2. Verify your configuration in `.env`
-3. Ensure all dependencies are installed
-4. Check Supabase connection status
-
-## 🔄 Updates
-
-The system automatically:
-- Updates article data from sources
-- Retrains models with new data
-- Regenerates forecasts
-- Updates intelligence reports
-
----
-
-**StraitWatch Backend** - Real Intelligence from Real Sources 
+- [FastAPI](https://fastapi.tiangolo.com/) for the web framework
+- [Celery](https://celeryproject.org/) for task queue management
+- [Supabase](https://supabase.com/) for the database
+- [Trafilatura](https://trafilatura.readthedocs.io/) for content extraction
+- [HDBSCAN](https://hdbscan.readthedocs.io/) for clustering 
