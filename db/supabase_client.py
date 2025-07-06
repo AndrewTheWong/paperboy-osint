@@ -21,7 +21,9 @@ def store_article(article_id: str, title: str, raw_text: str, cleaned_text: str,
                  tags: List[str] = None, tag_categories: Dict = None,
                  entities: List[str] = None, confidence_score: float = 0.0,
                  priority_level: str = "LOW", cluster_id: str = None,
-                 cluster_label: str = None, cluster_description: str = None) -> bool:
+                 cluster_label: str = None, cluster_description: str = None,
+                 title_original: str = None, content_original: str = None,
+                 title_language: str = "en", content_language: str = "en") -> bool:
     """
     Store article in Supabase articles table with enhanced schema
     """
@@ -39,28 +41,25 @@ def store_article(article_id: str, title: str, raw_text: str, cleaned_text: str,
             logger.warning(f"🚫 Skipping article {article_id}: detected as stress test")
             return False
         
-        # Prepare article data with enhanced schema
+        # Prepare article data with clean schema including translation fields
         article_data = {
             'title': title,
-            'content': cleaned_text,
+            'body': raw_text,
             'cleaned': cleaned_text,
             'url': source_url,
-            'source': region or 'Unknown',
-            'region': region or 'Unknown',
-            'topic': topic or 'General',
-            'tags': tags or [],
-            'tag_categories': tag_categories or {},
-            'entities': entities or [],
-            'priority_level': priority_level,
-            'embedding': embedding,
-            'embedding_dimensions': len(embedding) if embedding else None,
-            'cluster_id': cluster_id,
-            'cluster_label': cluster_label or '',
-            'cluster_description': cluster_description or '',
+            'source_name': region or 'Unknown',
             'published_at': datetime.now().isoformat(),
-            'processed_by': 'StraitWatch Pipeline v2 Enhanced'
+            'embedding': embedding,
+            'tags': tags or [],
+            'entities': entities or [],
+            'cluster_id': cluster_id,
+            'title_original': title_original or title,
+            'content_original': content_original or raw_text,
+            'title_language': title_language,
+            'content_language': content_language
         }
-        
+
+        logger.info(f"[DEBUG] Upserting article_data: {article_data}")
         result = supabase.table('articles').upsert(article_data).execute()
         
         if result.data:
@@ -429,3 +428,63 @@ def clear_databases():
     except Exception as e:
         logger.error(f"❌ Error clearing databases: {e}")
         raise 
+
+def get_all_articles() -> List[Dict]:
+    """
+    Get all articles from Supabase with all fields
+    
+    Returns:
+        List[Dict]: List of all articles with full data
+    """
+    try:
+        supabase = get_supabase_client()
+        result = supabase.table('articles').select('*').execute()
+        
+        if result.data:
+            logger.info(f"📊 Retrieved {len(result.data)} articles from Supabase")
+            return result.data
+        else:
+            logger.warning("📊 No articles found in Supabase")
+            return []
+            
+    except Exception as e:
+        logger.error(f"❌ Error getting all articles: {e}")
+        return []
+
+def update_article_cluster(article_id: str, cluster_id: str, cluster_label: str = None, cluster_description: str = None) -> bool:
+    """
+    Update article with cluster assignment
+    
+    Args:
+        article_id: Article identifier
+        cluster_id: Cluster identifier
+        cluster_label: Cluster label
+        cluster_description: Cluster description
+        
+    Returns:
+        bool: Success status
+    """
+    try:
+        supabase = get_supabase_client()
+        
+        update_data = {
+            'cluster_id': cluster_id
+        }
+        
+        if cluster_label:
+            update_data['cluster_label'] = cluster_label
+        if cluster_description:
+            update_data['cluster_description'] = cluster_description
+        
+        result = supabase.table('articles').update(update_data).eq('id', article_id).execute()
+        
+        if result.data:
+            logger.info(f"💾 Updated article {article_id} with cluster {cluster_id}")
+            return True
+        else:
+            logger.error(f"❌ Failed to update article {article_id} with cluster")
+            return False
+            
+    except Exception as e:
+        logger.error(f"❌ Error updating article {article_id}: {e}")
+        return False 

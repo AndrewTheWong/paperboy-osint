@@ -145,16 +145,14 @@ def estimate_optimal_clusters(embeddings: List[List[float]], max_clusters: int =
     Returns:
         Estimated optimal number of clusters (more clusters = stricter grouping)
     """
-    if len(embeddings) < 10:
-        return min(len(embeddings), 8)  # More clusters for small datasets
-    
-    # Use a more aggressive approach for stricter clustering
     n = len(embeddings)
+    if n < 10:
+        return min(n, 8)  # More clusters for small datasets
+    # Use a more aggressive approach for stricter clustering
     # More clusters: n/10 or 100, whichever is smaller
     optimal = min(max(n // 10, 20), max_clusters)
-    
-    logger.info(f"🎯 Estimated optimal clusters: {optimal} (from {n} articles) - STRICT MODE")
-    return optimal
+    # Ensure n_clusters never exceeds n
+    return min(optimal, n)
 
 def cluster_with_fast_incremental(embeddings: List[List[float]], existing_clusters: Optional[Dict] = None) -> Dict[int, List[int]]:
     """

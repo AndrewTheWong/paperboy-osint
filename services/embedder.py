@@ -6,6 +6,8 @@ Embedding service for article analysis
 import numpy as np
 from typing import List, Optional
 import logging
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -13,6 +15,7 @@ logger = logging.getLogger(__name__)
 
 # Global model instance
 _embedding_model = None
+_tfidf_model = None
 _hdbscan_model = None
 
 def get_embedding_model():
@@ -21,12 +24,26 @@ def get_embedding_model():
     if _embedding_model is None:
         try:
             from sentence_transformers import SentenceTransformer
-            _embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
-            logger.info("✅ Loaded SentenceTransformer model")
+            # Try a simpler model first
+            _embedding_model = SentenceTransformer('paraphrase-MiniLM-L3-v2')
+            logger.info("✅ Loaded SentenceTransformer model (paraphrase-MiniLM-L3-v2)")
         except Exception as e:
-            logger.error(f"❌ Error loading embedding model: {e}")
-            raise
+            logger.warning(f"⚠️ SentenceTransformer failed: {e}")
+            logger.info("🔄 Falling back to TF-IDF embeddings")
+            _embedding_model = None
     return _embedding_model
+
+def get_tfidf_model():
+    """Get or create TF-IDF model as fallback"""
+    global _tfidf_model
+    if _tfidf_model is None:
+        _tfidf_model = TfidfVectorizer(
+            max_features=1000,
+            stop_words='english',
+            ngram_range=(1, 2)
+        )
+        logger.info("✅ Loaded TF-IDF model")
+    return _tfidf_model
 
 def get_hdbscan_model():
     """Get or create HDBSCAN model"""
@@ -48,7 +65,7 @@ def get_hdbscan_model():
 
 def generate_embedding(text: str) -> List[float]:
     """
-    Generate embedding for text using SentenceTransformer
+    Generate embedding for text using SentenceTransformer or TF-IDF fallback
     
     Args:
         text: Input text to embed
@@ -59,11 +76,15 @@ def generate_embedding(text: str) -> List[float]:
     try:
         model = get_embedding_model()
         
-        # Generate embedding
-        embedding = model.encode(text)
-        
-        # Convert to list for JSON serialization
-        return embedding.tolist()
+        if model is not None:
+            # Use SentenceTransformer
+            embedding = model.encode(text)
+            return embedding.tolist()
+        else:
+            # Use TF-IDF fallback
+            tfidf_model = get_tfidf_model()
+            embedding = tfidf_model.fit_transform([text]).toarray()[0]
+            return embedding.tolist()
         
     except Exception as e:
         logger.error(f"❌ Error generating embedding: {e}")
@@ -82,11 +103,15 @@ def generate_embeddings_batch(texts: List[str]) -> List[List[float]]:
     try:
         model = get_embedding_model()
         
-        # Generate embeddings in batch
-        embeddings = model.encode(texts)
-        
-        # Convert to list of lists for JSON serialization
-        return embeddings.tolist()
+        if model is not None:
+            # Use SentenceTransformer
+            embeddings = model.encode(texts)
+            return embeddings.tolist()
+        else:
+            # Use TF-IDF fallback
+            tfidf_model = get_tfidf_model()
+            embeddings = tfidf_model.fit_transform(texts).toarray()
+            return embeddings.tolist()
         
     except Exception as e:
         logger.error(f"❌ Error generating batch embeddings: {e}")
