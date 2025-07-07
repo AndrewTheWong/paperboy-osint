@@ -7,7 +7,7 @@ Handles text embedding generation for articles
 import logging
 from celery import shared_task
 from typing import List, Dict, Any
-from services.embedder import embed_articles_batch, embed_text
+from services.embedder import generate_embeddings_batch, generate_embedding
 
 logger = logging.getLogger(__name__)
 
@@ -33,7 +33,7 @@ def embed_single_article(self, article: Dict[str, Any]) -> Dict[str, Any]:
         text_for_embedding = f"{title}\n\n{content}"
         
         # Generate embedding
-        embedding = embed_text(text_for_embedding)
+        embedding = generate_embedding(text_for_embedding)
         
         if embedding:
             article['embedding'] = embedding
@@ -75,7 +75,12 @@ def embed_articles_batch(self, articles: List[Dict[str, Any]]) -> List[Dict[str,
             })
         
         # Generate embeddings in batch
-        embedded_articles = embed_articles_batch(articles_for_embedding)
+        texts_for_embedding = [f"{article['title']}\n\n{article['content']}" for article in articles_for_embedding]
+        embeddings = generate_embeddings_batch(texts_for_embedding)
+        
+        # Add embeddings to articles
+        for i, (article, embedding) in enumerate(zip(articles, embeddings)):
+            article['embedding'] = embedding
         
         # Merge embeddings back to original articles
         for i, (article, embedded_article) in enumerate(zip(articles, embedded_articles)):
@@ -138,7 +143,12 @@ def embed_from_queue(self, queue_name: str = "embedding_queue") -> Dict[str, Any
             return {"status": "no_articles", "embedded_count": 0}
         
         # Generate embeddings
-        embedded_articles = embed_articles_batch(articles_to_embed)
+        texts_for_embedding = [f"{article.get('title', '')}\n\n{article.get('body', article.get('content', ''))}" for article in articles_to_embed]
+        embeddings = generate_embeddings_batch(texts_for_embedding)
+        
+        # Add embeddings to articles
+        for i, (article, embedding) in enumerate(zip(articles_to_embed, embeddings)):
+            article['embedding'] = embedding
         
         # Store embedded articles back to queue for next step
         for article in embedded_articles:
@@ -212,7 +222,12 @@ def embed_and_store_batch(self, articles: List[Dict[str, Any]]) -> Dict[str, Any
         logger.info(f"🔢 Embedding and storing {len(articles)} articles")
         
         # Generate embeddings
-        embedded_articles = embed_articles_batch(articles)
+        texts_for_embedding = [f"{article.get('title', '')}\n\n{article.get('body', article.get('content', ''))}" for article in articles]
+        embeddings = generate_embeddings_batch(texts_for_embedding)
+        
+        # Add embeddings to articles
+        for i, (article, embedding) in enumerate(zip(articles, embeddings)):
+            article['embedding'] = embedding
         
         # Store to Faiss
         storage_result = store_embeddings_to_faiss(embedded_articles)
@@ -254,8 +269,8 @@ def similarity_search(self, query_text: str, top_k: int = 10) -> Dict[str, Any]:
         faiss_service = get_faiss_service()
         
         # Generate embedding for query
-        from services.embedder import embed_text
-        query_embedding = embed_text(query_text)
+        from services.embedder import generate_embedding
+        query_embedding = generate_embedding(query_text)
         
         if not query_embedding:
             logger.error("❌ Failed to generate embedding for query")

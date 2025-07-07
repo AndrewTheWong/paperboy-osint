@@ -64,7 +64,25 @@ def initialize_models():
 
 def run_async_scrape(sources):
     scraper = RobustAsyncScraper()
-    return asyncio.run(scraper.scrape_sources(sources))
+    # Use the same event loop handling as in scraper.py
+    try:
+        loop = asyncio.get_event_loop()
+        if loop.is_running():
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            try:
+                return loop.run_until_complete(scraper.scrape_sources(sources))
+            finally:
+                loop.close()
+        else:
+            return loop.run_until_complete(scraper.scrape_sources(sources))
+    except RuntimeError:
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        try:
+            return loop.run_until_complete(scraper.scrape_sources(sources))
+        finally:
+            loop.close()
 
 @celery_app.task(bind=True, max_retries=3)
 def preprocess_article(self, article: Dict[str, Any]) -> Dict[str, Any]:
@@ -235,6 +253,7 @@ def embed_and_cluster_article(self, article: Dict[str, Any]) -> Dict[str, Any]:
             # Extract cluster information
             if clustering_result and 'clusters' in clustering_result:
                 clusters = clustering_result['clusters']
+                cluster_summaries = clustering_result.get('summaries', {})
                 # Find which cluster this article belongs to
                 cluster_id = None
                 cluster_label = "Unclustered"
@@ -345,6 +364,58 @@ def store_to_supabase(self, article: Dict[str, Any]) -> Dict[str, Any]:
         logger.error(traceback.format_exc())
         raise self.retry(countdown=60, max_retries=3)
 
+@celery_app.task(bind=True, max_retries=3)
+def store_to_faiss(self, article: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Store article embedding to Faiss index
+    """
+    try:
+        article_id = article.get('id', article.get('article_id', 'unknown'))
+        logger.info(f"[PIPELINE] Storing article {article_id} to Faiss")
+        
+        # Get the embedding from the article
+        embedding = article.get('embedding')
+        if not embedding:
+            logger.warning(f"WARNING: Article {article_id} has no embedding for Faiss storage")
+            return {
+                "status": "failed",
+                "message": "No embedding available",
+                "article_id": article_id
+            }
+        
+        # Get Faiss service and store embedding
+        faiss_service = get_faiss_service()
+        if not faiss_service:
+            logger.error(f"ERROR: Faiss service not available for article {article_id}")
+            return {
+                "status": "failed", 
+                "message": "Faiss service not available",
+                "article_id": article_id
+            }
+        
+        # Store the embedding
+        success = faiss_service.add_embedding(embedding, article_id)
+        
+        if success:
+            logger.info(f"SUCCESS: [PIPELINE] Stored article {article_id} to Faiss")
+            return {
+                "status": "success",
+                "message": "Embedding stored to Faiss",
+                "article_id": article_id
+            }
+        else:
+            logger.error(f"ERROR: [PIPELINE] Failed to store article {article_id} to Faiss")
+            return {
+                "status": "failed",
+                "message": "Failed to store embedding",
+                "article_id": article_id
+            }
+            
+    except Exception as e:
+        logger.error(f"[PIPELINE] ERROR: Storing article {article.get('id', article.get('article_id'))} to Faiss: {e}")
+        logger.error(traceback.format_exc())
+        raise self.retry(countdown=60, max_retries=3)
+
 # === PIPELINE ORCHESTRATOR ===
 @celery_app.task
 def run_article_pipeline(article: Dict[str, Any]) -> Dict[str, Any]:
@@ -359,7 +430,8 @@ def run_article_pipeline(article: Dict[str, Any]) -> Dict[str, Any]:
             preprocess_article.s(article),
             tag_article_ner.s(),
             embed_and_cluster_article.s(),
-            store_to_supabase.s()
+            store_to_supabase.s(),
+            store_to_faiss.s()
         )
         
         # Execute the pipeline
@@ -668,7 +740,8 @@ def process_article_batch(self, articles: List[Dict[str, Any]], batch_size: int 
         for article in articles:
             pipeline = chain(
                 embed_and_cluster_article.s(article),
-                store_to_supabase.s()
+                store_to_supabase.s(),
+                store_to_faiss.s()
             )
             pipeline_tasks.append(pipeline.apply_async())
         logger.info(f"✅ Started {len(pipeline_tasks)} individual article pipelines")

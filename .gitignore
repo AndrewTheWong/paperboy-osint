@@ -127,3 +127,56 @@ supabase/.temp/
 
 # Local configuration files
 scraper/input_urls.json
+
+# Ignore Python virtual environments
+venv/
+
+# Ignore Python bytecode
+__pycache__/
+*.py[cod]
+
+# Ignore logs and output
+*.log
+logs/
+pipeline_test_output.txt
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE/editor files
+.vscode/
+*.swp
+*.swo
+
+# Ignore test cache
+.pytest_cache/
+
+# Ignore Supabase migrations and config
+supabase/migrations/
+supabase/config.toml
+
+# Ignore secrets and environment files
+.env
+*.env
+.env.*
+.envrc
+.env.local
+.env.development
+.env.production
+
+# Ignore database files
+*.sqlite3
+*.db
+
+# Ignore backup files
+*.bak
+
+# Ignore celery beat schedule
+celerybeat-schedule.*
+
+# Ignore any other user-specific or security-related files
+secrets.json
+config/secrets.json
+config/*.key
+config/*.pem

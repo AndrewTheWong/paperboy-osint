@@ -376,4 +376,52 @@ async def ingest_batch_optimized(articles: List[ArticleIngest], batch_size: int 
         raise HTTPException(
             status_code=500,
             detail=f"Failed to optimized batch ingest articles: {str(e)}"
+        )
+
+@router.post("/run-pipeline")
+async def run_full_pipeline():
+    """
+    Trigger the full pipeline (scrape -> translate -> tag -> embed -> cluster -> store)
+    
+    Returns:
+        dict: Pipeline execution results
+    """
+    try:
+        logger.info("STARTING: Full pipeline execution")
+        
+        # Import the new orchestrator task
+        from app.tasks.orchestrator import run_pipeline_orchestrator
+        
+        # Create a sample article to trigger the pipeline
+        # The orchestrator will handle scraping and processing all articles
+        sample_article = {
+            "title": "Pipeline Trigger Article",
+            "body": "This article triggers the full pipeline execution",
+            "id": str(uuid.uuid4())
+        }
+        
+        # Trigger the full pipeline using the shared task
+        task = run_pipeline_orchestrator.delay(sample_article)
+        
+        logger.info(f"SUCCESS: Full pipeline triggered (task: {task.id})")
+        
+        return {
+            "status": "pipeline_started",
+            "message": f"Full pipeline execution started. Task ID: {task.id}",
+            "task_id": task.id,
+            "pipeline_steps": [
+                "scrape_articles",
+                "tag_articles", 
+                "embed_articles",
+                "store_to_supabase",
+                "store_to_faiss",
+                "run_clustering"
+            ]
+        }
+        
+    except Exception as e:
+        logger.error(f"❌ Error starting full pipeline: {e}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to start full pipeline: {str(e)}"
         ) 

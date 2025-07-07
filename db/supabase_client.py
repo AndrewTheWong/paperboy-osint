@@ -88,7 +88,7 @@ def store_article(article_id: str, title: str, raw_text: str, cleaned_text: str,
         logger.error(f"❌ Error storing article {article_id}: {e}")
         return False
 
-def save_cluster(cluster_id: str, article_ids: List[str], status: str = 'pending', theme: str = None, summary: str = None) -> bool:
+def save_cluster(cluster_id: str, article_ids: List[str], status: str = 'pending', theme: str = None, summary: str = None, top_tags=None, top_entities=None, representative_article_id=None) -> bool:
     """
     Save cluster to Supabase clusters table
     Args:
@@ -97,31 +97,55 @@ def save_cluster(cluster_id: str, article_ids: List[str], status: str = 'pending
         status: Cluster status
         theme: Cluster theme/topic
         summary: Cluster summary text
+        top_tags: List of top tags (from cluster analysis)
+        top_entities: List of top entities (from cluster analysis)
+        representative_article_id: UUID of representative article
     Returns:
         bool: Success status
     """
     try:
         supabase = get_supabase_client()
+        
+        # Convert cluster_id to integer if it's a string
+        cluster_id_int = None
+        if isinstance(cluster_id, str) and cluster_id.startswith('cluster_'):
+            try:
+                cluster_id_int = int(cluster_id.replace('cluster_', ''))
+            except ValueError:
+                cluster_id_int = None
+        else:
+            try:
+                cluster_id_int = int(cluster_id)
+            except (ValueError, TypeError):
+                cluster_id_int = None
+        
+        if cluster_id_int is None:
+            logger.error(f"❌ Invalid cluster_id: {cluster_id}")
+            return False
+        
+        # Ensure top_tags and top_entities are lists
+        if top_tags is None:
+            top_tags = []
+        if top_entities is None:
+            top_entities = []
+        
         cluster_data = {
-            'cluster_id': cluster_id,
-            'article_ids': article_ids,
-            'status': status,
+            'cluster_id': cluster_id_int,
+            'top_tags': top_tags,
+            'top_entities': top_entities,
+            'summary': summary or f"Cluster {cluster_id}",
+            'member_count': len(article_ids),
+            'topic': theme or 'Unknown',
+            'representative_article_id': representative_article_id,
             'created_at': datetime.now().isoformat()
         }
-        if theme:
-            cluster_data['theme'] = theme
-            cluster_data['topic'] = theme  # Also save as topic field
-        if summary:
-            cluster_data['summary'] = summary
-            logger.info(f"Adding summary to cluster {cluster_id}: {summary[:100]}...")
-        else:
-            logger.warning(f"No summary provided for cluster {cluster_id}")
+        
         result = supabase.table('clusters').upsert(cluster_data).execute()
         if result.data:
-            logger.info(f"💾 Saved cluster {cluster_id} with {len(article_ids)} articles (theme: {theme}, topic: {theme})")
+            logger.info(f"💾 Saved cluster {cluster_id} with {len(article_ids)} articles (topic: {theme})")
             return True
         else:
-            logger.error(f"❌ Failed to save cluster {cluster_id}")
+            logger.error(f"❌ Failed to save cluster {cluster_id}. Supabase response: {result}")
             return False
     except Exception as e:
         logger.error(f"❌ Error saving cluster {cluster_id}: {e}")

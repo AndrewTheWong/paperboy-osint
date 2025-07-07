@@ -39,6 +39,9 @@ def preprocess_and_enqueue(self, article_id: str, title: str, body: str,
         from services.embedder import generate_embedding
         from db.redis_queue import push_to_clustering_queue
         
+        # Import the scraper for HTML cleaning
+        from services.async_scraper import RobustAsyncScraper
+        
         # Clean HTML from body
         logger.info(f"🧹 Starting HTML cleaning for article {article_id}")
         cleaned_text = RobustAsyncScraper.clean_html_text(body)

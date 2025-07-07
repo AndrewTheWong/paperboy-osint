@@ -223,7 +223,7 @@ def cluster_articles_batch(self, articles: List[Dict[str, Any]]) -> Dict[str, An
         # Perform clustering
         clustering_result = cluster_articles_complete(valid_embeddings, valid_articles)
         clusters = clustering_result.get('clusters', {})
-        cluster_summaries = clustering_result.get('cluster_summaries', {})
+        cluster_summaries = clustering_result.get('summaries', {})
         
         # Assign cluster IDs to articles
         for cluster_id, article_indices in clusters.items():

@@ -119,8 +119,15 @@ def summarize_clusters(articles: List[Dict], clusters: Dict[int, List[int]]) -> 
         top_topic = topics.most_common(1)[0][0] if topics else "Unknown"
         top_region = regions.most_common(1)[0][0] if regions else "Unknown"
         
-        # Representative article (first one)
-        representative_title = articles[indices[0]]['title'] if indices[0] < len(articles) else "Unknown"
+        # Representative article (first one) - handle different title field names
+        representative_title = "Unknown"
+        if indices[0] < len(articles):
+            article = articles[indices[0]]
+            # Try different possible title field names
+            for title_field in ['title_translated', 'title', 'title_original']:
+                if title_field in article and article[title_field]:
+                    representative_title = article[title_field]
+                    break
         
         cluster_info[cid] = {
             "size": len(indices),

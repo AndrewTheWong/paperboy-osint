@@ -35,19 +35,33 @@ logger = logging.getLogger(__name__)
 
 # User agents for rotation
 USER_AGENTS = [
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15A372 Safari/604.1",
-    "Mozilla/5.0 (Linux; Android 10; SM-G975F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.120 Mobile Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
-    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/121.0",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2 Safari/605.1.15"
 ]
+
+# Additional headers to appear more like a real browser
+BROWSER_HEADERS = {
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+    'Accept-Language': 'en-US,en;q=0.5',
+    'Accept-Encoding': 'gzip, deflate',
+    'DNT': '1',
+    'Connection': 'keep-alive',
+    'Upgrade-Insecure-Requests': '1',
+    'Sec-Fetch-Dest': 'document',
+    'Sec-Fetch-Mode': 'navigate',
+    'Sec-Fetch-Site': 'none',
+    'Cache-Control': 'max-age=0'
+}
 
 class UnifiedHighSpeedScraper:
     """Unified high-speed scraper with robust features and pipeline integration"""
     
-    def __init__(self, max_concurrent: int = 50, rate_limit: float = 0.1):
+    def __init__(self, max_concurrent: int = 20, rate_limit: float = 0.5):
         self.max_concurrent = max_concurrent
-        self.rate_limit = rate_limit  # seconds between requests
+        self.rate_limit = rate_limit  # seconds between requests - increased to avoid blocks
 
         self.redis_client = get_redis_client()
         self.session = None
@@ -99,19 +113,37 @@ class UnifiedHighSpeedScraper:
             try:
                 session = await self._get_session()
                 
-                # Rate limiting
+                # Rate limiting - increased delay to avoid blocks
                 if self.rate_limit > 0:
-                    await asyncio.sleep(self.rate_limit)
+                    await asyncio.sleep(self.rate_limit * 2)  # Double the delay
                 
-                # Rotate user agent
-                headers = {'User-Agent': random.choice(USER_AGENTS)}
+                # Use comprehensive browser headers
+                headers = {**BROWSER_HEADERS, 'User-Agent': random.choice(USER_AGENTS)}
                 
-                async with session.get(url, headers=headers, allow_redirects=True) as response:
+                # Add referer for some sites
+                parsed_url = urlparse(url)
+                headers['Referer'] = f"{parsed_url.scheme}://{parsed_url.netloc}/"
+                
+                async with session.get(url, headers=headers, allow_redirects=True, timeout=30) as response:
                     if response.status == 200:
                         content = await response.text()
                         self.request_count += 1
                         logger.debug(f"✅ Fetched {url} ({len(content)} bytes)")
                         return content
+                    elif response.status in [403, 401]:
+                        # Try with different user agent and longer delay
+                        logger.warning(f"Access denied ({response.status}) for {url}, retrying...")
+                        await asyncio.sleep(5)  # Wait longer before retry
+                        headers['User-Agent'] = random.choice(USER_AGENTS)
+                        async with session.get(url, headers=headers, allow_redirects=True, timeout=30) as retry_response:
+                            if retry_response.status == 200:
+                                content = await retry_response.text()
+                                self.request_count += 1
+                                logger.debug(f"✅ Retry successful for {url}")
+                                return content
+                            else:
+                                logger.warning(f"Retry failed for {url}: {retry_response.status}")
+                                return None
                     else:
                         logger.warning(f"Failed to fetch {url}: {response.status}")
                         return None
@@ -315,9 +347,29 @@ class UnifiedHighSpeedScraper:
                     'a[href*="/202"]',  # Year-based URLs
                     'a[href*="/2025"]',
                     'a[href*="/2024"]',
+                    'a[href*=".html"]',  # HTML files
+                    'a[href*=".htm"]',   # HTM files
                     'h1 a',
                     'h2 a',
-                    'h3 a'
+                    'h3 a',
+                    'a[href*="/content/"]',  # Content URLs
+                    'a[href*="/detail/"]',   # Detail URLs
+                    'a[href*="/view/"]',     # View URLs
+                    'a[href*="/post/"]',     # Post URLs
+                    'a[href*="/entry/"]',    # Entry URLs
+                    'a[href*="/blog/"]',     # Blog URLs
+                    'a[href*="/analysis/"]', # Analysis URLs
+                    'a[href*="/report/"]',   # Report URLs
+                    'a[href*="/opinion/"]',  # Opinion URLs
+                    'a[href*="/commentary/"]', # Commentary URLs
+                    'article a',             # Links within article tags
+                    '.article a',            # Links within article classes
+                    '.post a',               # Links within post classes
+                    '.story a',              # Links within story classes
+                    '.content a',            # Links within content classes
+                    '.main a',               # Links within main content
+                    '.news-item a',          # News item links
+                    '.headline a'            # Headline links
                 ]
                 
                 for pattern in link_patterns:
@@ -326,11 +378,48 @@ class UnifiedHighSpeedScraper:
                         href = link.get('href')
                         if href:
                             full_url = urljoin(url, href)
-                            if full_url not in [l['url'] for l in article_links]:
-                                article_links.append({'url': full_url, 'title': link.get_text().strip()})
+                            # Ensure we have a valid URL and it's not the same as the source
+                            if (full_url.startswith('http') and 
+                                full_url != url and 
+                                full_url not in [l['url'] for l in article_links]):
+                                
+                                title = link.get_text().strip()
+                                # Better filtering: exclude navigation, ads, etc.
+                                if (title and 
+                                    len(title) > 10 and 
+                                    len(title) < 200 and
+                                    not any(skip in title.lower() for skip in ['advertisement', 'advert', 'sponsored', 'cookie', 'privacy', 'terms', 'contact', 'about', 'subscribe', 'login', 'sign up'])):
+                                    
+                                    article_links.append({'url': full_url, 'title': title})
+                                    logger.debug(f"Found article link: {title[:50]}... -> {full_url}")
+                
+                # If no links found with patterns, try a broader approach
+                if not article_links:
+                    logger.debug(f"No links found with patterns for {source_name}, trying broader search...")
+                    all_links = soup.find_all('a', href=True)
+                    for link in all_links:
+                        href = link.get('href')
+                        if href and not href.startswith('#') and not href.startswith('javascript:'):
+                            full_url = urljoin(url, href)
+                            if (full_url.startswith('http') and 
+                                full_url != url and
+                                full_url not in [l['url'] for l in article_links]):
+                                
+                                title = link.get_text().strip()
+                                if (title and 
+                                    len(title) > 10 and 
+                                    len(title) < 200 and
+                                    not any(skip in title.lower() for skip in ['advertisement', 'advert', 'sponsored', 'cookie', 'privacy', 'terms', 'contact', 'about', 'subscribe', 'login', 'sign up'])):
+                                    
+                                    article_links.append({'url': full_url, 'title': title})
+                                    logger.debug(f"Found link (broad search): {title[:50]}... -> {full_url}")
             
             # Limit to max_articles
             article_links = article_links[:max_articles]
+            
+            logger.info(f"📊 {source_name}: Found {len(article_links)} article links")
+            for i, link in enumerate(article_links[:3]):  # Show first 3 links
+                logger.debug(f"  {i+1}. {link['title'][:50]}... -> {link['url']}")
             
             if not article_links:
                 logger.warning(f"⚠️ {source_name}: No articles found")
@@ -371,7 +460,7 @@ class UnifiedHighSpeedScraper:
                     'article_id': article_id,
                     'title': article['title'],
                     'body': article['content'],
-                    'source_url': article['url'],
+                    'url': article['url'],  # Use 'url' instead of 'source_url'
                     'region': None,  # Will be determined during preprocessing
                     'topic': None,   # Will be determined during preprocessing
                     'source': article['source'],

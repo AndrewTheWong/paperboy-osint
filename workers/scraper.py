@@ -5,10 +5,23 @@ Uses the unified high-speed scraper for 2+ articles/second performance
 """
 
 import logging
+import asyncio
 from celery import shared_task
 from services.scraper import run_scraper, UnifiedHighSpeedScraper
 
 logger = logging.getLogger(__name__)
+
+def _run_async_with_proper_loop(coro):
+    """
+    Run async coroutine with proper event loop handling for Celery tasks.
+    Always create a new event loop for each task to avoid 'Event loop is closed' errors.
+    """
+    loop = asyncio.new_event_loop()
+    try:
+        asyncio.set_event_loop(loop)
+        return loop.run_until_complete(coro)
+    finally:
+        loop.close()
 
 @shared_task(bind=True)
 def run_async_scraper(self, sources=None, max_articles_per_source=10):
@@ -25,9 +38,8 @@ def run_async_scraper(self, sources=None, max_articles_per_source=10):
     try:
         logger.info(f"🚀 Starting unified high-speed scraper task with {len(sources) if sources else 'default'} sources")
         
-        # Run the scraper
-        import asyncio
-        result = asyncio.run(run_scraper(sources, max_articles_per_source))
+        # Run the scraper with proper event loop handling
+        result = _run_async_with_proper_loop(run_scraper(sources, max_articles_per_source))
         
         # Log performance metrics
         articles_per_second = result.get('articles_per_second', 0)
@@ -65,9 +77,8 @@ def run_continuous_scraper(self, sources=None, max_articles_per_source=10, inter
     try:
         logger.info(f"🔄 Starting continuous scraper (interval: {interval_minutes} minutes)")
         
-        # Run one scraping cycle
-        import asyncio
-        result = asyncio.run(run_scraper(sources, max_articles_per_source))
+        # Run one scraping cycle with proper event loop handling
+        result = _run_async_with_proper_loop(run_scraper(sources, max_articles_per_source))
         
         # Log continuous scraping metrics
         articles_per_second = result.get('articles_per_second', 0)
@@ -97,9 +108,8 @@ def run_stress_test_scraper(self, sources=None, max_articles_per_source=50):
     try:
         logger.info(f"🔥 Starting stress test scraper with {max_articles_per_source} articles per source")
         
-        # Run stress test
-        import asyncio
-        result = asyncio.run(run_scraper(sources, max_articles_per_source))
+        # Run stress test with proper event loop handling
+        result = _run_async_with_proper_loop(run_scraper(sources, max_articles_per_source))
         
         # Detailed performance analysis
         articles_per_second = result.get('articles_per_second', 0)

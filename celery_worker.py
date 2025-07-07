@@ -68,8 +68,14 @@ try:
 except Exception as e:
     logger.error(f"FAILED: Import async scraper tasks: {e}")
 
+try:
+    from app.tasks.orchestrator import run_pipeline_orchestrator
+    logger.info("SUCCESS: Imported orchestrator tasks")
+except Exception as e:
+    logger.error(f"FAILED: Import orchestrator tasks: {e}")
+
 # Auto-discover tasks as backup
-celery_app.autodiscover_tasks(['workers'])
+celery_app.autodiscover_tasks(['workers', 'app.tasks'])
 
 logger.info(f"Registered tasks: {list(celery_app.tasks.keys())}")
 

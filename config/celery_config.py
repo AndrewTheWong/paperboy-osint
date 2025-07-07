@@ -56,6 +56,7 @@ task_routes = {
     'workers.orchestrator.run_continuous_pipeline': {'queue': 'orchestrate'},
     'workers.orchestrator.run_pipeline_step': {'queue': 'orchestrate'},
     'workers.orchestrator.monitor_pipeline_health': {'queue': 'orchestrate'},
+    'run_pipeline_orchestrator': {'queue': 'orchestrate'},
     
     # Legacy tasks
     'workers.preprocess.preprocess_and_enqueue': {'queue': 'preprocess'},

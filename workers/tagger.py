@@ -7,7 +7,7 @@ Handles NER tagging and entity extraction from articles
 import logging
 from celery import shared_task
 from typing import List, Dict, Any
-from services.tagger import tag_article_batch, tag_article_ner
+from services.tagger import tag_article_batch, tag_article
 
 logger = logging.getLogger(__name__)
 
@@ -30,11 +30,7 @@ def tag_single_article(self, article: Dict[str, Any]) -> Dict[str, Any]:
         content = article.get('content_translated', article.get('body', article.get('content', '')))
         
         # Tag the article
-        tag_result = tag_article_ner({
-            'title': title,
-            'content': content,
-            'article_id': article.get('article_id', 'unknown')
-        })
+        tag_result = tag_article(content, title)
         
         # Merge results
         article.update(tag_result)

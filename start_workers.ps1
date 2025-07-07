@@ -146,8 +146,8 @@ Write-Host ""
 Write-Host "To monitor workers:" -ForegroundColor Cyan
 Write-Host "  celery -A celery_worker flower" -ForegroundColor Gray
 Write-Host ""
-Write-Host "To stop all workers:" -ForegroundColor Cyan  
-Write-Host "  Get-Process | Where-Object {`$_.ProcessName -eq 'python'} | Stop-Process" -ForegroundColor Gray
+Write-Host "To stop all workers:" -ForegroundColor Cyan
+Write-Host "  Get-Process | Where-Object {$_.ProcessName -eq 'python'} | Stop-Process" -ForegroundColor Gray
 Write-Host ""
 Write-Host "To run the full pipeline:" -ForegroundColor Cyan
 Write-Host "  python -c 'from workers.orchestrator import run_full_pipeline; result = run_full_pipeline.delay(); print(result.get())'" -ForegroundColor Gray 
