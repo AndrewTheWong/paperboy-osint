@@ -14,7 +14,7 @@ import pandas as pd
 from pathlib import Path
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
-from utils.supabase_client import get_supabase
+from config.supabase_client import get_supabase_client
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -55,7 +55,7 @@ def load_models():
 def query_articles_from_supabase():
     """Query articles and embeddings from Supabase."""
     try:
-        client = get_supabase()
+        client = get_supabase_client()
         
         # Query the osint_articles table
         response = client.table('osint_articles').select(

@@ -5,8 +5,12 @@ Handles article clustering and similarity grouping
 """
 
 import logging
-from celery import shared_task
+from celery import Celery, shared_task
 from typing import List, Dict, Any
+
+# Initialize Celery
+celery_app = Celery('straitwatch')
+celery_app.config_from_object('config.celery_config')
 
 logger = logging.getLogger(__name__)
 
@@ -255,7 +259,7 @@ def cluster_articles_batch(self, articles: List[Dict[str, Any]]) -> Dict[str, An
 @shared_task(bind=True, max_retries=3)
 def cluster_from_queue(self, queue_name: str = "clustering_queue") -> Dict[str, Any]:
     """
-    Cluster articles from a Redis queue
+    Cluster articles from a Redis queue and store to Supabase
     
     Args:
         queue_name: Name of the Redis queue to process
@@ -264,10 +268,13 @@ def cluster_from_queue(self, queue_name: str = "clustering_queue") -> Dict[str, 
         dict: Clustering results
     """
     try:
-        logger.info(f"🔗 Starting clustering from queue: {queue_name}")
+        logger.info(f"🔍 Starting clustering from queue: {queue_name}")
         
-        # Import Redis queue functions
-        from db.redis_queue import get_from_queue, get_queue_size, add_to_queue
+        # Import services
+        from services.clusterer import cluster_articles_complete_with_summaries
+        from db.redis_queue import get_from_queue, get_queue_size
+        from db.supabase_client_v2 import create_cluster, update_cluster_members, update_cluster_summary, update_cluster_tags_and_entities, cluster_article
+        import uuid
         
         # Get queue size
         queue_size = get_queue_size(queue_name)
@@ -278,7 +285,10 @@ def cluster_from_queue(self, queue_name: str = "clustering_queue") -> Dict[str, 
             return {"status": "no_data", "clusters_created": 0}
         
         # Process articles from queue
-        articles_to_cluster = []
+        articles_data = []
+        embeddings = []
+        articles_metadata = []
+        
         processed_count = 0
         max_articles = min(queue_size, 50)  # Process up to 50 articles at a time
         
@@ -286,24 +296,132 @@ def cluster_from_queue(self, queue_name: str = "clustering_queue") -> Dict[str, 
             article_data = get_from_queue(queue_name)
             if not article_data:
                 break
+                
+            # Handle article data format
+            if isinstance(article_data, dict):
+                article_id = article_data.get('article_id', f'unknown_{processed_count}')
+                title = article_data.get('title', 'Unknown Title')
+                content = article_data.get('content_translated', article_data.get('content', ''))
+                embedding = article_data.get('embedding', [])
+                tags = article_data.get('tags', [])
+                entities = article_data.get('entities', [])
+                
+                if embedding and len(embedding) > 0:
+                    articles_data.append({
+                        'id': article_id,
+                        'title': title,
+                        'content': content,
+                        'embedding': embedding,
+                        'tags': tags,
+                        'entities': entities
+                    })
+                    
+                    embeddings.append(embedding)
+                    articles_metadata.append({
+                        'title': title,
+                        'content': content,
+                        'article_id': article_id,
+                        'tags': tags,
+                        'entities': entities
+                    })
+                    
+                    logger.info(f"✅ Processed article {article_id}")
+                else:
+                    logger.warning(f"⚠️ Article {article_id} has no embedding")
+            else:
+                logger.warning(f"⚠️ Skipping invalid article data: {article_data}")
             
-            articles_to_cluster.append(article_data)
             processed_count += 1
         
-        if not articles_to_cluster:
-            logger.warning("⚠️ No articles retrieved from queue")
-            return {"status": "no_articles", "clusters_created": 0}
+        if not embeddings:
+            logger.warning("⚠️ No valid embeddings found in queue")
+            return {"status": "no_embeddings", "clusters_created": 0}
         
-        # Cluster the batch
-        clustering_result = cluster_articles_batch(articles_to_cluster)
+        logger.info(f"📊 Processing {len(embeddings)} articles with embeddings")
         
-        # Store clustered articles back to queue for storage
-        for article in articles_to_cluster:
-            add_to_queue("storage_queue", article)
+        # Run clustering with summaries
+        clustering_results = cluster_articles_complete_with_summaries(
+            embeddings=embeddings,
+            articles=articles_metadata,
+            num_clusters=None,
+            use_faiss=False,
+            max_concurrent_summaries=3
+        )
         
-        logger.info(f"✅ Clustering from queue completed: {clustering_result['clusters_created']} clusters created")
+        clusters = clustering_results['clusters']
+        summaries = clustering_results['summaries']
         
-        return clustering_result
+        # Save clusters to database
+        total_clusters_saved = 0
+        
+        for cluster_id, cluster_indices in clusters.items():
+            if len(cluster_indices) >= 3:
+                cluster_db_ids = []
+                all_tags = []
+                all_entities = []
+                
+                for idx in cluster_indices:
+                    if idx < len(articles_data):
+                        article = articles_data[idx]
+                        article_id = article.get('id')
+                        if article_id:
+                            cluster_db_ids.append(article_id)
+                            # Collect tags and entities for top_tags/top_entities
+                            all_tags.extend(article.get('tags', []))
+                            all_entities.extend(article.get('entities', []))
+                
+                if len(cluster_db_ids) >= 3:
+                    summary_info = summaries.get(cluster_id, {})
+                    theme = summary_info.get('primary_topic', 'Unknown')
+                    text_summary = summary_info.get('text_summary', 'No summary available')
+                    
+                    # Get top tags and entities
+                    from collections import Counter
+                    top_tags = [tag for tag, count in Counter(all_tags).most_common(5)]
+                    top_entities = [entity for entity, count in Counter(all_entities).most_common(5)]
+                    
+                    unique_cluster_id = f"cluster_{cluster_id}_{str(uuid.uuid4())[:8]}"
+                    
+                    # Create cluster
+                    cluster_id = create_cluster(
+                        label=theme,
+                        description=text_summary,
+                        member_count=len(cluster_db_ids),
+                        representative_article_id=cluster_db_ids[0] if cluster_db_ids else None
+                    )
+                    
+                    if cluster_id:
+                        # Update cluster with additional data
+                        update_cluster_summary(
+                            cluster_id=cluster_id,
+                            summary=text_summary,
+                            status='complete'
+                        )
+                        
+                        # Update cluster with top tags and entities
+                        update_cluster_tags_and_entities(
+                            cluster_id=cluster_id,
+                            top_tags=top_tags,
+                            top_entities=top_entities
+                        )
+                        
+                        # Assign articles to cluster
+                        for article_id in cluster_db_ids:
+                            cluster_article(article_id, cluster_id)
+                        
+                        total_clusters_saved += 1
+                        logger.info(f"💾 Saved cluster {cluster_id}: {theme} ({len(cluster_db_ids)} articles)")
+        
+        logger.info(f"✅ Clustering from queue completed: {total_clusters_saved} clusters saved")
+        
+        return {
+            "status": "success",
+            "clusters_created": total_clusters_saved,
+            "articles_processed": len(embeddings),
+            "processing_time": clustering_results.get('processing_time', 0),
+            "top_tags": top_tags,
+            "top_entities": top_entities
+        }
         
     except Exception as e:
         logger.error(f"❌ Clustering from queue failed: {e}")
@@ -367,4 +485,7 @@ def store_clusters_to_database(self, articles: List[Dict[str, Any]]) -> Dict[str
         
     except Exception as e:
         logger.error(f"❌ Cluster storage failed: {e}")
-        raise self.retry(countdown=120, max_retries=3) 
+        raise self.retry(countdown=120, max_retries=3)
+
+# Alias for compatibility with diagnostic test
+cluster_articles = cluster_articles_batch 

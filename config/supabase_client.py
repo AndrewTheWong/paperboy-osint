@@ -1,20 +1,24 @@
 from supabase import create_client, Client
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 def get_supabase() -> Client:
     """
-    Get Supabase client for local development.
-    Uses local Supabase instance running on default ports.
+    Get Supabase client using environment variables only.
+    Raises an error if not set.
     """
-    # Local Supabase configuration
-    url = "http://127.0.0.1:54321"
-    key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU"
+    url = os.getenv('SUPABASE_URL')
+    key = os.getenv('SUPABASE_KEY')
+    if not url or not key:
+        raise RuntimeError("SUPABASE_URL and SUPABASE_KEY must be set in the environment.")
     # Clear any proxy environment variables that might interfere
     proxy_vars = ['HTTP_PROXY', 'HTTPS_PROXY', 'http_proxy', 'https_proxy']
     for var in proxy_vars:
         if var in os.environ:
             del os.environ[var]
-    # Simple client creation without any custom options
     client = create_client(url, key)
     return client
 

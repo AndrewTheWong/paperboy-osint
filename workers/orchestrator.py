@@ -132,7 +132,7 @@ def monitor_pipeline_health(self) -> Dict[str, Any]:
         
         # Check Supabase connection
         try:
-            from db.supabase_client import get_articles_count
+            from db.supabase_client_v2 import get_articles_count
             article_count = get_articles_count()
             health_status["components"]["supabase"] = {
                 "status": "healthy",

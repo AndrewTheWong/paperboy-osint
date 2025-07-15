@@ -5,9 +5,13 @@ Handles NER tagging and entity extraction from articles
 """
 
 import logging
-from celery import shared_task
+from celery import Celery, shared_task
 from typing import List, Dict, Any
 from services.tagger import tag_article_batch, tag_article
+
+# Initialize Celery
+celery_app = Celery('straitwatch')
+celery_app.config_from_object('config.celery_config')
 
 logger = logging.getLogger(__name__)
 
@@ -96,7 +100,7 @@ def tag_articles_batch(self, articles: List[Dict[str, Any]]) -> List[Dict[str, A
 @shared_task(bind=True, max_retries=3)
 def tag_from_queue(self, queue_name: str = "tagging_queue") -> Dict[str, Any]:
     """
-    Tag articles from a Redis queue
+    Tag articles from a Redis queue and store to Supabase
     
     Args:
         queue_name: Name of the Redis queue to process
@@ -107,8 +111,9 @@ def tag_from_queue(self, queue_name: str = "tagging_queue") -> Dict[str, Any]:
     try:
         logger.info(f"🏷️ Starting tagging from queue: {queue_name}")
         
-        # Import Redis queue functions
+        # Import Redis queue functions and Supabase client
         from db.redis_queue import get_from_queue, get_queue_size, add_to_queue
+        from db.supabase_client_v2 import tag_article
         
         # Get queue size
         queue_size = get_queue_size(queue_name)
@@ -138,20 +143,34 @@ def tag_from_queue(self, queue_name: str = "tagging_queue") -> Dict[str, Any]:
         # Tag the batch
         tagged_articles = tag_articles_batch(articles_to_tag)
         
-        # Store tagged articles back to queue for next step
+        # Store tagged articles to Supabase and pass to next queue
+        stored_count = 0
         for article in tagged_articles:
-            add_to_queue("embedding_queue", article)
+            article_id = article.get('article_id')
+            if article_id:
+                # Store tagging data to Supabase
+                success = tag_article(
+                    article_id=article_id,
+                    tags=article.get('tags', []),
+                    entities=article.get('entities', []),
+                    tag_categories=article.get('tag_categories', {})
+                )
+                if success:
+                    stored_count += 1
+                    # Pass to next queue
+                    add_to_queue("embedding_queue", article)
         
         # Count statistics
         total_tags = sum(len(article.get('tags', [])) for article in tagged_articles)
         total_entities = sum(len(article.get('entities', [])) for article in tagged_articles)
         
-        logger.info(f"✅ Tagging from queue completed: {len(tagged_articles)} articles tagged")
+        logger.info(f"✅ Tagging from queue completed: {stored_count}/{len(tagged_articles)} articles tagged and stored")
         logger.info(f"📊 Total tags: {total_tags}, Total entities: {total_entities}")
         
         return {
             "status": "success",
-            "tagged_count": len(tagged_articles),
+            "tagged_count": stored_count,
+            "total_articles": len(tagged_articles),
             "total_tags": total_tags,
             "total_entities": total_entities,
             "queue_processed": queue_name
@@ -224,4 +243,7 @@ def tag_with_custom_categories(self, articles: List[Dict[str, Any]],
         
     except Exception as e:
         logger.error(f"❌ Custom tagging failed: {e}")
-        raise self.retry(countdown=120, max_retries=3) 
+        raise self.retry(countdown=120, max_retries=3)
+
+# Alias for compatibility with diagnostic test
+tag_articles = tag_articles_batch 

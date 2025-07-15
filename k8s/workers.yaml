@@ -1,0 +1,128 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scraper-worker
+  namespace: paperboy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: scraper-worker
+  template:
+    metadata:
+      labels:
+        app: scraper-worker
+    spec:
+      containers:
+      - name: worker
+        image: paperboy:latest
+        command: ["celery", "-A", "celery_worker", "worker", "--loglevel=info", "--pool=solo", "-Q", "scraper", "-n", "Scraper@%h"]
+        env:
+        - name: REDIS_URL
+          value: "redis://redis:6379/0"
+        - name: SUPABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: paperboy-secrets
+              key: supabase-url
+        - name: SUPABASE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: paperboy-secrets
+              key: supabase-key
+        envFrom:
+        - configMapRef:
+            name: paperboy-config
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "200m"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: embedder-worker
+  namespace: paperboy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: embedder-worker
+  template:
+    metadata:
+      labels:
+        app: embedder-worker
+    spec:
+      containers:
+      - name: worker
+        image: paperboy:latest
+        command: ["celery", "-A", "celery_worker", "worker", "--loglevel=info", "--pool=solo", "-Q", "embed", "-n", "Embedder@%h"]
+        env:
+        - name: REDIS_URL
+          value: "redis://redis:6379/0"
+        - name: SUPABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: paperboy-secrets
+              key: supabase-url
+        - name: SUPABASE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: paperboy-secrets
+              key: supabase-key
+        envFrom:
+        - configMapRef:
+            name: paperboy-config
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clusterer-worker
+  namespace: paperboy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: clusterer-worker
+  template:
+    metadata:
+      labels:
+        app: clusterer-worker
+    spec:
+      containers:
+      - name: worker
+        image: paperboy:latest
+        command: ["celery", "-A", "celery_worker", "worker", "--loglevel=info", "--pool=solo", "-Q", "cluster", "-n", "Clusterer@%h"]
+        env:
+        - name: REDIS_URL
+          value: "redis://redis:6379/0"
+        - name: SUPABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: paperboy-secrets
+              key: supabase-url
+        - name: SUPABASE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: paperboy-secrets
+              key: supabase-key
+        envFrom:
+        - configMapRef:
+            name: paperboy-config
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m" 

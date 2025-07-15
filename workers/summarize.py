@@ -28,7 +28,7 @@ def summarize_cluster(self, cluster_id: str, article_ids: List[str]):
         logger.info(f"📝 Summarizing cluster {cluster_id} with {len(article_ids)} articles")
         
         # Import services
-        from db.supabase_client import get_articles_texts, update_cluster_summary
+        from db.supabase_client_v2 import get_articles_texts, update_cluster_summary
         from services.summarizer import generate_summary
         
         # Fetch article texts
@@ -75,7 +75,7 @@ def summarize_all_pending_clusters(self):
         logger.info("📝 Starting batch summarization of pending clusters")
         
         # Import services
-        from db.supabase_client import get_pending_clusters
+        from db.supabase_client_v2 import get_pending_clusters
         
         # Get all pending clusters
         pending_clusters = get_pending_clusters()
@@ -100,7 +100,7 @@ def summarize_all_pending_clusters(self):
                     logger.info(f"📤 Queued cluster {cluster_id} for summarization")
                 else:
                     # Mark small clusters as complete without summarization
-                    from db.supabase_client import update_cluster_summary
+                    from db.supabase_client_v2 import update_cluster_summary
                     update_cluster_summary(
                         cluster_id=cluster_id,
                         summary="Single article cluster - no summary needed",

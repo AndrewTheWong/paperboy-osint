@@ -19,13 +19,8 @@ USER_AGENTS = [
 ]
 
 class RobustAsyncScraper:
-    def __init__(self, redis_client=None):
-        self.redis_client = redis_client or self._init_redis()
+    def __init__(self):
         self.logger = logging.getLogger("RobustAsyncScraper")
-
-    def _init_redis(self):
-        import redis.asyncio as redis
-        return redis.from_url(os.getenv("REDIS_URL", "redis://localhost:6379/0"))
 
     async def scrape_sources(self, sources: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         results = []
@@ -36,7 +31,6 @@ class RobustAsyncScraper:
                     res = await coro
                     if res:
                         results.append(res)
-                        await self.queue_article(res)
                 except Exception as e:
                     self.logger.error(f"Scrape error: {e}")
         return results
@@ -91,9 +85,6 @@ class RobustAsyncScraper:
             return detect(text)
         except Exception:
             return "unknown"
-
-    async def queue_article(self, article: Dict[str, Any]):
-        await self.redis_client.lpush("preprocess_queue", json.dumps(article))
 
     @staticmethod
     def load_sources_from_file(path: str) -> List[Dict[str, Any]]:

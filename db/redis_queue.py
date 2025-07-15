@@ -167,3 +167,31 @@ def push_batch_to_queue(article_ids: List[str]) -> int:
     except Exception as e:
         logger.error(f"❌ Error pushing batch to queue: {e}")
         return 0 
+
+class RedisQueue:
+    def __init__(self):
+        self.client = get_redis_client()
+
+    def push(self, queue_name: str, data) -> bool:
+        try:
+            if isinstance(data, dict):
+                data = json.dumps(data)
+            self.client.lpush(queue_name, data)
+            logger.info(f"📤 Pushed item to {queue_name}")
+            return True
+        except Exception as e:
+            logger.error(f"❌ Error pushing to {queue_name}: {e}")
+            return False
+
+    def pop(self, queue_name: str):
+        try:
+            result = self.client.rpop(queue_name)
+            if result:
+                try:
+                    return json.loads(result)
+                except Exception:
+                    return result
+            return None
+        except Exception as e:
+            logger.error(f"❌ Error popping from {queue_name}: {e}")
+            return None 

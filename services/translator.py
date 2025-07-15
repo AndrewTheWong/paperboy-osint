@@ -18,9 +18,9 @@ logger = logging.getLogger(__name__)
 class TranslationService:
     """Translation service using multiple APIs or fallback methods"""
     
-    def __init__(self, api_key: Optional[str] = None, api_type: str = "google"):
-        self.api_key = api_key
+    def __init__(self, api_type: str = "google"):
         self.api_type = api_type
+        self.api_key = os.getenv('GOOGLE_TRANSLATE_API_KEY') if api_type == "google" else None
         self.google_url = "https://translation.googleapis.com/language/translate/v2"
         self.libretranslate_url = "https://libretranslate.de/translate"  # Free API
         self.mymemory_url = "https://api.mymemory.translated.net/get"
@@ -279,9 +279,9 @@ class TranslationService:
         
         return translated_articles
 
-def get_translation_service(api_key: Optional[str] = None, api_type: str = "google") -> TranslationService:
+def get_translation_service(api_type: str = "google") -> TranslationService:
     """Get a translation service instance"""
-    return TranslationService(api_key, api_type)
+    return TranslationService(api_type)
 
 def translate_article_simple(article: Dict[str, Any]) -> Dict[str, Any]:
     """Simple translation function for single article"""
@@ -291,4 +291,9 @@ def translate_article_simple(article: Dict[str, Any]) -> Dict[str, Any]:
 def translate_articles_batch_simple(articles: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     """Simple batch translation function"""
     service = get_translation_service()
-    return service.translate_articles_batch(articles) 
+    return service.translate_articles_batch(articles)
+
+def translate_text(text: str, source_lang: str = "auto", target_lang: str = "en") -> str:
+    """Standalone function to translate text"""
+    service = get_translation_service()
+    return service.translate_text(text, source_lang, target_lang) 

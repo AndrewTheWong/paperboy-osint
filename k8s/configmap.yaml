@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: paperboy-config
+  namespace: paperboy
+data:
+  LOG_LEVEL: "INFO"
+  ENVIRONMENT: "production"
+  MAX_ARTICLES_PER_BATCH: "100"
+  SCRAPING_TIMEOUT: "30"
+  EMBEDDING_MODEL: "all-MiniLM-L6-v2"
+  CLUSTERING_MIN_SAMPLES: "5"
+  CLUSTERING_EPSILON: "0.3"
+  API_HOST: "0.0.0.0"
+  API_PORT: "8000" 

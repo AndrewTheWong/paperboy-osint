@@ -5,9 +5,13 @@ Handles text embedding generation for articles
 """
 
 import logging
-from celery import shared_task
+from celery import Celery, shared_task
 from typing import List, Dict, Any
 from services.embedder import generate_embeddings_batch, generate_embedding
+
+# Initialize Celery
+celery_app = Celery('straitwatch')
+celery_app.config_from_object('config.celery_config')
 
 logger = logging.getLogger(__name__)
 
@@ -103,7 +107,7 @@ def embed_articles_batch(self, articles: List[Dict[str, Any]]) -> List[Dict[str,
 @shared_task(bind=True, max_retries=3)
 def embed_from_queue(self, queue_name: str = "embedding_queue") -> Dict[str, Any]:
     """
-    Generate embeddings for articles from a Redis queue
+    Generate embeddings for articles from a Redis queue and store to Supabase
     
     Args:
         queue_name: Name of the Redis queue to process
@@ -114,8 +118,10 @@ def embed_from_queue(self, queue_name: str = "embedding_queue") -> Dict[str, Any
     try:
         logger.info(f"🔢 Starting embedding from queue: {queue_name}")
         
-        # Import Redis queue functions
+        # Import Redis queue functions and Supabase client
         from db.redis_queue import get_from_queue, get_queue_size, add_to_queue
+        from db.supabase_client_v2 import embed_article, update_article_summary
+        from services.summarizer import generate_summary
         
         # Get queue size
         queue_size = get_queue_size(queue_name)
@@ -146,25 +152,39 @@ def embed_from_queue(self, queue_name: str = "embedding_queue") -> Dict[str, Any
         texts_for_embedding = [f"{article.get('title', '')}\n\n{article.get('body', article.get('content', ''))}" for article in articles_to_embed]
         embeddings = generate_embeddings_batch(texts_for_embedding)
         
-        # Add embeddings to articles
+        # Add embeddings to articles and store to Supabase
+        stored_count = 0
         for i, (article, embedding) in enumerate(zip(articles_to_embed, embeddings)):
             article['embedding'] = embedding
-        
-        # Store embedded articles back to queue for next step
-        for article in embedded_articles:
-            add_to_queue("clustering_queue", article)
+            article_id = article.get('article_id')
+            if article_id and embedding:
+                # Store embedding data to Supabase
+                success = embed_article(
+                    article_id=article_id,
+                    embedding=embedding
+                )
+                if success:
+                    # Generate and store summary
+                    content = article.get('content_translated', article.get('content', ''))
+                    if content:
+                        summary = generate_summary(content)
+                        update_article_summary(article_id, summary)
+                    
+                    stored_count += 1
+                    # Pass to next queue
+                    add_to_queue("clustering_queue", article)
         
         # Count statistics
-        successful_embeddings = sum(1 for article in embedded_articles if article.get('embedding'))
-        total_dimensions = sum(len(article.get('embedding', [])) for article in embedded_articles)
+        successful_embeddings = sum(1 for article in articles_to_embed if article.get('embedding'))
+        total_dimensions = sum(len(article.get('embedding', [])) for article in articles_to_embed)
         
-        logger.info(f"✅ Embedding from queue completed: {successful_embeddings}/{len(embedded_articles)} articles embedded")
+        logger.info(f"✅ Embedding from queue completed: {stored_count}/{len(articles_to_embed)} articles embedded and stored")
         logger.info(f"📊 Total dimensions: {total_dimensions}")
         
         return {
             "status": "success",
-            "embedded_count": successful_embeddings,
-            "total_articles": len(embedded_articles),
+            "embedded_count": stored_count,
+            "total_articles": len(articles_to_embed),
             "total_dimensions": total_dimensions,
             "queue_processed": queue_name
         }
@@ -290,4 +310,7 @@ def similarity_search(self, query_text: str, top_k: int = 10) -> Dict[str, Any]:
         
     except Exception as e:
         logger.error(f"❌ Similarity search failed: {e}")
-        raise self.retry(countdown=60, max_retries=3) 
+        raise self.retry(countdown=60, max_retries=3)
+
+# Alias for compatibility with diagnostic test
+embed_articles = embed_articles_batch 

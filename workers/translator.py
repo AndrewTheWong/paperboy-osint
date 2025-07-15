@@ -82,7 +82,7 @@ def translate_articles_batch(self, articles: List[Dict[str, Any]]) -> List[Dict[
 @shared_task(bind=True, max_retries=3)
 def translate_from_queue(self, queue_name: str = "translation_queue") -> Dict[str, Any]:
     """
-    Translate articles from a Redis queue
+    Translate articles from a Redis queue and store to Supabase
     
     Args:
         queue_name: Name of the Redis queue to process
@@ -93,8 +93,9 @@ def translate_from_queue(self, queue_name: str = "translation_queue") -> Dict[st
     try:
         logger.info(f"🔄 Starting translation from queue: {queue_name}")
         
-        # Import Redis queue functions
-        from db.redis_queue import get_from_queue, get_queue_size
+        # Import Redis queue functions and Supabase client
+        from db.redis_queue import get_from_queue, get_queue_size, add_to_queue
+        from db.supabase_client_v2 import translate_article
         
         # Get queue size
         queue_size = get_queue_size(queue_name)
@@ -124,17 +125,30 @@ def translate_from_queue(self, queue_name: str = "translation_queue") -> Dict[st
         # Translate the batch
         translated_articles = translate_articles_batch_simple(articles_to_translate)
         
-        # Store translated articles back to queue for next step
-        from db.redis_queue import add_to_queue
-        
+        # Store translated articles to Supabase and pass to next queue
+        stored_count = 0
         for article in translated_articles:
-            add_to_queue("tagging_queue", article)
+            article_id = article.get('article_id')
+            if article_id:
+                # Store translation data to Supabase
+                success = translate_article(
+                    article_id=article_id,
+                    translated_text=article.get('content_translated', ''),
+                    translated_title=article.get('title_translated', ''),
+                    source_language=article.get('content_language', 'en'),
+                    target_language='en'
+                )
+                if success:
+                    stored_count += 1
+                    # Pass to next queue
+                    add_to_queue("tagging_queue", article)
         
-        logger.info(f"✅ Translation from queue completed: {len(translated_articles)} articles translated")
+        logger.info(f"✅ Translation from queue completed: {stored_count}/{len(translated_articles)} articles translated and stored")
         
         return {
             "status": "success",
-            "translated_count": len(translated_articles),
+            "translated_count": stored_count,
+            "total_articles": len(translated_articles),
             "queue_processed": queue_name
         }
         

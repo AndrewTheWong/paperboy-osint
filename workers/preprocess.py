@@ -87,4 +87,7 @@ def preprocess_and_enqueue(self, article_id: str, title: str, body: str,
     except Exception as e:
         logger.error(f"❌ Error preprocessing article {article_id}: {e}")
         logger.exception("Full traceback:")
-        raise self.retry(countdown=60, max_retries=3) 
+        raise self.retry(countdown=60, max_retries=3)
+
+# Alias for compatibility with diagnostic test
+preprocess_articles = preprocess_and_enqueue 

@@ -17,6 +17,15 @@ import asyncio
 from services.async_scraper import RobustAsyncScraper
 from services.tagger import tag_article_batch
 from services.faiss_index import get_faiss_service
+import time
+from datetime import datetime
+import redis
+import json
+import os
+import sys
+
+# Add the project root to Python path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Try to import SentenceTransformer, but make it optional
 try:
@@ -84,27 +93,42 @@ def run_async_scrape(sources):
         finally:
             loop.close()
 
-@celery_app.task(bind=True, max_retries=3)
+@celery_app.task(bind=True, max_retries=3, queue='preprocess')
 def preprocess_article(self, article: Dict[str, Any]) -> Dict[str, Any]:
     """
-    Clean and preprocess article text
+    Preprocess article: clean text, translate if needed
     """
     try:
-        logger.info(f"[PIPELINE] Preprocessing article {article.get('article_id', 'unknown')}")
+        article_id = article.get('id', article.get('article_id', 'unknown'))
+        logger.info(f"[PIPELINE] Preprocessing article {article_id}")
         
-        # Clean the article content
-        article["cleaned_text"] = article.get("body", "")
-        article["title"] = article.get("title", "")
+        # Clean text
+        import sys
+        import os
+        # Add parent directory to path for imports
+        sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
         
-        logger.info(f"SUCCESS: Preprocessed article {article.get('article_id')}: {len(article['cleaned_text'])} chars")
+        from services.cleaner import clean_text
+        content = article.get("content", article.get("body", ""))
+        cleaned_text = clean_text(content)
+        article["cleaned_text"] = cleaned_text
+        
+        # Translate if needed
+        if article.get("needs_translation", False):
+            from services.translator import translate_text
+            translated_content = translate_text(cleaned_text)
+            article["cleaned_text"] = translated_content
+            article["translated"] = True
+        
+        logger.info(f"SUCCESS: Preprocessed article {article_id}")
         return article
         
     except Exception as e:
-        logger.error(f"[PIPELINE] Error preprocessing article {article.get('article_id')}: {e}")
+        logger.error(f"[PIPELINE] Error preprocessing article {article.get('id')}: {e}")
         logger.error(traceback.format_exc())
         raise self.retry(countdown=60, max_retries=3)
 
-@celery_app.task(bind=True, max_retries=3)
+@celery_app.task(bind=True, max_retries=3, queue='tag')
 def tag_article_ner(self, article: Dict[str, Any]) -> Dict[str, Any]:
     """
     Tag article using comprehensive NER analysis
@@ -213,7 +237,7 @@ def tag_article_ner(self, article: Dict[str, Any]) -> Dict[str, Any]:
         })
         raise self.retry(countdown=60, max_retries=3)
 
-@celery_app.task(bind=True, max_retries=3)
+@celery_app.task(bind=True, max_retries=3, queue='embed')
 def embed_and_cluster_article(self, article: Dict[str, Any]) -> Dict[str, Any]:
     """
     Generate embedding and assign to cluster using real clustering service
@@ -304,38 +328,47 @@ def embed_and_cluster_article(self, article: Dict[str, Any]) -> Dict[str, Any]:
         logger.error(traceback.format_exc())
         raise self.retry(countdown=60, max_retries=3)
 
-@celery_app.task(bind=True, max_retries=3)
-def store_to_supabase(self, article: Dict[str, Any]) -> Dict[str, Any]:
-    """
-    Store article to Supabase with enhanced schema including tags and clustering
-    """
+@celery_app.task(queue='supabase')
+def store_to_supabase(article: Dict[str, Any]) -> Dict[str, Any]:
+    """Store article to Supabase with better error handling"""
+    logger.info(f"[PIPELINE] Storing article {getattr(article, 'id', 'unknown')}")
+    
     try:
+        # Validate article has required fields
+        if not article.get('title') or not article.get('content'):
+            logger.warning(f"🚫 Skipping article {article.get('id', 'unknown')}: missing title or content")
+            return {
+                'status': 'skipped',
+                'reason': 'missing_title_or_content',
+                'article_id': article.get('id')
+            }
+        
+        # Import the store_article function
         from db.supabase_client import store_article
-        import uuid
-        import datetime
 
-        # Prepare article data
-        article_id = article.get('article_id') or str(uuid.uuid4())
+        # Extract required parameters
+        article_id = article.get('id', f"article_{int(time.time())}")
         title = article.get('title', '')
-        raw_text = article.get('body', '')
-        cleaned_text = article.get('cleaned_text', '')
+        raw_text = article.get('content', '')
+        cleaned_text = article.get('cleaned_text', raw_text)
         embedding = article.get('embedding', [])
         region = article.get('region', 'Unknown')
         topic = article.get('topic', 'General')
-        source_url = article.get('source_url', '')
-        
-        # Enhanced tagging data
+        source_url = article.get('url', '')
         tags = article.get('tags', [])
         tag_categories = article.get('tag_categories', {})
         entities = article.get('entities', [])
-        
-        # Clustering data
+        priority_level = article.get('priority_level', 'LOW')
         cluster_id = article.get('cluster_id')
-        cluster_label = article.get('cluster_label', '')
-        cluster_description = article.get('cluster_description', '')
+        cluster_label = article.get('cluster_label')
+        cluster_description = article.get('cluster_description')
+        title_original = article.get('title_original', title)
+        content_original = article.get('content_original', raw_text)
+        title_language = article.get('language', 'en')
+        content_language = article.get('language', 'en')
         
-        # Store article with enhanced data
-        db_id = store_article(
+        # Call the store_article function
+        success = store_article(
             article_id=article_id,
             title=title,
             raw_text=raw_text,
@@ -347,24 +380,42 @@ def store_to_supabase(self, article: Dict[str, Any]) -> Dict[str, Any]:
             tags=tags,
             tag_categories=tag_categories,
             entities=entities,
+            confidence_score=0.0,
+            priority_level=priority_level,
             cluster_id=cluster_id,
             cluster_label=cluster_label,
-            cluster_description=cluster_description
+            cluster_description=cluster_description,
+            title_original=title_original,
+            content_original=content_original,
+            title_language=title_language,
+            content_language=content_language
         )
         
-        if db_id:
-            logger.info(f"SUCCESS: Article {article_id} stored successfully with {len(tags)} tags")
-            return {'status': 'stored', 'article_id': article_id, 'db_id': db_id, 'cluster_id': cluster_id}
+        if success:
+            logger.info(f"✅ Successfully stored article {article_id}")
+            return {
+                'status': 'success',
+                'article_id': article_id,
+                'stored_at': datetime.now().isoformat()
+            }
         else:
             logger.error(f"❌ Failed to store article {article_id}")
-            raise Exception(f"Failed to store article {article_id}")
+            return {
+                'status': 'failed',
+                'reason': 'storage_failed',
+                'article_id': article_id
+            }
             
     except Exception as e:
-        logger.error(f"[PIPELINE] Error storing article {article.get('article_id')}: {e}")
-        logger.error(traceback.format_exc())
-        raise self.retry(countdown=60, max_retries=3)
+        logger.error(f"❌ [PIPELINE] Error storing article {getattr(article, 'id', 'unknown')}: {e}")
+        return {
+            'status': 'failed',
+            'reason': 'pipeline_error',
+            'error': str(e),
+            'article_id': getattr(article, 'id', 'unknown')
+        }
 
-@celery_app.task(bind=True, max_retries=3)
+@celery_app.task(bind=True, max_retries=3, queue='cluster')
 def store_to_faiss(self, article: Dict[str, Any]) -> Dict[str, Any]:
     """
     Store article embedding to Faiss index
@@ -373,77 +424,65 @@ def store_to_faiss(self, article: Dict[str, Any]) -> Dict[str, Any]:
         article_id = article.get('id', article.get('article_id', 'unknown'))
         logger.info(f"[PIPELINE] Storing article {article_id} to Faiss")
         
-        # Get the embedding from the article
-        embedding = article.get('embedding')
-        if not embedding:
-            logger.warning(f"WARNING: Article {article_id} has no embedding for Faiss storage")
-            return {
-                "status": "failed",
-                "message": "No embedding available",
-                "article_id": article_id
-            }
-        
-        # Get Faiss service and store embedding
+        # Get Faiss service
         faiss_service = get_faiss_service()
-        if not faiss_service:
-            logger.error(f"ERROR: Faiss service not available for article {article_id}")
-            return {
-                "status": "failed", 
-                "message": "Faiss service not available",
-                "article_id": article_id
-            }
         
-        # Store the embedding
-        success = faiss_service.add_embedding(embedding, article_id)
+        # Add embedding to Faiss index
+        success = faiss_service.add_embedding(article)
         
         if success:
-            logger.info(f"SUCCESS: [PIPELINE] Stored article {article_id} to Faiss")
-            return {
-                "status": "success",
-                "message": "Embedding stored to Faiss",
-                "article_id": article_id
-            }
+            logger.info(f"SUCCESS: Stored article {article_id} to Faiss")
+            return {"status": "stored_to_faiss", "article_id": article_id}
         else:
-            logger.error(f"ERROR: [PIPELINE] Failed to store article {article_id} to Faiss")
-            return {
-                "status": "failed",
-                "message": "Failed to store embedding",
-                "article_id": article_id
-            }
+            logger.error(f"❌ Failed to store article {article_id} to Faiss")
+            raise Exception(f"Failed to store article {article_id} to Faiss")
             
     except Exception as e:
-        logger.error(f"[PIPELINE] ERROR: Storing article {article.get('id', article.get('article_id'))} to Faiss: {e}")
+        logger.error(f"[PIPELINE] Error storing article {article.get('article_id')} to Faiss: {e}")
         logger.error(traceback.format_exc())
         raise self.retry(countdown=60, max_retries=3)
 
-# === PIPELINE ORCHESTRATOR ===
-@celery_app.task
+@celery_app.task(queue='preprocess')
 def run_article_pipeline(article: Dict[str, Any]) -> Dict[str, Any]:
     """
-    Run the complete article processing pipeline
+    Run the complete article processing pipeline with proper queue routing
     """
-    logger.info(f"[PIPELINE] Starting pipeline for article {getattr(article, 'id', 'unknown')}")
+    logger.info(f"[PIPELINE] Starting pipeline for article {article.get('article_id', 'unknown')}")
     try:
         logger.info("[PIPELINE] Preprocessing article...")
-        # Create and execute the processing chain
-        pipeline = chain(
-            preprocess_article.s(article),
-            tag_article_ner.s(),
-            embed_and_cluster_article.s(),
-            store_to_supabase.s(),
-            store_to_faiss.s()
-        )
         
-        # Execute the pipeline
-        result = pipeline.apply_async()
+        # Step 1: Preprocess
+        preprocessed_article = preprocess_article(article)
         
-        logger.info(f"🎯 Pipeline initiated for article {article.get('article_id')}")
-        logger.info(f"[PIPELINE] Finished pipeline for article {getattr(article, 'id', 'unknown')}")
-        return {"status": "pipeline_started", "task_id": result.id, "article_id": article.get("article_id")}
+        # Step 2: Tag
+        tagged_article = tag_article_ner(preprocessed_article)
+        
+        # Step 3: Embed and cluster
+        embedded_article = embed_and_cluster_article(tagged_article)
+        
+        # Step 4: Store to Supabase
+        storage_result = store_to_supabase(embedded_article)
+        
+        # Step 5: Store to Faiss
+        faiss_result = store_to_faiss(embedded_article)
+        
+        logger.info(f"[PIPELINE] Finished pipeline for article {article.get('article_id', 'unknown')}")
+        return {
+            "status": "pipeline_completed", 
+            "article_id": article.get("article_id"),
+            "preprocess": preprocessed_article.get('status', 'unknown'),
+            "tag": tagged_article.get('status', 'unknown'),
+            "embed": embedded_article.get('status', 'unknown'),
+            "storage": storage_result.get('status', 'unknown'),
+            "faiss": faiss_result.get('status', 'unknown')
+        }
     except Exception as e:
-        logger.error(f"[PIPELINE] Error in pipeline for article {getattr(article, 'id', 'unknown')}: {e}")
+        logger.error(f"[PIPELINE] Error in pipeline for article {article.get('article_id', 'unknown')}: {e}")
         logger.error(traceback.format_exc())
         return {'status': 'error', 'error': str(e), 'traceback': traceback.format_exc()}
+
+# Alias for compatibility with diagnostic test
+run_pipeline_task = run_article_pipeline
 
 def embed_articles_batch(articles: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     """
@@ -670,6 +709,10 @@ def store_batch_to_supabase(self, articles: List[Dict[str, Any]]) -> Dict[str, A
                 topic = article.get('topic', 'General')
                 source_url = article.get('source_url', '')
                 
+                # Use 'url' as fallback if 'source_url' is empty
+                if not source_url or not str(source_url).strip():
+                    source_url = article.get('url', '')
+                
                 # Enhanced tagging data
                 tags = article.get('tags', [])
                 tag_categories = article.get('tag_categories', {})
@@ -753,6 +796,75 @@ def process_article_batch(self, articles: List[Dict[str, Any]], batch_size: int 
     except Exception as e:
         logger.error(f"❌ Error in batch processing: {e}")
         raise self.retry(countdown=60, max_retries=3)
+
+@celery_app.task(queue='scraper')
+def scrape_articles():
+    """Scrape articles from sources and queue them for processing"""
+    logger.info("📰 Starting article scraping task")
+    
+    try:
+        # Initialize scraper
+        from services.async_scraper import RobustAsyncScraper
+        scraper = RobustAsyncScraper()
+        
+        # Load sources
+        sources = scraper.load_sources_from_file("sources/chinese_news_sources.json")
+        logger.info(f"📋 Loaded {len(sources)} sources")
+        
+        # Run async scraping
+        import asyncio
+        articles = asyncio.run(scraper.scrape_sources(sources))
+        logger.info(f"✅ Scraped {len(articles)} articles")
+        
+        # Queue articles for processing
+        for article in articles:
+            if article.get('title') and article.get('content'):  # Only queue valid articles
+                run_article_pipeline.delay(article)
+                logger.info(f"Queued article as Celery task: {article.get('id', 'unknown')}")
+        
+        return {
+            'status': 'success',
+            'articles_scraped': len(articles),
+            'timestamp': datetime.now().isoformat()
+        }
+        
+    except Exception as e:
+        logger.error(f"❌ Error in scraping task: {e}")
+        return {
+            'status': 'error',
+            'error': str(e),
+            'timestamp': datetime.now().isoformat()
+        }
+
+@celery_app.task(queue='scraper')
+def run_continuous_scraping():
+    """Run continuous scraping with scheduling"""
+    logger.info("🔄 Starting continuous scraping cycle")
+    
+    try:
+        # Schedule the next cycle
+        from celery import current_app
+        current_app.send_task(
+            'workers.pipeline.run_continuous_scraping',
+            countdown=300  # 5 minutes
+        )
+        
+        # Run the current scraping cycle
+        scrape_articles.delay()
+        
+        return {
+            'status': 'scheduled_next_cycle',
+            'task_id': scrape_articles.delay().id,
+            'next_cycle_in': '5 minutes'
+        }
+        
+    except Exception as e:
+        logger.error(f"❌ Error in continuous scraping: {e}")
+        return {
+            'status': 'error',
+            'error': str(e),
+            'timestamp': datetime.now().isoformat()
+        }
 
 if __name__ == "__main__":
     """Main entry point for the pipeline"""

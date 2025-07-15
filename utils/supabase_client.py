@@ -3,37 +3,21 @@ import os
 
 def get_supabase() -> Client:
     """
-    Get Supabase client for local development.
-    Uses local Supabase instance running on default ports.
+    Get Supabase client using environment variables only.
+    Raises an error if not set.
     """
-    # Local Supabase configuration
-    url = "http://127.0.0.1:54321"
-    key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU"
-    
+    url = os.getenv('SUPABASE_URL')
+    key = os.getenv('SUPABASE_KEY')
+    if not url or not key:
+        raise RuntimeError("SUPABASE_URL and SUPABASE_KEY must be set in the environment.")
     try:
         # Clear any proxy environment variables that might interfere
         proxy_vars = ['HTTP_PROXY', 'HTTPS_PROXY', 'http_proxy', 'https_proxy']
         for var in proxy_vars:
             if var in os.environ:
                 del os.environ[var]
-        
         client = create_client(url, key)
         return client
-    except TypeError as e:
-        if "proxy" in str(e):
-            # Try alternative initialization without proxy
-            print(f"Warning: Proxy configuration issue detected: {e}")
-            print("Attempting alternative initialization...")
-            try:
-                # Import and use the client directly
-                from supabase.client import Client as SupabaseClient
-                client = SupabaseClient(url, key)
-                return client
-            except Exception as e2:
-                print(f"Alternative initialization failed: {e2}")
-                raise
-        else:
-            raise
     except Exception as e:
         print(f"Failed to create Supabase client: {e}")
         raise

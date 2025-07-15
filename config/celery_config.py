@@ -3,9 +3,11 @@
 Celery configuration for StraitWatch backend
 """
 
-# Broker settings
-broker_url = 'redis://localhost:6379/0'
-result_backend = 'redis://localhost:6379/0'
+import os
+
+# Broker settings - use environment variable or default to Redis service name for Docker
+broker_url = os.getenv('REDIS_URL', 'redis://redis:6379/0')
+result_backend = os.getenv('REDIS_URL', 'redis://redis:6379/0')
 
 # Task settings
 task_serializer = 'json'
@@ -18,9 +20,9 @@ enable_utc = True
 # Assign tasks to specific queues for dedicated workers
 task_routes = {
     # Scraping tasks
-    'workers.scraper.run_async_scraper': {'queue': 'scrape'},
-    'workers.scraper.run_continuous_scraper': {'queue': 'scrape'},
-    'workers.scraper.run_stress_test_scraper': {'queue': 'scrape'},
+    'workers.scraper.run_async_scraper': {'queue': 'scraper'},
+    'workers.scraper.run_continuous_scraper': {'queue': 'scraper'},
+    'workers.scraper.run_supabase_scraper': {'queue': 'scraper'},
     
     # Translation tasks
     'workers.translator.translate_single_article': {'queue': 'translate'},

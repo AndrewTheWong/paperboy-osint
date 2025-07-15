@@ -1,0 +1,144 @@
+version: '3.8'
+
+services:
+  # Redis for Celery broker
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+  # FastAPI application
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_KEY=${SUPABASE_KEY}
+      - SECRET_KEY=${SECRET_KEY}
+      - LOG_LEVEL=INFO
+      - ENVIRONMENT=production
+    depends_on:
+      - redis
+    restart: unless-stopped
+    volumes:
+      - ./logs:/app/logs
+
+  # Celery workers
+  scraper-worker:
+    build: .
+    command: celery -A celery_worker worker --loglevel=info --pool=solo -Q scraper -n Scraper@%h
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_KEY=${SUPABASE_KEY}
+      - SECRET_KEY=${SECRET_KEY}
+      - LOG_LEVEL=INFO
+      - ENVIRONMENT=production
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  translator-worker:
+    build: .
+    command: celery -A celery_worker worker --loglevel=info --pool=solo -Q translate -n Translator@%h
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_KEY=${SUPABASE_KEY}
+      - SECRET_KEY=${SECRET_KEY}
+      - LOG_LEVEL=INFO
+      - ENVIRONMENT=production
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  tagger-worker:
+    build: .
+    command: celery -A celery_worker worker --loglevel=info --pool=solo -Q tag -n Tagger@%h
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_KEY=${SUPABASE_KEY}
+      - SECRET_KEY=${SECRET_KEY}
+      - LOG_LEVEL=INFO
+      - ENVIRONMENT=production
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  embedder-worker:
+    build: .
+    command: celery -A celery_worker worker --loglevel=info --pool=solo -Q embed -n Embedder@%h
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_KEY=${SUPABASE_KEY}
+      - SECRET_KEY=${SECRET_KEY}
+      - LOG_LEVEL=INFO
+      - ENVIRONMENT=production
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  clusterer-worker:
+    build: .
+    command: celery -A celery_worker worker --loglevel=info --pool=solo -Q cluster -n Clusterer@%h
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_KEY=${SUPABASE_KEY}
+      - SECRET_KEY=${SECRET_KEY}
+      - LOG_LEVEL=INFO
+      - ENVIRONMENT=production
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  orchestrator-worker:
+    build: .
+    command: celery -A celery_worker worker --loglevel=info --pool=solo -Q orchestrate -n Orchestrator@%h
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_KEY=${SUPABASE_KEY}
+      - SECRET_KEY=${SECRET_KEY}
+      - LOG_LEVEL=INFO
+      - ENVIRONMENT=production
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  # Celery Beat for scheduled tasks
+  celery-beat:
+    build: .
+    command: celery -A celery_worker beat --loglevel=info
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_KEY=${SUPABASE_KEY}
+      - SECRET_KEY=${SECRET_KEY}
+      - LOG_LEVEL=INFO
+      - ENVIRONMENT=production
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  # Flower for monitoring (optional)
+  flower:
+    build: .
+    command: celery -A celery_worker flower --port=5555
+    ports:
+      - "5555:5555"
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+volumes:
+  redis_data: 
